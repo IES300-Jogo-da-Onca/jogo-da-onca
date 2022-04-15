@@ -3,7 +3,7 @@
 import React from 'react';
 //importando o arquivo de imagem da onca numa variável
 import onca from '../assets/icons/onca.png';
-import style from '../styles/index.css';
+
 
 export const Login = () => {
     return (
