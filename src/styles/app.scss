@@ -1,0 +1,33 @@
+@import "~bootstrap/scss/bootstrap";
+@import './config.scss'; //importa o arquivo de paleta de cores
+@import './login.scss'; //importa o estilo da página de login
+
+/* caso importemos uma fonte especifica
+@font-face {
+    font-family: 'nome da fonte';
+    font-style; normal;
+    font-weight: normal;
+    src: url('../assets/fonts/nomedafonte.otf') format('opentype');
+} */
+
+html{
+    height: 100%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body{
+    height: 100%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#root{
+    height: 100%;
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 0px;
+}
