@@ -2,7 +2,7 @@
 
 import React, {useState} from 'react';
 import {Input} from '../../components/Input';
-import onca from '../../assets/icons/onca-sem-fundo.png';
+import logo from '../../assets/icons/logo-sem-fundo.png';
 import mail from '../../assets/icons/mail.png';
 import lock from '../../assets/icons/lock.png';
 
@@ -29,15 +29,13 @@ export const Login = () => {
         <div className='container-login'>
             <img 
                 className='logo' 
-                src={onca} 
+                src={logo} 
                 alt="onça pintada" 
             />
             <form>
-                
-                <h1>Jogo da Onça</h1>
                 <Input
-                    srcImg={mail}
-                    altImg={'icone email'}
+                    //srcImg={mail}
+                    //altImg={'icone email'}
                     inputType="text"
                     inputName="login"
                     inputPlaceholder="Usuário"
@@ -47,8 +45,8 @@ export const Login = () => {
                 />
                 
                 <Input
-                    srcImg={lock}
-                    altImg={'icone senha'}
+                    //srcImg={lock}
+                    //altImg={'icone senha'}
                     inputType="password"
                     inputName="senha"
                     inputPlaceholder="Senha"
@@ -59,6 +57,7 @@ export const Login = () => {
               
                 
                 <button onClick={executaLogin} disable={isLoading}>{isLoading === true ? 'Carregando' : 'Entrar'}</button>
+                <p>Ainda não tem cadastro? <a href='#login'>Cadastre-se</a></p>
             </form>
         </div>
     );

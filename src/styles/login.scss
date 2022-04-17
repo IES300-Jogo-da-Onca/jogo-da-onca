@@ -2,6 +2,7 @@
 
 .container-login{
 
+
     .logo{
         display: block;
         margin: auto;
@@ -26,16 +27,6 @@
         flex-direction: row;
         padding: 10px;
 
-
-        img{
-            width: 15px;
-            height: 10px;
-            margin-top: 20px;
-            margin-bottom: 0px;
-            margin-left: 0px;
-            margin-right: 10px;
-            padding: 0%;
-        }
 
         input{
             margin-bottom: 12px;
@@ -79,10 +70,6 @@
         }
 
         form{
-            border-style: solid;
-            border-color: $primaryColor;
-            border-width: 0.1em;
-            border-radius: 32px;
             padding: 80px 40px;
             margin-left: 15%;
         }

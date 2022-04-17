@@ -15,7 +15,6 @@ export const Input = props => {
 
     return(
         <div className='input'>
-            <img src={srcImg} alt={altImg}/>
             <input 
                 type={inputType} name={inputName} 
                 placeholder={inputPlaceholder}
