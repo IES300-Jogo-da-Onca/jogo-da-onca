@@ -1,3 +1,11 @@
+# REQUISITOS:
+- Instalar NODE
+- Ir na pasta do projeto e executar o comando npm install react
+
+## EXECUTAR A APLICAÇÃO
+- Abra um terminal e vá até a pasta do projeto
+- Execute o comando npm start
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
