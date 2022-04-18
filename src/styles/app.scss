@@ -10,6 +10,11 @@
     src: url('../assets/fonts/nomedafonte.otf') format('opentype');
 } */
 
+a{
+    color: $primaryColor;
+    font-weight: bold;
+}
+
 html{
     height: 100%;
     font-family:Verdana, Geneva, Tahoma, sans-serif;

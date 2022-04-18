@@ -5,7 +5,7 @@ import React from 'react';
 export const HomeSU = () => {
     return (
         <div>
-            <h1>Super Usuário</h1>
+            <h1>Home Super Usuário</h1>
         </div>
     );
 }
