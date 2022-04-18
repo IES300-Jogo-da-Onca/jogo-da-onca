@@ -2,7 +2,6 @@
 
 .container-login{
 
-
     .logo{
         display: block;
         margin: auto;
@@ -13,7 +12,7 @@
 
     button{
         width: 100%;
-        height: 56px;
+        height: 60px;
         margin-top: 10px;
         background-color: $primaryColor;
         border-color: $primaryColor;
@@ -33,9 +32,9 @@
             font-size: 16px;
             display: flex;
             align-items: center;
-            letter-spacing: 0.01em;
+            letter-spacing: 0.03em;
             color: $primaryColor;
-            width: 240px;
+            width: 420px;
             border-radius: 0%;
             padding: 7px;
 
@@ -65,13 +64,15 @@
         flex-direction: row;
 
          .logo{
-            width:350px;
+            width:600px;
             margin:0;
+            padding-right: 12%;
+
         }
 
         form{
             padding: 80px 40px;
-            margin-left: 15%;
+            margin-left: 0%;
         }
     }
 
