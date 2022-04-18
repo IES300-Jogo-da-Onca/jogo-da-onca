@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Loja= () => {
+export const Cadastro = () => {
 
     return (
         <div>
