@@ -2,7 +2,7 @@
 - Instalar NODE
 - Ir na pasta do projeto e executar o comando npm install react
 
-## EXECUTAR A APLICAÇÃO
+# EXECUTAR A APLICAÇÃO:
 - Abra um terminal e vá até a pasta do projeto
 - Execute o comando npm start
 
