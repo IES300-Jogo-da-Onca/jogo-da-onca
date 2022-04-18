@@ -12,7 +12,7 @@ import {Tabuleiro} from './pages/SU/Tabuleiro';
 function App() {
   return (
     
-    <Skins/>
+    <Login/>
 
   );
 }
