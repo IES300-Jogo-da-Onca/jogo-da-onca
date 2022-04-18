@@ -1,10 +1,9 @@
 //componente de login
 
 import React, {useState} from 'react';
-import {Input} from '../../components/Input';
-import logo from '../../assets/icons/logo-sem-fundo.png';
-import mail from '../../assets/icons/mail.png';
-import lock from '../../assets/icons/lock.png';
+import {Input} from '../components/Input';
+import logo from '../assets/icons/logo-sem-fundo.png';
+
 
 
 export const Login = () => {
@@ -55,7 +54,7 @@ export const Login = () => {
 
                 />
               
-                
+             
                 <button onClick={executaLogin} disable={isLoading}>{isLoading === true ? 'Entrando' : 'Entrar'}</button>
                 <br/>
                 <br/>
