@@ -58,7 +58,7 @@ export const Login = () => {
                 <button onClick={executaLogin} disable={isLoading}>{isLoading === true ? 'Entrando' : 'Entrar'}</button>
                 <br/>
                 <br/>
-                <p>Ainda não tem cadastro? <a href='#login'>Cadastre-se</a></p>
+                <p>Ainda não tem cadastro? <a href='/cadastro'>Cadastre-se</a></p>
             </form>
         </div>
     );
