@@ -2,6 +2,10 @@
 
 .container-cadastro{
 
+    .link-login{
+        text-align: center;
+    }
+
     .logo{
         display: block;
         margin: auto;
@@ -11,9 +15,10 @@
     }
 
     button{
-        width: 100%;
+        width: 80%;
+        margin-left: 10%;
         height: 60px;
-        margin-top: 10px;
+        margin-top: 15px;
         background-color: $primaryColor;
         border-color: $primaryColor;
         color: white;
@@ -25,18 +30,20 @@
         display: flex;
         flex-direction: row;
         padding: 10px;
+        padding-left: 10%;
+        padding-right: 10%;
 
 
         input{
-            margin-bottom: 12px;
+            margin-bottom: 6px;
             font-size: 16px;
             display: flex;
             align-items: center;
             letter-spacing: 0.03em;
             color: $primaryColor;
-            width: 420px;
+            width: 100%;
             border-radius: 0%;
-            padding: 7px;
+            padding: 5px;
 
             border-top-width: 0px;
             border-right-width: 0px;
@@ -59,20 +66,31 @@
 
     }
 
-    @media screen and (min-width:992px) {
+    @media screen and (min-width:990px) {
         display: flex;
         flex-direction: row;
 
          .logo{
             width:600px;
             margin:0;
-            padding-right: 12%;
+            padding-right: 7%;
 
+        }
+
+        .input{
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        button{
+            width: 100%;
+            margin-left: 0;
         }
 
         form{
             padding: 80px 40px;
             margin-left: 0%;
+            width: 420px;
         }
     }
 
