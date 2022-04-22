@@ -3,6 +3,7 @@
 @import './login.scss'; //importa o estilo da página de login
 @import './cadastro.scss'; //importa o estilo da página de cadastro
 @import './home.scss'; //importa estilos da página home
+@import './loja.scss'; //importa estilos da página loja
 
 /* caso importemos uma fonte especifica
 @font-face {
@@ -47,6 +48,13 @@ body{
     -webkit-box-align: center;
     align-items: center;
     padding: 0px;
+}
+
+.container-generic{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
 }
 
 .header{
@@ -97,6 +105,22 @@ body{
     display: flex;
     align-items: center;
     flex-direction: row;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.navigation li h2:hover,
+.navigation li h2.selected{
+    font-weight: bold;
+}
+
+.headerRight p:hover,
+.headerRight p.selected{
+    font-weight: bold;
+}
+
+#minhasMoedas:hover {
+    font-weight: normal;
 }
 
 .headerRight {
@@ -110,6 +134,11 @@ body{
 .headerRight p{
     color: white;
     margin: 0px;
+    font-weight: normal;
+}
+
+#username {
+    font-size: 1.2em;
 }
 
 .nameMoney {
