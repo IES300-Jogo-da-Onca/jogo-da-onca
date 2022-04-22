@@ -1,0 +1,36 @@
+@import './config.scss';
+
+.container-home{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.body {
+    display: flex;
+    flex-direction: row;
+    height: 87.04%;
+}
+
+.body img {
+    margin: 0px;
+    height: 100%;
+}
+
+.optArea{
+    display: flex;
+    width: 60%;
+    justify-content: center;
+    align-items: center;
+}
+
+.body button {
+    background-color: $primaryColor;
+    border-color: $primaryColor;
+    color: white;
+    border-radius: 12px;
+    font-size: 25px;
+    width: 45%;
+    height: 15%;
+}

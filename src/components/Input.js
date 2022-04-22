@@ -4,8 +4,8 @@ import React from 'react';
 export const Input = props => {
 
     const {
-        srcImg,
-        altImg,
+        // srcImg,
+        // altImg,
         inputType,
         inputName,
         inputPlaceholder,

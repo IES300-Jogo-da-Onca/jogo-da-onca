@@ -2,6 +2,7 @@
 
 import React, {useState} from 'react';
 import {Input} from '../components/Input';
+import {useNavigate } from 'react-router-dom';
 import logo from '../assets/icons/logo-sem-fundo.png';
 
 
@@ -13,6 +14,8 @@ export const Login = () => {
     const [senha, setSenha] = useState('');
     const [isLoading, setLoading] = useState(false); //uma variável que guarda o estado do carregamento ao clicar no botão Entrar
 
+    const navigate = useNavigate();
+
     //função que faz o login com base nas variáveis acima e com um evento específico (Botão Entrar)
     const executaLogin = evento => {
         evento.preventDefault(); //esse método faz com que o botão não dê submit nos dados de acesso pois ainda não foram validados pela API
@@ -20,7 +23,7 @@ export const Login = () => {
         //função apenas para testar o state do botão, enquanto não tem API
         setTimeout(() => {
             setLoading(false);
-
+            navigate('home')
         }, 3000)
     }
 

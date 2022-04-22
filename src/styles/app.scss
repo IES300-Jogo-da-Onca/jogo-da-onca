@@ -2,6 +2,7 @@
 @import './config.scss'; //importa o arquivo de paleta de cores
 @import './login.scss'; //importa o estilo da página de login
 @import './cadastro.scss'; //importa o estilo da página de cadastro
+@import './home.scss'; //importa estilos da página home
 
 /* caso importemos uma fonte especifica
 @font-face {
@@ -19,6 +20,7 @@ a{
 html{
     height: 100%;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
+    //overflow: hidden;
 }
 
 body{
@@ -36,4 +38,101 @@ body{
     -webkit-box-align: center;
     align-items: center;
     padding: 0px;
+}
+
+.header{
+    display: flex;
+    background-color: $primaryColor;
+    width: 100%;
+    height: 12.96%;
+    top: 0;
+    justify-content: space-between;
+}
+
+.header > div{
+    display: flex;
+}
+
+.navigation{
+    display: flex;
+    align-items: center;
+}
+
+.navContainer {
+    display: flex;
+    width: 60%;
+}
+
+.navigation > ul {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.navigation a h2{
+    color: white;
+    font-size: 1.5em;
+    margin: 0px;
+    white-space: nowrap;
+}
+
+.navigation li {
+    display: flex;
+    margin-right: 20px;
+    align-items: center;
+}
+
+.navigation li a{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.headerRight {
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+    height: 60%;
+    align-self: center;
+}
+
+.headerRight p{
+    color: white;
+    margin: 0px;
+}
+
+.nameMoney {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sair {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   
+    margin-left: 10px; 
+    align-items: center;
+}
+
+.sair a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    //flex: 1 1 0;
+    min-height: 0;
+}
+
+.sair a img{
+    height: 50%;
+}
+
+.coin {
+    height: 2em;
+}
+
+img {
+    margin: 1%;
 }
