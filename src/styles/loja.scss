@@ -1,0 +1,16 @@
+@import './config.scss';
+
+.bodyLoja {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.oncaSkins{
+    margin: 0px 100px;
+}
+
+.cachorroSkins{
+    margin: 0px 100px;
+}
