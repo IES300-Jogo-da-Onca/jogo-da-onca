@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {Input} from '../components/Input';
 import logo from '../assets/icons/logo-sem-fundo.png';
+import { validarSenha, validarlogin, validarNome, validarConfirmacaoSenha } from '../utils/validadores';
+import { Navigate } from 'react-router-dom';
 
 export const Cadastro = () => {
 
@@ -10,7 +12,14 @@ export const Cadastro = () => {
     const [confirmaSenha, setConfirmaSenha] = useState('');
     const [isLoading, setLoading] = useState(false);
 
-    //validar se senha == confirmaSenha
+    const validarFormulario = () => {
+        return(
+            validarNome(nome)
+            && validarlogin(login)
+            && validarSenha(senha)
+            && validarConfirmacaoSenha(senha, confirmaSenha)
+        )
+    }
     
     const executaCadastro = evento => {
         evento.preventDefault(); //esse método faz com que o botão não dê submit nos dados de acesso pois ainda não foram validados pela API
@@ -18,7 +27,6 @@ export const Cadastro = () => {
         //função apenas para testar o state do botão, enquanto não tem API
         setTimeout(() => {
             setLoading(false);
-
         }, 3000)
     }
     return (
@@ -36,6 +44,8 @@ export const Cadastro = () => {
                     inputPlaceholder="Nome"
                     value={nome}
                     setValue={setNome}
+                    mensagemValidacao="o nome deve ter pelo menos 3 caracteres"
+                    exibirMensagemValidacao={nome && !validarNome(nome)}
 
                 />
 
@@ -45,6 +55,8 @@ export const Cadastro = () => {
                     inputPlaceholder="Usuário"
                     value={login}
                     setValue={setLogin}
+                    mensagemValidacao="O Usuário informado é inválido"
+                    exibirMensagemValidacao={login && !validarlogin(login)}
 
                 />
                 
@@ -54,6 +66,8 @@ export const Cadastro = () => {
                     inputPlaceholder="Senha"
                     value={senha}
                     setValue={setSenha}
+                    mensagemValidacao="Senha inválida"
+                    exibirMensagemValidacao={senha && !validarSenha(senha)}
 
                 />
 
@@ -63,10 +77,12 @@ export const Cadastro = () => {
                     inputPlaceholder="Confirmar senha"
                     value={confirmaSenha}
                     setValue={setConfirmaSenha}
+                    mensagemValidacao="As senhas precisam ser iguais "
+                    exibirMensagemValidacao={confirmaSenha && !validarConfirmacaoSenha(senha,confirmaSenha)}
                 />
               
              
-                <button onClick={executaCadastro} disable={isLoading}>{isLoading === true ? 'Cadastrando' : 'Cadastrar'}</button>
+                <button onClick={executaCadastro} disable={!validarFormulario()}>{isLoading === true ? 'Cadastrando' : 'Cadastrar'}</button>
                 <br/>
                 <br/>
                 <p className='link-login'>Já possui uma conta? <a href='/'>Faça login</a></p>
