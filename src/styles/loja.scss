@@ -4,13 +4,46 @@
     display: flex;
     height: 100%;
     flex-direction: column;
-    justify-content: space-around;
-}
-
-.oncaSkins{
     margin: 0px 100px;
 }
 
-.cachorroSkins{
-    margin: 0px 100px;
+.bodyLoja h2{
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.skinsContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.skin {
+    border: solid 1px #CCC;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px 0 rgba(0,0,0,0.3);
+    margin: 10px 20px;
+    width: 185px;
+}
+
+.skinInfo h4{
+    text-align: center;
+}
+
+.skin img{
+    margin: 15px
+}
+
+.skinPreco {
+    text-align: center;
+}
+
+.skin button{
+    margin: 10px 30px;
+    background-color: $primaryColor;
+    border: solid 1px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    padding: 5px 25px;
 }
