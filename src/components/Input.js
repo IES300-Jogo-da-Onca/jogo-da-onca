@@ -10,16 +10,21 @@ export const Input = props => {
         inputName,
         inputPlaceholder,
         value,
-        setValue
+        setValue,
+        exibirMensagemValidacao = false,
+        mensagemValidacao = "",
     } = props;
 
     return(
-        <div className='input'>
-            <input 
-                type={inputType} name={inputName} 
-                placeholder={inputPlaceholder}
-                value={value} onChange={evento => setValue(evento.target.value)}
-            />
+        <div>
+            <div className='input'>
+                <input 
+                    type={inputType} name={inputName} 
+                    placeholder={inputPlaceholder}
+                    value={value} onChange={evento => setValue(evento.target.value)}
+                />
+            </div>
+            {exibirMensagemValidacao && <p className="mensagemValidacao">{mensagemValidacao}</p>}
         </div>
     );
 }

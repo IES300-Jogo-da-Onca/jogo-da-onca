@@ -9,12 +9,12 @@ import { Loja } from './pages/Loja';
 
 function App() {
   return (
-    
+
     <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="cadastro" element={<Cadastro />} />
-        <Route path="home" element={<Home />} />
-        <Route path="loja" element={<Loja />} />
+        <Route path="*" element={<Login />} />
+        <Route path="/cadastro" element={<Cadastro />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/loja" element={<Loja />} />
     </Routes>
 
   );
