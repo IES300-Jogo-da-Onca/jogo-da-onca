@@ -13,10 +13,6 @@
     src: url('../assets/fonts/nomedafonte.otf') format('opentype');
 } */
 
-a{
-    color: $primaryColor;
-    font-weight: bold;
-}
 
 .mensagemValidacao{
     display: block;
@@ -29,20 +25,19 @@ a{
 
 html{
     height: 100%;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     //overflow: hidden;
 }
 
 body{
     height: 100%;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #root{
     height: 100%;
     display: flex;
     flex: 1 1 0%;
-    flex-direction: column;
     -webkit-box-pack: center;
     justify-content: center;
     -webkit-box-align: center;

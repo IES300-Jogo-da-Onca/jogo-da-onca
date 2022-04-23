@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { Input } from '../components/Input';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/icons/logo-sem-fundo.png';
+import cadeado from '../assets/icons/cadeado.svg';
+import user from '../assets/icons/user.svg';
 import { validarlogin, validarSenha } from '../utils/validadores';
 import { executaRequisicao } from '../services/api';
 
@@ -56,46 +58,50 @@ export const Login = () => {
     }
 
     return (
-        <div className='container-login'>
-            <img
-                className='logo'
-                src={logo}
-                alt="onça pintada"
-            />
-            <form>
-                {msgErro && <p className='msg-erro'>{msgErro}</p>}
-                <Input
-                    //srcImg={mail}
-                    //altImg={'icone email'}
-                    inputType="text"
-                    inputName="login"
-                    inputPlaceholder="Usuário"
-                    value={login}
-                    setValue={setLogin}
-                    mensagemValidacao="Usuário inválido"
-                    exibirMensagemValidacao={login && !validarlogin(login)}
-
+        <div className='container-all'>
+            <div className='logo-img'>
+                <img 
+                    className='logo' 
+                    src={logo} 
+                    alt="onça pintada" 
                 />
+            </div>
+            <div className='container-login'>
+                <form>
+                    {msgErro && <p className='msg-erro'>{msgErro}</p>}
+                    <Input
+                        srcImg={user}
+                        altImg={'icone usuário'}
+                        inputType="text"
+                        inputName="login"
+                        inputPlaceholder="Usuário"
+                        value={login}
+                        setValue={setLogin}
+                        mensagemValidacao="Usuário inválido"
+                        exibirMensagemValidacao={login && !validarlogin(login)}
 
-                <Input
-                    //srcImg={lock}
-                    //altImg={'icone senha'}
-                    inputType="password"
-                    inputName="senha"
-                    inputPlaceholder="Senha"
-                    value={senha}
-                    setValue={setSenha}
-                    mensagemValidacao="Senha inválida"
-                    exibirMensagemValidacao={senha && !validarSenha(senha)}
+                    />
+                    
+                    <Input
+                        srcImg={cadeado}
+                        altImg={'icone senha'}
+                        inputType="password"
+                        inputName="senha"
+                        inputPlaceholder="Senha"
+                        value={senha}
+                        setValue={setSenha}
+                        mensagemValidacao="Senha inválida"
+                        exibirMensagemValidacao={senha && !validarSenha(senha)}
 
-                />
-
-
-                <button onClick={executaLogin} disable={!validarFormulario()}>Entrar</button>
-                <br />
-                <br />
-                <p className='link-cadastro'>Ainda não tem cadastro? <Link to='/cadastro'>Cadastre-se</Link></p>
-            </form>
+                    />
+                
+                
+                    <button onClick={executaLogin} disable={!validarFormulario()}>Entrar</button>
+                    <br/>
+                    <br/>
+                    <p className='link-cadastro'>Ainda não tem cadastro?  <Link to='/cadastro'>Cadastre-se</Link></p>
+                </form>
+            </div>
         </div>
     );
 }
