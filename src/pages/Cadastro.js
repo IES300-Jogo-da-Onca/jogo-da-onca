@@ -96,7 +96,7 @@ export const Cadastro = () => {
                     />
                 
                 
-                    <button onClick={executaCadastro} disable={!validarFormulario()}>{isLoading === true ? 'Cadastrando' : 'Cadastrar'}</button>
+                    <button onClick={executaCadastro} disabled={!validarFormulario()}>Cadastrar</button>
                     <br/>
                     <br/>
                     <p className='link-login'>Já possui uma conta? <Link to='/'>Faça login</Link></p>
