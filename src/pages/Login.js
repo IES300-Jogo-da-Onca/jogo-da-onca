@@ -96,7 +96,7 @@ export const Login = () => {
                     />
                 
                 
-                    <button onClick={executaLogin} disable={!validarFormulario()}>Entrar</button>
+                    <button onClick={executaLogin} disabled={!validarFormulario()}>Entrar</button>
                     <br/>
                     <br/>
                     <p className='link-cadastro'>Ainda não tem cadastro?  <Link to='/cadastro'>Cadastre-se</Link></p>
