@@ -1,10 +1,10 @@
 //componente de login
 
-import React, {useState} from 'react';
-import {Input} from '../components/Input';
-import {useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Input } from '../components/Input';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/icons/logo-sem-fundo.png';
-import {validarlogin, validarSenha} from '../utils/validadores';
+import { validarlogin, validarSenha } from '../utils/validadores';
 import { executaRequisicao } from '../services/api';
 
 
@@ -25,43 +25,42 @@ export const Login = () => {
             && validarSenha(senha)
         )
     }
-        //função que faz o login com base nas variáveis acima e com um evento específico (Botão Entrar)
+    //função que faz o login com base nas variáveis acima e com um evento específico (Botão Entrar)
     const executaLogin = async evento => {
-        try{
-            evento.preventDefault(); 
+        try {
+            evento.preventDefault();
             setLoading(true);
             setMsgErro('');
             navigate('home');
-        
-        //body que vai na requisição
-        const body = {
-            login,
-            senha
-        }
 
-        const resultado = await executaRequisicao('login','post',body);
-        if(resultado?.data){
-            localStorage.setItem('accessToken', resultado.data.token);
-            localStorage.setItem('usuarioNome',resultado.data.nome);
-            localStorage.setItem('usuarioLogin', resultado.data.login);
-        }
-        }catch(e){
+            //body que vai na requisição
+            const body = {
+                login,
+                senha
+            }
+
+            const resultado = await executaRequisicao('/login', 'post', body);
+            if (resultado?.data) {
+                localStorage.setItem('usuarioNome', resultado.data.nome);
+                localStorage.setItem('usuarioLogin', resultado.data.login);
+            }
+        } catch (e) {
             console.log(e);
-            if(e?.response?.data?.erro){
+            if (e?.response?.data?.erro) {
                 setMsgErro(e.response.data.erro);
             }
-            
+
         }
         setLoading(false);
-        
-    } 
+
+    }
 
     return (
         <div className='container-login'>
-            <img 
-                className='logo' 
-                src={logo} 
-                alt="onça pintada" 
+            <img
+                className='logo'
+                src={logo}
+                alt="onça pintada"
             />
             <form>
                 {msgErro && <p className='msg-erro'>{msgErro}</p>}
@@ -77,7 +76,7 @@ export const Login = () => {
                     exibirMensagemValidacao={login && !validarlogin(login)}
 
                 />
-                
+
                 <Input
                     //srcImg={lock}
                     //altImg={'icone senha'}
@@ -90,12 +89,12 @@ export const Login = () => {
                     exibirMensagemValidacao={senha && !validarSenha(senha)}
 
                 />
-              
-              
+
+
                 <button onClick={executaLogin} disable={!validarFormulario()}>Entrar</button>
-                <br/>
-                <br/>
-                <p className='link-cadastro'>Ainda não tem cadastro? <a href='/cadastro'>Cadastre-se</a></p>
+                <br />
+                <br />
+                <p className='link-cadastro'>Ainda não tem cadastro? <Link to='/cadastro'>Cadastre-se</Link></p>
             </form>
         </div>
     );

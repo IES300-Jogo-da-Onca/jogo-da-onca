@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {Input} from '../components/Input';
+import React, { useState } from 'react';
+import { Input } from '../components/Input';
 import logo from '../assets/icons/logo-sem-fundo.png';
 import { validarSenha, validarlogin, validarNome, validarConfirmacaoSenha } from '../utils/validadores';
-import { Navigate } from 'react-router-dom';
-
+import { Navigate, Link } from 'react-router-dom';
+import { executaRequisicao } from '../services/api';
 export const Cadastro = () => {
 
     const [nome, setNome] = useState('');
@@ -13,28 +13,32 @@ export const Cadastro = () => {
     const [isLoading, setLoading] = useState(false);
 
     const validarFormulario = () => {
-        return(
+        return (
             validarNome(nome)
             && validarlogin(login)
             && validarSenha(senha)
             && validarConfirmacaoSenha(senha, confirmaSenha)
         )
     }
-    
+
     const executaCadastro = evento => {
         evento.preventDefault(); //esse método faz com que o botão não dê submit nos dados de acesso pois ainda não foram validados pela API
         setLoading(true);
         //função apenas para testar o state do botão, enquanto não tem API
-        setTimeout(() => {
-            setLoading(false);
-        }, 3000)
+        executaRequisicao('/register', 'POST', {
+            login,
+            senha,
+            nome
+        }).then(console.log)
+            .catch(console.error)
     }
+
     return (
         <div className='container-cadastro'>
-            <img 
-                className='logo' 
-                src={logo} 
-                alt="onça pintada" 
+            <img
+                className='logo'
+                src={logo}
+                alt="onça pintada"
             />
             <form>
 
@@ -59,7 +63,7 @@ export const Cadastro = () => {
                     exibirMensagemValidacao={login && !validarlogin(login)}
 
                 />
-                
+
                 <Input
                     inputType="password"
                     inputName="senha"
@@ -78,14 +82,13 @@ export const Cadastro = () => {
                     value={confirmaSenha}
                     setValue={setConfirmaSenha}
                     mensagemValidacao="As senhas precisam ser iguais "
-                    exibirMensagemValidacao={confirmaSenha && !validarConfirmacaoSenha(senha,confirmaSenha)}
+                    exibirMensagemValidacao={confirmaSenha && !validarConfirmacaoSenha(senha, confirmaSenha)}
                 />
-              
-             
+
                 <button onClick={executaCadastro} disable={!validarFormulario()}>{isLoading === true ? 'Cadastrando' : 'Cadastrar'}</button>
-                <br/>
-                <br/>
-                <p className='link-login'>Já possui uma conta? <a href='/'>Faça login</a></p>
+                <br />
+                <br />
+                <p className='link-login'>Já possui uma conta? <Link to='/'>Faça login</Link></p>
             </form>
         </div>
     );
