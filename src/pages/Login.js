@@ -33,7 +33,6 @@ export const Login = () => {
             evento.preventDefault();
             setLoading(true);
             setMsgErro('');
-            navigate('home');
 
             //body que vai na requisição
             const body = {
@@ -45,11 +44,16 @@ export const Login = () => {
             if (resultado?.data) {
                 localStorage.setItem('usuarioNome', resultado.data.nome);
                 localStorage.setItem('usuarioLogin', resultado.data.login);
+                navigate('home')
             }
+            
         } catch (e) {
-            console.log(e);
-            if (e?.response?.data?.erro) {
-                setMsgErro(e.response.data.erro);
+            if(e.response.status === 401){
+                setMsgErro(e.response.data.mensagem)
+                console.log(msgErro)
+            }
+            else{
+                console.log(e)
             }
 
         }
