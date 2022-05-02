@@ -36,6 +36,7 @@ body{
 
 #root{
     height: 100%;
+    min-height: 610px;
     display: flex;
     flex: 1 1 0%;
     -webkit-box-pack: center;
@@ -161,4 +162,9 @@ body{
 
 img {
     margin: 1%;
+}
+
+canvas:not([id=defaultCanvas0]){
+    display: none;
+
 }
