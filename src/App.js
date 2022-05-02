@@ -7,7 +7,7 @@ import { Home } from "./pages/Home";
 import { Loja } from './pages/Loja';
 import { ComprarMoedas } from "./pages/ComprarMoedas";
 import { Perfil } from "./pages/Perfil";
-
+import {Tabuleiro} from "./pages/Tabuleiro"
 
 function App() {
   return (
@@ -19,6 +19,8 @@ function App() {
         <Route path="/loja" element={<Loja />} />
         <Route path="/comprarMoedas" element={<ComprarMoedas />} />
         <Route path="/perfil" element={<Perfil />} />
+        <Route path="/tabuleiro" element={<Tabuleiro />} />
+
     </Routes>
 
   );
