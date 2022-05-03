@@ -38,22 +38,15 @@ function Tabuleiro(props) {
       dog_img = p.loadImage(props.skinCachorro)
       onca_img = p.loadImage(props.skinOnca)
       ehCachorro = props.ehCachorro
-      p.createDiv().id('info').position(0, 1)
     }
+
     p.setup = () => {
-      let infoDiv = p.createDiv()
-      infoDiv.id("msg")
-      infoDiv.style('color', 'white')
-      infoDiv.style('background-color', 'black')
-      infoDiv.style('padding', '8px')
-      infoDiv.style('position', 'absolute')
-      infoDiv.style('top', '0')
-      infoDiv.style('right', '0')
       calculaTamanhoElementos()
       calculaPosicaoPontos()
       p.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
       p.background(fundo_img)
     }
+
     p.draw = () => {
       if (true) {
         p.strokeWeight(1)
@@ -79,7 +72,6 @@ function Tabuleiro(props) {
             p.point(element[0] * LADO_QUADRADO + MARGIN_LEFT, element[1] * LADO_QUADRADO + MARGIN_TOP)
           }
         })
-
       }
     }
 
@@ -89,10 +81,10 @@ function Tabuleiro(props) {
       p.resizeCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
     }
 
-    p.mouseClicked = () => {
+    p.mouseClicked = (e) => {
       if (!meu_turno || BOARD_STATE.length == 0) return
       if (!POSSIBLE_MOVES_POINTS.length) selecionarPeca()
-      else moverPeca()
+      else moverPeca(e)
     }
 
     function desenharQuadrados() {
@@ -113,15 +105,6 @@ function Tabuleiro(props) {
       IMG_HEIGHT = Math.floor(LADO_QUADRADO / 1.5)
       IMG_WIDTH = IMG_HEIGHT
       IMG_DIAMETRO = IMG_HEIGHT / 2
-
-      document.getElementById('msg').innerHTML = `
-      window height: ${p.windowHeight}<br>
-      window width: ${p.windowWidth}<br>
-      canvas width: ${CANVAS_WIDTH}<br>
-      canvas height: ${CANVAS_HEIGHT}<br>
-      LADO_QUADRADO: ${LADO_QUADRADO} <br>
-      MARGIN_TOP: ${MARGIN_TOP}<br>
-      MARGIN_LEFT: ${MARGIN_LEFT}`
     }
 
     function calculaPosicaoPontos() {
@@ -184,17 +167,16 @@ function Tabuleiro(props) {
     function selecionarPeca() {
       let clicouNaImagem = false
       Object.entries(POS_PECA_TABULEIRO).some(item => {
-        let aux = item[0].replace('{', '').replace('}', '')
         if (p.mouseX >= item[1][0] && p.mouseX <= item[1][0] + IMG_DIAMETRO * 2 &&
           p.mouseY >= item[1][1] && p.mouseY <= item[1][1] + IMG_DIAMETRO * 2) {
           clicouNaImagem = true
-          aux = item[0].replace(']', '').replace('[', '').split(',')
+          let aux = item[0].replace(']', '').replace('[', '').split(',')
           let x = +aux[0]
           let y = +aux[1]
           if (BOARD_STATE[y][x] != '.' && BOARD_STATE[y][x] != '|') {
             SELECIONADO.length = 0
             SELECIONADO.push([x, y])
-            Jogo.getPossiveisMovimentos(x, y, ehCachorro, BOARD_STATE)?.forEach(ponto => { POSSIBLE_MOVES_POINTS.push(ponto) })
+            Jogo.getPossiveisMovimentos(x, y, ehCachorro, BOARD_STATE).forEach(ponto => { POSSIBLE_MOVES_POINTS.push(ponto) })
           }
           return true
         }
@@ -202,10 +184,8 @@ function Tabuleiro(props) {
       })
     }
 
-    function moverPeca() {
-      document.getElementById('info').innerHTML = ''
+    function moverPeca(e) {
       POSSIBLE_MOVES_POINTS.forEach(element => {
-        console.log(element)
         let x = element[0]
         let y = element[1]
         let point_x, point_y
@@ -220,16 +200,12 @@ function Tabuleiro(props) {
           point_y = LADO_QUADRADO * y + MARGIN_TOP
           point_x = LADO_QUADRADO * x + MARGIN_LEFT
         }
-        document.getElementById('info').innerHTML += '' + p.dist(point_x, point_y, p.mouseX, p.mouseY) + ' ' + MOVE_POINT_DIAMETRO + '<br>'
-
-        console.log(p.dist(point_x, point_y, p.mouseX, p.mouseY))
-        if (p.dist(point_x, point_y, p.mouseX, p.mouseY) <= MOVE_POINT_DIAMETRO) {
+        let mouseX = p.mouseX, mouseY = p.mouseY
+        if (p.dist(point_x, point_y, mouseX, mouseY) <= MOVE_POINT_DIAMETRO) {
           console.log(BOARD_STATE[y][x], BOARD_STATE[old_y][old_x], old_x, old_y)
           let aux = BOARD_STATE[y][x]
           BOARD_STATE[y][x] = BOARD_STATE[old_y][old_x]
           BOARD_STATE[old_y][old_x] = aux
-          console.log(BOARD_STATE[y][x], BOARD_STATE[old_y][old_x], old_x, old_y)
-
         }
       })
 
@@ -240,16 +216,11 @@ function Tabuleiro(props) {
 
   }
 
-  let a = 1
-
-  const containerRef = useRef()
+   const containerRef = useRef()
   useEffect(() => {
     const p5Instance = new p5(sketch, containerRef.current)
-
-    //desenhaTabuleiro(p5Instance)
     return () => {
-      p5Instance.remove()
-
+      document.getElementsByTagName('canvas').forEach(item => item.remove())
     }
   }, [])
   return (
