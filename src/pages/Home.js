@@ -5,7 +5,7 @@ import { Tabuleiro } from './Tabuleiro';
 import{io} from "socket.io-client"
 
 export const Home= () => {
-    const socket_url = process.env.REACT_APP_WS_URL || "ws://localhost:3001"
+    const socket_url = process.env.REACT_APP_WS_URL
     const [socket, setSocket] = useState(io(socket_url, {withCredentials: true}))
     const [sala, setSala] = useState('')
     const [criouSala, setCriouSala] = useState(false)
