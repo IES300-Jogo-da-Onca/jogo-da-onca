@@ -1,6 +1,5 @@
-import { useRef } from "react"
+import { useEffect, useRef, Fragment } from "react"
 import p5 from 'p5'
-import { useEffect } from "react"
 import Jogo from '../utils/Jogo'
 import skinTabuleiro from '../assets/fundo.png';
 import skinOnca from '../assets/onca.png'
@@ -13,10 +12,7 @@ const SELECIONADO = []
 let POSSIBLE_MOVES_POINTS = []
 const PONTOS_DO_TABULEIRO = {}
 let POS_PECA_TABULEIRO = {}
-
-
-
-let ehCachorro = false, meu_turno = true, startGame = true, mapearPosicaoPecas, dog_img, onca_img, fundo_img
+let ehCachorro = false, meu_turno = true, dog_img, onca_img, fundo_img
 let CANVAS_WIDTH = 800, CANVAS_MIN_WIDTH = 400, CANVAS_MAX_WIDTH = 1200
 let CANVAS_HEIGHT = 800, CANVAS_MIN_HEIGHT = 640, CANVAS_MAX_HEIGHT = 800
 let MARGIN_TOP = 40, MARGIN_LEFT = 40
@@ -29,7 +25,9 @@ let BOARD_STATE = Jogo.getTabuleiroInicial()
 
 
 function Tabuleiro(props) {
-
+  function ehMeuTurno(turnoPeca){
+    return (ehCachorro && turnoPeca == 1) || (!ehCachorro && turnoPeca == 0)
+  }
   const sketch = (p) => {
 
 
@@ -38,9 +36,14 @@ function Tabuleiro(props) {
       dog_img = p.loadImage(props.skinCachorro)
       onca_img = p.loadImage(props.skinOnca)
       ehCachorro = props.ehCachorro
+      meu_turno = ehMeuTurno(props.turnoPeca)
+      console.log(`meu_turno: ${meu_turno} turnoPeca: ${props.turnoPeca} ehCachorro: ${props.ehCachorro}` )
     }
 
     p.setup = () => {
+      if (props.socket){
+        configurarPartidaOnline()
+      }
       calculaTamanhoElementos()
       calculaPosicaoPontos()
       p.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
@@ -48,7 +51,7 @@ function Tabuleiro(props) {
     }
 
     p.draw = () => {
-      if (true) {
+      if (BOARD_STATE.length !== 0) {
         p.strokeWeight(1)
         p.stroke('black')
         p.fill('rgba(0,0,0,0)')
@@ -56,7 +59,7 @@ function Tabuleiro(props) {
         desenharQuadrados()
         desenharDiagonais()
         desenharPecas()
-        p.stroke(`${ehCachorro ? 'yellow' : 'green'}`)
+        p.stroke(`${ehCachorro ? props.corPecaCachorro : props.corPecaOnca}`)
         p.strokeWeight(MOVE_POINT_DIAMETRO)
         POSSIBLE_MOVES_POINTS.forEach(element => {
           if (element[1] > 4) {
@@ -82,9 +85,13 @@ function Tabuleiro(props) {
     }
 
     p.mouseClicked = (e) => {
-      if (!meu_turno || BOARD_STATE.length == 0) return
-      if (!POSSIBLE_MOVES_POINTS.length) selecionarPeca()
-      else moverPeca(e)
+      if (!meu_turno || BOARD_STATE.length === 0) return
+      if (POSSIBLE_MOVES_POINTS.length === 0){ selecionarPeca()}
+      else {moverPeca(e)}
+    }
+
+    function configurarPartidaOnline(){
+      BOARD_STATE = props.vetorTabuleiro
     }
 
     function desenharQuadrados() {
@@ -165,11 +172,9 @@ function Tabuleiro(props) {
     }
 
     function selecionarPeca() {
-      let clicouNaImagem = false
       Object.entries(POS_PECA_TABULEIRO).some(item => {
         if (p.mouseX >= item[1][0] && p.mouseX <= item[1][0] + IMG_DIAMETRO * 2 &&
           p.mouseY >= item[1][1] && p.mouseY <= item[1][1] + IMG_DIAMETRO * 2) {
-          clicouNaImagem = true
           let aux = item[0].replace(']', '').replace('[', '').split(',')
           let x = +aux[0]
           let y = +aux[1]
@@ -185,7 +190,7 @@ function Tabuleiro(props) {
     }
 
     function moverPeca(e) {
-      POSSIBLE_MOVES_POINTS.forEach(element => {
+      POSSIBLE_MOVES_POINTS.some(element => {
         let x = element[0]
         let y = element[1]
         let point_x, point_y
@@ -202,11 +207,18 @@ function Tabuleiro(props) {
         }
         let mouseX = p.mouseX, mouseY = p.mouseY
         if (p.dist(point_x, point_y, mouseX, mouseY) <= MOVE_POINT_DIAMETRO) {
-          console.log(BOARD_STATE[y][x], BOARD_STATE[old_y][old_x], old_x, old_y)
-          let aux = BOARD_STATE[y][x]
-          BOARD_STATE[y][x] = BOARD_STATE[old_y][old_x]
-          BOARD_STATE[old_y][old_x] = aux
+          if(!props.socket){
+            let aux = BOARD_STATE[y][x]
+            BOARD_STATE[y][x] = BOARD_STATE[old_y][old_x]
+            BOARD_STATE[old_y][old_x] = aux
+          }
+          else{
+            props.socket.emit('moverPeca', { x,y,old_x,old_y  })
+          }
+          return true
+       
         }
+       
       })
 
       POSSIBLE_MOVES_POINTS.length = 0
@@ -219,14 +231,22 @@ function Tabuleiro(props) {
    const containerRef = useRef()
   useEffect(() => {
     const p5Instance = new p5(sketch, containerRef.current)
+    props.socket.on('serverMoverPeca', data => {
+      BOARD_STATE = data.novoTabuleiro
+      meu_turno = ehMeuTurno(data.turnoPeca)
+    } )
     return () => {
       document.getElementsByTagName('canvas').forEach(item => item.remove())
     }
   }, [])
   return (
+    <Fragment>
+      <p id="msgPeca">Jogando com {props.ehCachorro ? 'cachorro': 'onca'}</p>
     <div style={{ minHeight: '600px' }} ref={containerRef}></div>
+    </Fragment>
   )
 }
 
-Tabuleiro.defaultProps = { skinTabuleiro, skinOnca, skinCachorro, ehCachorro: true }
+Tabuleiro.defaultProps = { skinTabuleiro, skinOnca, skinCachorro, ehCachorro: true, socket: null,
+vetorTabuleiro : null, turnoPeca: 1, corPecaCachorro: 'yellow', corPecaOnca:'green' }
 export { Tabuleiro }
