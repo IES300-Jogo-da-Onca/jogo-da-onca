@@ -15,8 +15,12 @@ export const ComprarMoedas = () => {
     const total = 0;
     const moedasUsuario = 5; //apenas para ilustrar as moedas que já foram compradas pelo usuário
     const [showModal, setShowModal] = useState(false); //pop up de pagamento
-    const numCartao = "";
-    const setNumCartao = "";
+
+    //states do modal de pagamento
+    const [numCartao, setNumCartao] = useState('');
+    const [nomeCartao, setNomeCartao] = useState('');
+    const [cvv, setCVV] = useState('');
+    const [parcelas, setParcelas] = useState('');
  
     const setQtdMoedas = (quantidadeMoedas) => {
         moedasUsuario += quantidadeMoedas;
@@ -24,7 +28,7 @@ export const ComprarMoedas = () => {
     }
 
     const compraPagamento = () => {
-        setQtdMoedas(moedas.precoMoeda);
+        
     }
     const moedas = [
         {
@@ -95,7 +99,7 @@ export const ComprarMoedas = () => {
                                             <span>R${m.preçoMoeda}</span>
                                              </div>
                                     <div>
-                                        <button onClick={() => setShowModal(true)} total={moedas.precoMoeda}>Comprar</button>
+                                        <button onClick={() => setShowModal(true)} total={moedas.precoMoeda} quantidadeMoedas={(moedas.qtdMoedas)} >Comprar</button>
                                     </div>
                                 </div>
                             }
@@ -110,39 +114,47 @@ export const ComprarMoedas = () => {
             </Modal.Header>
             <Modal.Body>
                 <p>Cartão de Crédito</p>
-                <Input  
-                        inputType="text"
-                        inputName="numero-cartao"
-                        inputPlaceholder="Número do cartão"
-                        value={numCartao}
-                        setValue={setNumCartao}
-                />
-                <Input  
-                        inputType="text"
-                        inputName="nome-cartao"
-                        inputPlaceholder="Nome impresso no cartão"
-                        value={numCartao}
-                        setValue={setNumCartao}
-                />
-                <Input  
-                        inputType="text"
-                        inputName="cod-cartao"
-                        inputPlaceholder="Código de Segurança (CVV)"
-                        value={numCartao}
-                        setValue={setNumCartao}
-                />
-                <Input  
-                        inputType="number"
-                        inputName="parc-cartao"
-                        inputPlaceholder="Parcelar"
-                        value={numCartao}
-                        setValue={setNumCartao}
-                />
+                <div className='container-form'>
+                    <Input  
+                            inputType="text"
+                            inputName="numero-cartao"
+                            inputPlaceholder="Número do cartão"
+                            value={numCartao}
+                            setValue={setNumCartao}
+
+                    />
+                    <Input  
+                            inputType="text"
+                            inputName="nome-cartao"
+                            inputPlaceholder="Nome impresso no cartão"
+                            value={nomeCartao}
+                            setValue={setNomeCartao}
+
+                    />
+                    <Input  
+                            inputType="text"
+                            inputName="cod-cartao"
+                            inputPlaceholder="Código de Segurança"
+                            value={cvv}
+                            setValue={setCVV}
+
+                    />
+                    <Input  
+                            inputType="number"
+                            inputName="parc-cartao"
+                            inputPlaceholder="Parcelas"
+                            value={parcelas}
+                            setValue={setParcelas}
+
+                    />
+
+                </div>
+                <h5>Moedas:{total}</h5>
                 <h4>Total: R${total}</h4>
             </Modal.Body>
             <Modal.Footer>
-                <button variant="secondary" onClick={() => setShowModal(false)}>Cancelar</button>
-                <button variant="primary" onClick={() => compraPagamento()}>Comprar</button>
+                <button className="btn-cancelar" variant="secondary" onClick={() => setShowModal(false)}>Cancelar</button>
+                <button className="btn-comprar" variant="primary" onClick={() => compraPagamento()}>Comprar</button>
             </Modal.Footer>
         </Modal>
 
