@@ -5,6 +5,7 @@
 @import './home.scss'; //importa estilos da página home
 @import './loja.scss'; //importa estilos da página loja
 @import './comprarMoedas.scss'; //importa estilos da página de compra de moedas
+@import './modalPagamento.scss'; // estilos do modal de pagamento
 
 /* caso importemos uma fonte especifica
 @font-face {
@@ -17,7 +18,7 @@
 
 .mensagemValidacao{
     display: block;
-    color: rgb(241, 94, 9);
+    color: $warningColor;
     font-size: 90%;
     margin: 0;
     margin-left: 10%;
