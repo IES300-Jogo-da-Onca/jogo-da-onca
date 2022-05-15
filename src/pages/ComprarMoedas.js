@@ -6,7 +6,7 @@ export const ComprarMoedas = () => {
         <div className='container-generic'>
             <Headers />
            <div className='body'>
-
+                <p>Teste</p>
            </div>
         </div>
     )
