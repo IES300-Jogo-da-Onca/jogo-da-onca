@@ -12,8 +12,9 @@ import coinIcon7 from '../assets/icons/coin7.png';
 
 export const ComprarMoedas = () => {
 
-    const total = 0;
-    const moedasUsuario = 5; //apenas para ilustrar as moedas que já foram compradas pelo usuário
+    var total = 0;
+    var quantidadeMoedas=0;
+    let moedasUsuario = 5; //apenas para ilustrar as moedas que já foram compradas pelo usuário
     const [showModal, setShowModal] = useState(false); //pop up de pagamento
 
     //states do modal de pagamento
@@ -27,9 +28,14 @@ export const ComprarMoedas = () => {
         return (moedasUsuario);
     }
 
-    const compraPagamento = () => {
-        
+    const compraPagamento = (preco) => {
+    return(preco);
     }
+
+    const compraQuant = (qtd) => {
+    return(qtd);
+    }
+
     const moedas = [
         {
             moedaValor: '$10',
@@ -99,7 +105,10 @@ export const ComprarMoedas = () => {
                                             <span>R${m.preçoMoeda}</span>
                                              </div>
                                     <div>
-                                        <button onClick={() => setShowModal(true)} total={moedas.precoMoeda} quantidadeMoedas={(moedas.qtdMoedas)} >Comprar</button>
+                                        <button 
+                                        onClick={() => {setShowModal(true); 
+                                        compraPagamento(m.preçoMoeda); 
+                                        compraQuant(m.qtdMoedas)}} >Comprar</button>
                                     </div>
                                 </div>
                             }
@@ -150,7 +159,7 @@ export const ComprarMoedas = () => {
 
                 </div>
                 <h5>Moedas:{total}</h5>
-                <h4>Total: R${total}</h4>
+                <h4>Total: R${quantidadeMoedas}</h4>
             </Modal.Body>
             <Modal.Footer>
                 <button className="btn-cancelar" variant="secondary" onClick={() => setShowModal(false)}>Cancelar</button>
