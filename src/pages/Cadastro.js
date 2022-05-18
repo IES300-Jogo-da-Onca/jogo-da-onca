@@ -6,6 +6,7 @@ import { Navigate, Link } from 'react-router-dom';
 import { executaRequisicao } from '../services/api';
 import cadeado from '../assets/icons/cadeado.svg';
 import user from '../assets/icons/user.svg';
+import { Alert } from 'react-bootstrap';
 
 export const Cadastro = () => {
 
@@ -13,7 +14,6 @@ export const Cadastro = () => {
     const [login, setLogin] = useState('');
     const [senha, setSenha] = useState('');
     const [confirmaSenha, setConfirmaSenha] = useState('');
-    const [isLoading, setLoading] = useState(false);
 
     const validarFormulario = () => {
         return (
@@ -24,17 +24,28 @@ export const Cadastro = () => {
         )
     }
 
-    const executaCadastro = evento => {
-        evento.preventDefault(); //esse método faz com que o botão não dê submit nos dados de acesso pois ainda não foram validados pela API
-        setLoading(true);
-        //função apenas para testar o state do botão, enquanto não tem API
+ /*    const executaCadastro = evento => {
+        evento.preventDefault(); 
+        executaRequisicao('/register', 'POST', {
+            login,
+            senha,
+            nome
+        }).then ((response) => {
+            console.log(response.data)
+            Alert.alert("Sucesso!", response.data.mensagem)
+        })
+            .catch(console.error)
+    } */
+
+     const executaCadastro = evento => {
+        evento.preventDefault(); 
         executaRequisicao('/register', 'POST', {
             login,
             senha,
             nome
         }).then(console.log)
             .catch(console.error)
-    }
+    } 
 
     return (
         <div className='container-all'>
