@@ -15,9 +15,15 @@ const validarCvv = (cvv) => {
     return cvv?.toString().length >= 3;
 }
 
+//validando parcela
+const validarParc = (parcelas) => {
+    return parcelas?.toString().length >= 1;
+}
+
 
 export {
     validarNumCartao,
     validarnomeCartao,
     validarCvv,
+    validarParc
 }
