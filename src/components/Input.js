@@ -7,6 +7,8 @@ export const Input = props => {
         srcImg,
         altImg,
         inputType,
+        min,
+        max,
         inputName,
         inputPlaceholder,
         value,
@@ -20,7 +22,7 @@ export const Input = props => {
             <div className='input'>
                 <img className="icones" src={srcImg} alt={altImg}/>
                 <input 
-                    type={inputType} name={inputName} 
+                    type={inputType} min={min} max={max} name={inputName} 
                     placeholder={inputPlaceholder}
                     value={value} onChange={evento => setValue(evento.target.value)}
                 />
