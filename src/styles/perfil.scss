@@ -1,0 +1,12 @@
+@import './config.scss';
+
+.container-perfil{
+    display: flex;
+    flex-direction: row;
+    flex: start;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-around;
+    margin-top: 2%;
+    
+}
