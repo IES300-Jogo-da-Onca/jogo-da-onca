@@ -22,10 +22,10 @@ export const ComprarMoedas = () => {
     const [nomeCartao, setNomeCartao] = useState('');
     const [cvv, setCVV] = useState('');
     const [parcelas, setParcelas] = useState('');
-    const [total, setTotal] = useState('');
-    const [quantidade, setQuantidade] = useState('');
+    const [total, setTotal] = useState(''); //total da compra
+    const [quantidade, setQuantidade] = useState(''); //quantidade comprada
     const [moedasUsuario, setMoedasUsuario] = useState(0); //aqui dentro do state devemos colocar a qtd de moedas que o user ja tem puxando do banco
-    const [processando, setProcessandoPag] = useState(false);
+    const [processando, setProcessandoPag] = useState(false); //processando pagamento
 
     //valida informações do cartão
     const validarFormulario = () => {
@@ -42,10 +42,10 @@ export const ComprarMoedas = () => {
         setProcessandoPag(true);
         
         setTimeout(() => {
-            setMoedasUsuario(moedasUsuario + quantidade);
-            setShowModal(false);
-            setProcessandoPag(false);
-            setShowModalSucesso(true);
+            setMoedasUsuario(moedasUsuario + quantidade); //soma quantidade comprada com a qtde já existente
+            setShowModal(false); //fecha popup de pagamento
+            setProcessandoPag(false); //tira o estado "processando"
+            setShowModalSucesso(true); //mostra popup de confirmação da compra
         }, 3000)
     }
 
