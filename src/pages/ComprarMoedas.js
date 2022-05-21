@@ -9,6 +9,7 @@ import coinIcon4 from '../assets/icons/coin4.png';
 import coinIcon5 from '../assets/icons/coin5.png';
 import coinIcon6 from '../assets/icons/coin6.png';
 import coinIcon7 from '../assets/icons/coin7.png';
+import pagIcon from '../assets/icons/pag-sucesso.png';
 import { validarCvv, validarnomeCartao, validarNumCartao, validarParc } from '../utils/validarCompraMoedas';
 
 export const ComprarMoedas = () => {
@@ -16,6 +17,7 @@ export const ComprarMoedas = () => {
     
     //states do modal de pagamento
     const [showModal, setShowModal] = useState(false); //pop up de pagamento
+    const [showModalSucesso, setShowModalSucesso] = useState(false);
     const [numCartao, setNumCartao] = useState('');
     const [nomeCartao, setNomeCartao] = useState('');
     const [cvv, setCVV] = useState('');
@@ -23,7 +25,9 @@ export const ComprarMoedas = () => {
     const [total, setTotal] = useState('');
     const [quantidade, setQuantidade] = useState('');
     const [moedasUsuario, setMoedasUsuario] = useState(0); //aqui dentro do state devemos colocar a qtd de moedas que o user ja tem puxando do banco
- 
+    const [processando, setProcessandoPag] = useState(false);
+
+    //valida informações do cartão
     const validarFormulario = () => {
         return (
             validarNumCartao(numCartao)
@@ -31,6 +35,18 @@ export const ComprarMoedas = () => {
             && validarCvv(cvv)
             && validarParc(parcelas)
         )
+    }
+
+    const executaPagamento = evento => {
+        evento.preventDefault();
+        setProcessandoPag(true);
+        
+        setTimeout(() => {
+            setMoedasUsuario(moedasUsuario + quantidade);
+            setShowModal(false);
+            setProcessandoPag(false);
+            setShowModalSucesso(true);
+        }, 3000)
     }
 
     const moedas = [
@@ -125,19 +141,12 @@ export const ComprarMoedas = () => {
                     <Input  
                             inputType="text"
                             inputName="numero-cartao"
-                            inputPlaceholder="Número do cartão"
+                            inputPlaceholder="Número do Cartão"
                             value={numCartao}
                             setValue={setNumCartao}
 
                     />
-                    <Input  
-                            inputType="text"
-                            inputName="nome-cartao"
-                            inputPlaceholder="Nome impresso no cartão"
-                            value={nomeCartao}
-                            setValue={setNomeCartao}
-
-                    />
+                    
                     <Input  
                             inputType="text"
                             inputName="cod-cartao"
@@ -147,11 +156,20 @@ export const ComprarMoedas = () => {
 
                     />
                     <Input  
+                            inputType="text"
+                            inputName="nome-cartao"
+                            inputPlaceholder="Nome"
+                            value={nomeCartao}
+                            setValue={setNomeCartao}
+
+                    />
+                    <label>Parcelas: </label>
+                    <Input  
                             inputType="number" 
                             min="1"
                             max="12"
                             inputName="parc-cartao"
-                            inputPlaceholder="Parcelas"
+                            inputPlaceholder=""
                             value={parcelas}
                             setValue={setParcelas}
 
@@ -162,11 +180,28 @@ export const ComprarMoedas = () => {
                 <h4>Total: R${quantidade}</h4>
             </Modal.Body>
             <Modal.Footer>
-                <button className="btn-cancelar" variant="secondary" onClick={() => setShowModal(false)}>Cancelar</button>
+                <button className="btn-cancelar" variant="secondary" onClick={() => setShowModal(false)} 
+                        disabled={processando === true}>Cancelar</button>
                 <button className="btn-comprar" 
-                        variant="primary" onClick={() => {setMoedasUsuario(moedasUsuario + quantidade);
-                        setShowModal(false)}} disabled={!validarFormulario()}>Comprar</button>
+                        variant="primary" disabled={!validarFormulario() || processando === true} 
+                        onClick={executaPagamento} > {processando === true ? 'Processando' : 'Comprar'}</button>
             </Modal.Footer>
+        </Modal>
+
+        <Modal className="pagamento-sucesso" show={showModalSucesso} onHide={() => setShowModalSucesso(false)}
+                backdrop="static" keyboard={false}>
+            <Modal.Header>
+                <h3>Pagamento</h3>
+            </Modal.Header>
+            <Modal.Body>
+                <h1>Compra realizada com sucesso!</h1>
+                <img src={pagIcon}></img>
+            </Modal.Body>
+            <Modal.Footer>
+                <button className="btn-fechar" variant="secondary" onClick={() => 
+                setShowModalSucesso(false)}>Fechar</button>
+                </Modal.Footer>
+
         </Modal>
 
     </div>
