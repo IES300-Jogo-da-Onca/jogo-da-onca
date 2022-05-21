@@ -8,7 +8,7 @@ import { executaRequisicao } from '../services/api';
 
 export const Headers = props => {
 
-    let userName = 'Super User' //Provisório até que tenhamos conexão com o banco
+    let userName = 'Nome Usuário' //Provisório até que tenhamos conexão com o banco
     let minhasMoedas = 0 //Provisório até que tenhamos conexão com o banco
     const navigate = useNavigate()
     const location  = useLocation () 
