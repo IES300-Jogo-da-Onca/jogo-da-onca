@@ -30,6 +30,20 @@
     }
     .container-cadastro{
 
+        .alert{
+            color: $lightGreenColor;
+            background-color: $darkGreenColor;
+            width: auto;
+            margin-top: 5%;
+            border: none;
+
+            img{
+                width: 5%;
+                margin-right: 2%;
+            }
+
+        }
+
         form{
             padding-bottom: 30%;
             padding-top: 7%;
