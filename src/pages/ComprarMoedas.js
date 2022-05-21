@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Headers } from '../components/Headers';
-import {Modal, ModalBody} from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
 import { Input } from '../components/Input';
 import coinIcon1 from '../assets/icons/coin1.png';
 import coinIcon2 from '../assets/icons/coin2.png';
