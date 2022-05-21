@@ -1,10 +1,16 @@
 @import './config.scss';
 
+h1{
+    font-size: 20px;
+}
+
 .bodyMoedas {
     display: flex;
     height: 100%;
     flex-direction: column;
-    margin: 0px 100px;
+    flex: start;
+    align-items: flex-start;
+
 }
 
 .bodyMoedas h2{
@@ -14,8 +20,10 @@
 
 .moedasContainer{
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    padding:  30px;
 }
 
 .moeda {
@@ -31,8 +39,9 @@
 }
 
 .moeda img{
-    width: 70%;
-    margin: 15px;
+    width: 85%;
+    margin-top: 15px;
+    margin-bottom: 15px;
     align-content: center;
     justify-content: center;
     padding-left: 30px;
@@ -41,14 +50,85 @@
 
 .moedaPreco {
     text-align: center;
+    font-size: 25px;
 }
 
 .moeda button{
-    margin: 10px 30px;
+    margin: 10px 5%;
     background-color: $primaryColor;
     border: solid 1px;
     border-radius: 8px;
     color: white;
     font-weight: bold;
     padding: 5px 25px;
+    height: 70px;
+    width: 160px;
+}
+
+
+@media screen and (min-width:990px){
+    .bodyMoedas {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        margin: 0px 100px;
+        flex: none;
+        align-items: flex-start;
+    }
+    
+    .bodyMoedas h2{
+        margin-top: 20px;
+        font-weight: bold;
+    }
+    
+    .moedasContainer{
+        display: flex;
+        flex: start;
+        flex-direction: row;
+        align-items: none;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        padding: 0px;
+
+    }
+
+ 
+    
+    .moeda {
+        border: solid 1px #CCC;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px 0 rgba(0,0,0,0.3);
+        margin: 10px 20px;
+        width: 185px;
+
+    }
+    
+    .moedaInfo h4{
+        text-align: center;
+    }
+    
+    .moeda img{
+        width: 70%;
+        margin: 15px;
+        align-content: center;
+        justify-content: center;
+        padding-left: 30px;
+   
+    }
+    
+    .moedaPreco {
+        text-align: center;
+    }
+    
+    .moeda button{
+        margin: 10px 30px;
+        background-color: $primaryColor;
+        border: solid 1px;
+        border-radius: 8px;
+        color: white;
+        font-weight: bold;
+        padding: 5px 25px;
+        height: auto;
+        width: auto;
+    }
 }
