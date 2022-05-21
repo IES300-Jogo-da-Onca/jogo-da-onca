@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Headers } from '../components/Headers';
 import {Modal} from 'react-bootstrap';
 import { Input } from '../components/Input';
+import { executaRequisicao } from '../services/api';
 import coinIcon1 from '../assets/icons/coin1.png';
 import coinIcon2 from '../assets/icons/coin2.png';
 import coinIcon3 from '../assets/icons/coin3.png';
@@ -23,8 +24,8 @@ export const ComprarMoedas = () => {
     const [cvv, setCVV] = useState('');
     const [parcelas, setParcelas] = useState('');
     const [total, setTotal] = useState(''); //total da compra
-    const [quantidade, setQuantidade] = useState(''); //quantidade comprada
-    const [moedasUsuario, setMoedasUsuario] = useState(0); //aqui dentro do state devemos colocar a qtd de moedas que o user ja tem puxando do banco
+    const [quantidade, setQuantidade] = useState(0); //quantidade comprada
+    //const [moedasUsuario, setMoedasUsuario] = useState(0); MOCKUP DE TESTE
     const [processando, setProcessandoPag] = useState(false); //processando pagamento
 
     //valida informações do cartão
@@ -40,14 +41,17 @@ export const ComprarMoedas = () => {
     const executaPagamento = evento => {
         evento.preventDefault();
         setProcessandoPag(true);
+        executaRequisicao('/comprarmoeda', 'POST', { quantidade }).then(console.log(quantidade));
         
         setTimeout(() => {
-            setMoedasUsuario(moedasUsuario + quantidade); //soma quantidade comprada com a qtde já existente
+            //setMoedasUsuario(moedasUsuario + quantidade); //MOCKUP DE TESTE soma quantidade comprada com a qtde já existente
             setShowModal(false); //fecha popup de pagamento
             setProcessandoPag(false); //tira o estado "processando"
             setShowModalSucesso(true); //mostra popup de confirmação da compra
         }, 3000)
     }
+
+    
 
     const moedas = [
         {
@@ -105,7 +109,7 @@ export const ComprarMoedas = () => {
             <Headers />
             <div className='bodyMoedas'>
                 <br></br>
-                <h1>{moedasUsuario} = moedas totais usuario</h1>
+                {/* <h1>{moedasUsuario} = moedas totais usuario</h1> MOCKUP DE TESTE*/}
                 <div className='moedasContainer'>
                     {
                         moedas.map( m => {
