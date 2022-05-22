@@ -1,12 +1,186 @@
 @import './config.scss';
 
-.container-perfil{
+
+.container-skins{
+    h3{
+        margin: 3%;
+    }
+
+    h4{
+        margin-left: 3%;
+    }
+}
+
+.bloco-onca{
     display: flex;
     flex-direction: row;
-    flex: start;
     flex-wrap: wrap;
-    align-content: center;
+    align-items: flex-start;
     justify-content: space-around;
-    margin-top: 2%;
+    margin-bottom: 5%;
+
+    .bloco-skin{
+        border: solid 1px #CCC;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
+        margin: 0px;
+        padding: 2.5%;
+        margin-bottom: 2%;
+
+        img{
+            width: 80%;
+            margin: 10%;
+        }
+
+        p{
+            margin: 2% 5%;
+        }
+
+
+
+    }
+}
+
+.bloco-cachorro{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-around;
+    margin-bottom: 5%;
+   
+}
+
+.bloco-skin{
+    border: solid 1px #CCC;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
+    margin: 0px;
+    padding: 2.5%;
+    margin-bottom: 2%;
+
+    img{
+        width: 80%;
+        margin: 10%;
+    }
+
+    p{
+        margin: 2% 5%;
+    }
+
+}
+
+.botao-equipar{
+    background-color: $primaryColor;
+    border: solid 1px;
+    border-radius: 8px;
+    color: white;
+    margin: 0%;
+    height: 50px;
+    font-weight: bold;
+    width: 150px;
     
+}
+
+.container-moedas{
+    h3{
+        margin: 3%;
+    }
+
+    .bloco-moedas{
+        margin: 3%;
+    }
+}
+
+
+
+@media screen and (min-width:990px){
+
+    .container-perfil{
+        display: flex;
+        flex-direction: row;
+        flex: start;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: space-between;
+        margin-top: 2%;
+
+        .container-skins{
+            margin-left: 3%;
+
+            h3{
+                margin: 0%;
+                margin-bottom: 2%;
+            }
+        
+            h4{
+                margin-left: 0%;
+            }
+        }
+
+    }
+
+    .bloco-onca{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-bottom: 5%;
+        flex: start;
+        align-items: none;
+        justify-content: space-between;
+        padding: 0px;
+    
+        .bloco-skin{
+            border: solid 1px #CCC;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
+            margin: 0px;
+            padding: 2.5%;
+            margin-bottom: 2%;
+    
+            img{
+                width: 80%;
+                margin: 10%;
+            }
+    
+            p{
+                margin: 2% 5%;
+            }
+    
+    
+    
+        }
+    }
+
+    .bloco-cachorro{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-bottom: 5%;
+        flex: start;
+        align-items: none;
+        justify-content: space-between;
+        padding: 0px;
+    
+        .bloco-skin{
+            border: solid 1px #CCC;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
+            margin: 0px;
+            padding: 2.5%;
+            margin-bottom: 2%;
+    
+            img{
+                width: 80%;
+                margin: 10%;
+            }
+    
+            p{
+                margin: 2% 5%;
+            }
+    
+    
+    
+        }
+    }
 }
