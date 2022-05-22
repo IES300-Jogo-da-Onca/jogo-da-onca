@@ -21,6 +21,8 @@ let MOVE_POINT_DIAMETRO = 24
 let IMG_WIDTH = 66
 let IMG_HEIGHT = 66
 let IMG_DIAMETRO = 30
+let houveCaptura = false
+let placar = 0
 let BOARD_STATE = Jogo.getTabuleiroInicial()
 
 
@@ -181,7 +183,7 @@ function Tabuleiro(props) {
           if (BOARD_STATE[y][x] != '.' && BOARD_STATE[y][x] != '|') {
             SELECIONADO.length = 0
             SELECIONADO.push([x, y])
-            Jogo.getPossiveisMovimentos(x, y, ehCachorro, BOARD_STATE).forEach(ponto => { POSSIBLE_MOVES_POINTS.push(ponto) })
+            Jogo.getPossiveisMovimentos(x, y, ehCachorro, BOARD_STATE, houveCaptura).forEach(ponto => { POSSIBLE_MOVES_POINTS.push(ponto) })
           }
           return true
         }
@@ -234,6 +236,9 @@ function Tabuleiro(props) {
     props.socket.on('serverMoverPeca', data => {
       BOARD_STATE = data.novoTabuleiro
       meu_turno = ehMeuTurno(data.turnoPeca)
+      console.log(`meu_turno: ${meu_turno} turnoPeca: ${props.turnoPeca} ehCachorro: ${props.ehCachorro}\n meu_turno` )
+      houveCaptura = data.houveCaptura
+      placar = data.placar
     } )
     return () => {
       document.getElementsByTagName('canvas').forEach(item => item.remove())

@@ -70,7 +70,7 @@ class Jogo {
         return (vetorTabuleiro[y + direcao[1]][x + direcao[0]] == 'C' && this.posDentroDoTabuleiro(novoX, novoY) && vetorTabuleiro[novoY][novoX] == '.')
     }
 
-    static getPossiveisMovimentos(x, y, ehCachorro, vetorTabuleiro) {
+    static getPossiveisMovimentos(x, y, ehCachorro, vetorTabuleiro, houveCaptura) {
         let movimentos = []
         let posicao = vetorTabuleiro[y][x]
         if (posicao == '.' || (!ehCachorro && posicao == 'C') || (ehCachorro && posicao == 'O')) return []
@@ -80,8 +80,10 @@ class Jogo {
             if (!this.posDentroDoTabuleiro(novoX, novoY)) return []
             if (this.movimentoInvalidoNoTriangulo(x, y, novoX, novoY)) return []
             try {
-                if (vetorTabuleiro[novoY][novoX] == '.') movimentos.push([novoX, novoY])
-                if (!ehCachorro && this.verificaCaptura(x, y, el, vetorTabuleiro)) movimentos.push([novoX + el[0], novoY + el[1]])
+                if (!houveCaptura && vetorTabuleiro[novoY][novoX] == '.') movimentos.push([novoX, novoY])
+                if (!ehCachorro && this.verificaCaptura(x, y, el, vetorTabuleiro)) {
+                    movimentos.push([novoX + el[0], novoY + el[1]])
+                }
             }
             catch (e) {
                 console.error(novoY, novoX)
@@ -97,8 +99,10 @@ class Jogo {
                 let novoY = y + el[1]
                 if (!this.posDentroDoTabuleiro(novoX, novoY) || vetorTabuleiro[novoY][novoX] == '|') return []
                 if (this.movimentoInvalidoNoTriangulo(x, y, novoX, novoY)) return []
-                if (vetorTabuleiro[novoY][novoX] == '.') movimentos.push([novoX, novoY])
-                if (!ehCachorro && this.verificaCaptura(x, y, el, vetorTabuleiro)) movimentos.push([novoX + el[0], novoY + el[1]])
+                if (!houveCaptura && vetorTabuleiro[novoY][novoX] == '.') movimentos.push([novoX, novoY])
+                if (!ehCachorro && this.verificaCaptura(x, y, el, vetorTabuleiro)) {
+                    movimentos.push([novoX + el[0], novoY + el[1]])
+                }
             })
         }
         return movimentos
