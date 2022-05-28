@@ -16,7 +16,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
-    justify-content: space-around;
+    //justify-content: space-around;
     margin-bottom: 5%;
 
     .bloco-skin{
@@ -32,8 +32,8 @@
             margin: 10%;
         }
 
-        p{
-            margin: 2% 5%;
+        h4{
+            text-align: center;
         }
 
 
@@ -64,8 +64,8 @@
         margin: 10%;
     }
 
-    p{
-        margin: 2% 5%;
+    h4{
+        text-align: center;
     }
 
 }
@@ -97,13 +97,11 @@
 @media screen and (min-width:990px){
 
     .container-perfil{
-        display: flex;
+        /* display: flex;
         flex-direction: row;
         flex: start;
         flex-wrap: wrap;
-        align-content: center;
-        justify-content: space-between;
-        margin-top: 2%;
+        margin-top: 2%; */
 
         .container-skins{
             margin-left: 3%;
@@ -143,10 +141,6 @@
                 margin: 10%;
             }
     
-            p{
-                margin: 2% 5%;
-            }
-    
     
     
         }
@@ -174,12 +168,7 @@
                 width: 80%;
                 margin: 10%;
             }
-    
-            p{
-                margin: 2% 5%;
-            }
-    
-    
+   
     
         }
     }
