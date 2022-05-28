@@ -45,10 +45,52 @@ export const Perfil= () => {
                             nomeSkin={'Nome da Skin'}
                             //acaoEquipar={}
                         />
+                        <Bloco
+                            srcImg={skinOnca}
+                            altImg={'imagem da skin'}
+                            nomeSkin={'Nome da Skin'}
+                            //acaoEquipar={}
+                        />
+                        <Bloco
+                            srcImg={skinOnca}
+                            altImg={'imagem da skin'}
+                            nomeSkin={'Nome da Skin'}
+                            //acaoEquipar={}
+                        />
+                        <Bloco
+                            srcImg={skinOnca}
+                            altImg={'imagem da skin'}
+                            nomeSkin={'Nome da Skin'}
+                            //acaoEquipar={}
+                        />
+                        <Bloco
+                            srcImg={skinOnca}
+                            altImg={'imagem da skin'}
+                            nomeSkin={'Nome da Skin'}
+                            //acaoEquipar={}
+                        />
                    </div>
                    <h4>Cachorro</h4>
                    <div className='bloco-cachorro'>
                         
+                        <Bloco
+                            srcImg={skinCachorro}
+                            altImg={'imagem da skin'}
+                            nomeSkin={'Nome da Skin'}
+                            //acaoEquipar={}
+                        />
+                        <Bloco
+                            srcImg={skinCachorro}
+                            altImg={'imagem da skin'}
+                            nomeSkin={'Nome da Skin'}
+                            //acaoEquipar={}
+                        />
+                        <Bloco
+                            srcImg={skinCachorro}
+                            altImg={'imagem da skin'}
+                            nomeSkin={'Nome da Skin'}
+                            //acaoEquipar={}
+                        />
                         <Bloco
                             srcImg={skinCachorro}
                             altImg={'imagem da skin'}
