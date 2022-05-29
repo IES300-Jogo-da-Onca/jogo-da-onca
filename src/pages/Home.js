@@ -8,6 +8,7 @@ export const Home= () => {
     const socket_url = process.env.REACT_APP_WS_URL
     const [socket, setSocket] = useState(io(socket_url, {withCredentials: true}))
     const [sala, setSala] = useState('')
+    const [cachorrosAbatidos, setCachorrosAbatidos] = useState(0)
     const [criouSala, setCriouSala] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false)
     const [dadosPartida, setDadosPartida] = useState({})
@@ -52,13 +53,27 @@ export const Home= () => {
             <div className='body'>
                 <div className='optArea'>
                     { !criouSala && !isPlaying && 
-                    <div>
-                        <button  onClick={criarSala}>Criar sala!</button> 
-                        <input value={sala} onChange={(e) => setSala(e.target.value)}/>
-                        <button onClick={joinSala}>Entrar na sala</button>
+                        <div className='salaOpts'>
+                            <button  onClick={criarSala}>Criar sala!</button> 
+                            <div className='entratSala'>
+                                <h3>Entrar em sala existente:</h3>
+                                <input value={sala} onChange={(e) => setSala(e.target.value)}/>
+                                <button onClick={joinSala}>Entrar</button>
+                            </div>
+                        </div>
+                    }
+                    { criouSala && !isPlaying &&  
+                    <div className='salaCriada'>
+                        <h3>Id da Sala Criada:</h3>
+                        <input disabled value={sala}></input>
                     </div>
                     }
-                    { criouSala && !isPlaying &&  <div><p>Id da Sala</p><input disabled value={sala}></input></div>}
+                    { isPlaying &&
+                        <div className='optPlaying'>
+                            <h1>{cachorrosAbatidos}</h1>
+                            <h2>Cachorros Abatidos</h2>
+                        </div>
+                    }
                 </div>
                 <div className='tabuleiroArea'>
                     {!isPlaying && <img src={tabuleiro}/>}

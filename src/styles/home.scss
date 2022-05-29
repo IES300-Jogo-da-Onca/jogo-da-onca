@@ -11,6 +11,53 @@
     height: 100%;
 }
 
+.salaOpts{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 40%;
+    //border: solid 5px;
+}
+
+.entratSala{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    //border: solid 5px;
+    flex-grow: 1;
+    margin-top: 120px;
+}
+
+.entratSala button{
+    flex-grow: 1;
+    margin-top: 5px;
+}
+
+.salaCriada{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.salaCriada input{
+    height: 40px;
+    width: 300px;
+    font-size: 25px;
+    text-align: center;
+}
+
+.optPlaying{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.optPlaying h1{
+    font-size: 100px;
+}
+
 .optArea{
     display: flex;
     width: 60%;
