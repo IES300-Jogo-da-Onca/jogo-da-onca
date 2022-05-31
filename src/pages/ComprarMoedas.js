@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { Headers } from '../components/Headers';
 import {Modal} from 'react-bootstrap';
 import { Input } from '../components/Input';
@@ -12,6 +12,7 @@ import coinIcon6 from '../assets/icons/coin6.png';
 import coinIcon7 from '../assets/icons/coin7.png';
 import pagIcon from '../assets/icons/pag-sucesso.png';
 import { validarCvv, validarnomeCartao, validarNumCartao, validarParc } from '../utils/validarCompraMoedas';
+import { UserContext } from '../context/UserContext';
 
 export const ComprarMoedas = () => {
 
@@ -27,6 +28,7 @@ export const ComprarMoedas = () => {
     const [quantidade, setQuantidade] = useState(0); //quantidade comprada
     //const [moedasUsuario, setMoedasUsuario] = useState(0); MOCKUP DE TESTE
     const [processando, setProcessandoPag] = useState(false); //processando pagamento
+    const {userInfo, setUserInfo} = useContext(UserContext)
 
     //valida informações do cartão
     const validarFormulario = () => {
@@ -41,14 +43,18 @@ export const ComprarMoedas = () => {
     const executaPagamento = evento => {
         evento.preventDefault();
         setProcessandoPag(true);
-        executaRequisicao('/comprarmoeda', 'POST', { quantidade }).then(console.log(quantidade));
-        
-        setTimeout(() => {
-            //setMoedasUsuario(moedasUsuario + quantidade); //MOCKUP DE TESTE soma quantidade comprada com a qtde já existente
-            setShowModal(false); //fecha popup de pagamento
-            setProcessandoPag(false); //tira o estado "processando"
-            setShowModalSucesso(true); //mostra popup de confirmação da compra
-        }, 3000)
+        executaRequisicao('/comprarmoeda', 'POST', { quantidade })
+        .then(response => {
+            setUserInfo({...userInfo, ...response.data.data})
+            setTimeout(() => {
+                //setMoedasUsuario(moedasUsuario + quantidade); //MOCKUP DE TESTE soma quantidade comprada com a qtde já existente
+                setShowModal(false); //fecha popup de pagamento
+                setProcessandoPag(false); //tira o estado "processando"
+                setShowModalSucesso(true); //mostra popup de confirmação da compra
+            }, 3000)
+
+        })
+        .catch(console.error)
     }
 
     

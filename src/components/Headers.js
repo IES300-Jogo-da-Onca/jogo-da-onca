@@ -1,15 +1,16 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useContext} from 'react';
 import logo from '../assets/icons/onca-sem-fundo.png';
 import sairIcon from '../assets/icons/sairIcon.png';
 import coinIcon from '../assets/icons/coinIcon.png';
 
 import {Link, useLocation, useNavigate } from 'react-router-dom';
 import { executaRequisicao } from '../services/api';
+import { UserContext } from '../context/UserContext';
 
 export const Headers = props => {
-
-    let userName = 'Nome Usuário' //Provisório até que tenhamos conexão com o banco
-    let minhasMoedas = 0 //Provisório até que tenhamos conexão com o banco
+    const {userInfo} = useContext(UserContext)
+    let userName = userInfo.nome
+    let minhasMoedas = userInfo.moedas
     const navigate = useNavigate()
     const location  = useLocation () 
 
