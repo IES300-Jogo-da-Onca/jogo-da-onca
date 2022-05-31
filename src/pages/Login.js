@@ -1,6 +1,6 @@
 //componente de login
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Input } from '../components/Input';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/icons/logo-sem-fundo.png';
@@ -8,6 +8,7 @@ import cadeado from '../assets/icons/cadeado.svg';
 import user from '../assets/icons/user.svg';
 import { validarlogin, validarSenha } from '../utils/validadores';
 import { executaRequisicao } from '../services/api';
+import { UserContext } from '../context/UserContext';
 
 
 
@@ -18,7 +19,7 @@ export const Login = () => {
     const [senha, setSenha] = useState('');
     const [msgErro, setMsgErro] = useState('');
     const [isLoading, setLoading] = useState(false); //uma variável que guarda o estado do carregamento ao clicar no botão Entrar
-
+    const {userInfo, setUserInfo} = useContext(UserContext)
     const navigate = useNavigate();
 
     const validarFormulario = () => {
@@ -42,8 +43,7 @@ export const Login = () => {
 
             const resultado = await executaRequisicao('/login', 'post', body);
             if (resultado?.data) {
-                localStorage.setItem('usuarioNome', resultado.data.nome);
-                localStorage.setItem('usuarioLogin', resultado.data.login);
+                setUserInfo(resultado.data.data)
                 navigate('home')
             }
             
