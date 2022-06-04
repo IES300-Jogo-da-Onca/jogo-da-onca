@@ -12,7 +12,7 @@ export const Bloco = props => {
     } = props;
 
     return(
-        <div className='bloco-skin'>
+        <div className='skin'>
             <img src={srcImg} alt={altImg}></img>
             <h4>{nomeSkin}</h4>
             <button className='botao-equipar' onClick={acaoEquipar}>Equipar</button>

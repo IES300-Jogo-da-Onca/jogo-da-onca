@@ -45,12 +45,12 @@ export const ComprarMoedas = () => {
         setProcessandoPag(true);
         executaRequisicao('/comprarmoeda', 'POST', { quantidade })
         .then(response => {
-            setUserInfo({...userInfo, ...response.data.data})
             setTimeout(() => {
                 //setMoedasUsuario(moedasUsuario + quantidade); //MOCKUP DE TESTE soma quantidade comprada com a qtde já existente
                 setShowModal(false); //fecha popup de pagamento
                 setProcessandoPag(false); //tira o estado "processando"
                 setShowModalSucesso(true); //mostra popup de confirmação da compra
+                setUserInfo({...userInfo, ...response.data.data})
             }, 3000)
 
         })

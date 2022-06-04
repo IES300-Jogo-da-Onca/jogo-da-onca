@@ -2,6 +2,7 @@ import React from 'react';
 import { Headers } from '../components/Headers';
 import oncaClassica from '../assets/icons/onçaClássicaPeça.svg'
 import dogClassico from '../assets/icons/dogClassicoPeça.svg'
+import { executaRequisicao } from '../services/api'
 
 export const Loja= () => {
 
@@ -75,6 +76,13 @@ export const Loja= () => {
         },
     ]
 
+    const getSkinsLoja = () => {
+        return executaRequisicao('/loja', 'GET')
+    }
+    getSkinsLoja().then( response => {
+        console.log(response.data.data)
+    })
+
     return (
         <div className='container-generic'>
            <Headers />
@@ -84,7 +92,7 @@ export const Loja= () => {
                     {
                         skins.map( s => {
                             if(s.onça){
-                                return <div className='skin'>
+                                return <div className='skin' key={s.index}>
                                     <img src={s.skinImg}/>
                                     <div className='skinInfo'>
                                         <h4>{s.skinName}</h4>

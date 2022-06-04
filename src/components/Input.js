@@ -20,7 +20,7 @@ export const Input = props => {
     return(
         <div>
             <div className='input'>
-                <img className="icones" src={srcImg} alt={altImg}/>
+                { srcImg ? <img className="icones" src={srcImg} alt={altImg}/> : <div/>}
                 <input 
                     type={inputType} min={min} max={max} name={inputName} 
                     placeholder={inputPlaceholder}
