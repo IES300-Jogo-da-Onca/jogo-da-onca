@@ -9,8 +9,8 @@ import { UserContext } from '../context/UserContext';
 
 export const Headers = props => {
     const {userInfo} = useContext(UserContext)
-    let userName = userInfo.nome
     let minhasMoedas = userInfo.moedas
+    let userName = userInfo.nome
     const navigate = useNavigate()
     const location  = useLocation () 
 

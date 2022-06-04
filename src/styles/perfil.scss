@@ -1,88 +1,45 @@
 @import './config.scss';
 
-
-.container-skins{
-    h3{
-        margin: 3%;
-    }
-
-    h4{
-        margin-left: 3%;
-    }
+h1{
+    font-size: 32px;
+    font-weight: bold;
 }
 
-.bloco-onca{
+.bloco-skins{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
     //justify-content: space-around;
     margin-bottom: 5%;
-
-    .bloco-skin{
-        border: solid 1px #CCC;
-        border-radius: 10px;
-        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
-        margin: 0px;
-        padding: 2.5%;
-        margin-bottom: 2%;
-
-        img{
-            width: 80%;
-            margin: 10%;
-        }
-
-        h4{
-            text-align: center;
-        }
-
-
-
-    }
 }
 
-.bloco-cachorro{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-around;
-    margin-bottom: 5%;
-   
-}
-
-.bloco-skin{
+.skin{
     border: solid 1px #CCC;
     border-radius: 10px;
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
-    margin: 0px;
-    padding: 2.5%;
-    margin-bottom: 2%;
+    //margin: 0px;
+    //padding: 2.5%;
+    margin: 10px 20px;
 
     img{
-        width: 80%;
-        margin: 10%;
+        margin: 15px
     }
 
     h4{
         text-align: center;
     }
-
 }
 
 .botao-equipar{
+    margin: 10px 30px;
     background-color: $primaryColor;
     border: solid 1px;
     border-radius: 8px;
     color: white;
-    margin: 0%;
-    height: 50px;
     font-weight: bold;
-    width: 150px;
-    
+    padding: 5px 25px;
 }
-
-
 
 
 
@@ -96,7 +53,7 @@
         margin-top: 2%; */
 
         .container-skins{
-            margin-left: 3%;
+            margin-top: 3%;
 
             h3{
                 margin: 0%;
@@ -110,58 +67,59 @@
 
     }
 
-    .bloco-onca{
+    .bloco-skins{
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         margin-bottom: 5%;
         flex: start;
         align-items: none;
-        justify-content: space-between;
+        //justify-content: space-between;
         padding: 0px;
-    
-        .bloco-skin{
-            border: solid 1px #CCC;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
-            margin: 0px;
-            padding: 2.5%;
-            margin-bottom: 2%;
-    
-            img{
-                width: 80%;
-                margin: 10%;
-            }
-    
-    
-    
+    }
+
+    .skin{
+        border: solid 1px #CCC;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
+        margin: 0px;
+        //padding: 2.5%;
+        margin: 10px 20px;
+
+        img{
+            margin: 15px
         }
     }
 
-    .bloco-cachorro{
+    .container-perfil{
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        margin: 0px 100px;
+    }
+
+    .container-botao{
+        display: flex;
+        align-items: center;
+        margin-bottom: 40px;
+    }
+
+    .containerNome{
+        display: flex;
+        margin-right: 40px
+    }
+
+    .container-botao button{
+        margin-left: 10px;
+    }
+
+    .containerSenhas{
         display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
-        margin-bottom: 5%;
-        flex: start;
-        align-items: none;
         justify-content: space-between;
-        padding: 0px;
+    }
     
-        .bloco-skin{
-            border: solid 1px #CCC;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
-            margin: 0px;
-            padding: 2.5%;
-            margin-bottom: 2%;
-    
-            img{
-                width: 80%;
-                margin: 10%;
-            }
-   
-    
-        }
+    Input{
+        margin-left: 10px;
     }
 }

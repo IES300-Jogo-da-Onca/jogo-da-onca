@@ -5,9 +5,7 @@ import skinOnca from '../assets/icons/onçaClássicaPeça.svg'
 import skinCachorro from '../assets/icons/dogClassicoPeça.svg'
 import { executaRequisicao } from '../services/api';
 import { Input } from '../components/Input';
-import user from '../assets/icons/user.svg';
-import cadeado from '../assets/icons/cadeado.svg';
-import { validarSenha, validarlogin, validarNome, validarConfirmacaoSenha } from '../utils/validadores';
+import { validarSenha, validarNome, validarConfirmacaoSenha } from '../utils/validadores';
 
 
 export const Perfil= () => {
@@ -16,15 +14,15 @@ export const Perfil= () => {
     //const moedas = executaRequisicao('/comprarmoeda', 'GET', { moedas }) //trazendo qtd de moedas que o user tem
     //const skinUser = executaRequisicao('/', 'GET', { skins }) //pegar skins do usuário no banco
     
-    const [nome, setNome] = useState('');
-    const [senha, setSenha] = useState('');
+    const [nomeAlterar, setNome] = useState('');
+    const [senhaAlterar, setSenha] = useState('');
     const [confirmaSenha, setConfirmaSenha] = useState('');
 
 
     const alteraNome = evento => {
         evento.preventDefault(); 
         executaRequisicao('/register', 'POST', {
-            nome
+            nomeAlterar
         }).then(console.log)
            .then(setTimeout(() => {
         }, 4000))
@@ -34,7 +32,7 @@ export const Perfil= () => {
     const alteraSenha = evento => {
         evento.preventDefault(); 
         executaRequisicao('/register', 'POST', {
-            senha
+            senhaAlterar
         }).then(console.log)
            .then(setTimeout(() => {
         }, 4000))
@@ -46,52 +44,78 @@ export const Perfil= () => {
            <div className='container-perfil'>
                 <div className='usuario'>
                     <div>
-                        <h4>Editar Perfil</h4>
-                        <Input
-                            srcImg={user}
-                            altImg={'icone usuário'}
-                            inputType="text"
-                            inputName="nome"
-                            inputPlaceholder="Nome"
-                            value={nome}
-                            setValue={setNome}
-                            mensagemValidacao="Nome inválido"
-                            exibirMensagemValidacao={nome && !validarNome(nome)}
-                        />
+                        <h1>Editar Perfil</h1>
 
-                        <button onClick={alteraNome} disabled={!validarNome(nome)}>Alterar Nome</button>
+                        <div className='container-botao'>
+                            <div className='containerNome'>
+                                <label>Nome: </label>
+                                <Input
+                                    //srcImg={user}
+                                    //altImg={'icone usuário'}
+                                    inputType="text"
+                                    inputName="nome"
+                                    inputPlaceholder="Nome"
+                                    value={nomeAlterar}
+                                    setValue={setNome}
+                                    mensagemValidacao="Nome inválido"
+                                    exibirMensagemValidacao={nomeAlterar && !validarNome(nomeAlterar)}
+                                />
 
-                        <Input
-                            srcImg={cadeado}
-                            inputType="password"
-                            inputName="senha"
-                            inputPlaceholder="Senha"
-                            value={senha}
-                            setValue={setSenha}
-                            mensagemValidacao="Senha inválida"
-                            exibirMensagemValidacao={senha && !validarSenha(senha)}
+                                <button onClick={alteraNome} disabled={!validarNome(nomeAlterar)}>Alterar Nome</button>
+                            </div>
+                            
+                            <div>
+                                <div className='containerSenhas'>
+                                    <label>Senha Atual: </label>
+                                    <Input
+                                        inputType="password"
+                                        inputName="senhaAtual"
+                                        inputPlaceholder="Senha Atual"
+                                        setValue={setSenha}
+                                        mensagemValidacao="Senha inválida"
+                                        exibirMensagemValidacao={senhaAlterar && !validarSenha(senhaAlterar)}
 
-                         />
+                                    />
+                                </div>
 
-                        <Input
-                            srcImg={cadeado}
-                            inputType="password"
-                            inputName="senha"
-                            inputPlaceholder="Confirmar senha"
-                            value={confirmaSenha}
-                            setValue={setConfirmaSenha}
-                            mensagemValidacao="As senhas precisam ser iguais "
-                            exibirMensagemValidacao={confirmaSenha && !validarConfirmacaoSenha(senha,confirmaSenha)}
-                        />
+                                <div className='containerSenhas'>
+                                    <label>Nova Senha: </label>
+                                    <Input
+                                        //srcImg={cadeado}
+                                        inputType="password"
+                                        inputName="senha"
+                                        inputPlaceholder="Senha"
+                                        value={senhaAlterar}
+                                        setValue={setSenha}
+                                        mensagemValidacao="Senha inválida"
+                                        exibirMensagemValidacao={senhaAlterar && !validarSenha(senhaAlterar)}
 
-                        <button onClick={alteraSenha} disabled={!validarSenha(senha)}>Alterar Senha</button>
-                        
+                                    />
+                                </div>
+
+                                <div className='containerSenhas'>
+                                    <label>Confirmar Nova Senha: </label>
+                                    <Input
+                                        //srcImg={cadeado}
+                                        inputType="password"
+                                        inputName="senha"
+                                        inputPlaceholder="Confirmar senha"
+                                        value={confirmaSenha}
+                                        setValue={setConfirmaSenha}
+                                        mensagemValidacao="As senhas precisam ser iguais "
+                                        exibirMensagemValidacao={confirmaSenha && !validarConfirmacaoSenha(senhaAlterar,confirmaSenha)}
+                                    />
+                                </div>
+                            </div>
+
+                            <button onClick={alteraSenha} disabled={!validarSenha(senhaAlterar)}>Alterar Senha</button>
+                        </div>
                     </div>
                 </div>
                <div className='container-skins'>
-                   <h3>Minhas Skins</h3>
-                   <h4>Onça</h4>
-                   <div className='bloco-onca'>
+                   <h2>Minhas Skins</h2>
+                   <h2>Onças</h2>
+                   <div className='bloco-skins'>
                         
                         <Bloco
                             srcImg={skinOnca}
@@ -143,8 +167,8 @@ export const Perfil= () => {
                             //acaoEquipar={}
                         />
                    </div>
-                   <h4>Cachorro</h4>
-                   <div className='bloco-cachorro'>
+                   <h2>Cachorros</h2>
+                   <div className='bloco-skins'>
                         
                         <Bloco
                             srcImg={skinCachorro}
