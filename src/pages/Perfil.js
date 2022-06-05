@@ -9,10 +9,6 @@ import { validarSenha, validarNome, validarConfirmacaoSenha } from '../utils/val
 
 
 export const Perfil= () => {
-
-    const moedas = '200'
-    //const moedas = executaRequisicao('/comprarmoeda', 'GET', { moedas }) //trazendo qtd de moedas que o user tem
-    //const skinUser = executaRequisicao('/', 'GET', { skins }) //pegar skins do usuário no banco
     
     const [nomeAlterar, setNome] = useState('');
     const [senhaAlterar, setSenha] = useState('');
@@ -38,6 +34,12 @@ export const Perfil= () => {
         }, 4000))
             .catch(console.error)
     } 
+
+    const getSkinsUser = () => {
+        return executaRequisicao('/loja', 'GET')
+    }
+
+
     return (
         <div className='container-generic'>
            <Headers />

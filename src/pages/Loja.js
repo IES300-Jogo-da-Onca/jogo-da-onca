@@ -1,91 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { Headers } from '../components/Headers';
-import { executaRequisicao } from '../services/api'
+import { executaRequisicao } from '../services/api';
 
 export const Loja= () => {
 
     const [skins, setSkins] = useState([])
-    //Array Provisário que representa a Array que receberemos do Banco com todas as Skins Disponíveis
+    
     const getSkinsLoja = () => {
         return executaRequisicao('/loja', 'GET')
+    }
+
+    const buySkin = (idSkinToBuy) => {
+        console.log("ID Skin: ", idSkinToBuy)
+        executaRequisicao('/comprarskin', 'POST', { idSkinToBuy })
+        .then( res => {
+            window.alert(res)
+        })
+        .catch( err => window.alert("Erro na requisição.\nContate Administrador."))
     }
     
     useEffect(() => {
         getSkinsLoja().then( response => {
-            console.log(response.data.data)
             setSkins(response.data.data)
-            console.log(skins)
         })
     },[])
-    
-    // let skins = [
-    //     {
-    //         skinName: 'Onça Clássica',
-    //         skinImg: oncaClassica,
-    //         precoSkin: 8,
-    //         onça: true
-    //     },
-    //     {
-    //         skinName: 'Onça Clássica',
-    //         skinImg: oncaClassica,
-    //         precoSkin: 8,
-    //         onça: true
-    //     },
-    //     {
-    //         skinName: 'Onça Clássica',
-    //         skinImg: dogClassico,
-    //         precoSkin: 8,
-    //         onça: false
-    //     },
-    //     {
-    //         skinName: 'Onça Clássica',
-    //         skinImg: oncaClassica,
-    //         precoSkin: 8,
-    //         onça: true
-    //     },
-    //     {
-    //         skinName: 'Onça Clássica',
-    //         skinImg: dogClassico,
-    //         precoSkin: 8,
-    //         onça: false
-    //     },
-    //     {
-    //         skinName: 'Onça Clássica',
-    //         skinImg: dogClassico,
-    //         precoSkin: 8,
-    //         onça: false
-    //     },
-    //     {
-    //         skinName: 'Onça Clássica',
-    //         skinImg: oncaClassica,
-    //         precoSkin: 8,
-    //         onça: true
-    //     },
-    //     {
-    //         skinName: 'Onça Clássica',
-    //         skinImg: dogClassico,
-    //         precoSkin: 8,
-    //         onça: false
-    //     },
-    //     {
-    //         skinName: 'Onça Clássica',
-    //         skinImg: oncaClassica,
-    //         precoSkin: 8,
-    //         onça: true
-    //     },
-    //     {
-    //         skinName: 'Onça Clássica',
-    //         skinImg: dogClassico,
-    //         precoSkin: 8,
-    //         onça: false
-    //     },
-    //     {
-    //         skinName: 'Onça Clássica',
-    //         skinImg: oncaClassica,
-    //         precoSkin: 8,
-    //         onça: true
-    //     },
-    // ]
 
     return (
         <div className='container-generic'>
@@ -105,7 +43,9 @@ export const Loja= () => {
                                         <span>${s.precoSkin}</span>
                                     </div>
                                     <div>
-                                        <button>Comprar</button>
+                                        <button onClick={() => {
+                                            buySkin(s.idSkin)
+                                        }}>Comprar</button>
                                     </div>
                                 </div>
                             }
@@ -117,7 +57,7 @@ export const Loja= () => {
                     {
                         skins.map( s => {
                             if(!s.onça){
-                                return <div className='skin'>
+                                return <div className='skin' key={s.idSkin}>
                                     <img src={s.skinImg}/>
                                     <div className='skinInfo'>
                                         <h4>{s.skinName}</h4>
@@ -126,7 +66,9 @@ export const Loja= () => {
                                         <span>${s.precoSkin}</span>
                                     </div>
                                     <div>
-                                        <button>Comprar</button>
+                                        <button onClick={() => {
+                                            buySkin(s.idSkin)
+                                        }}>Comprar</button>
                                     </div>
                                 </div>
                             }

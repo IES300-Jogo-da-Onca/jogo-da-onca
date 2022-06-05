@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import logo from '../assets/icons/onca-sem-fundo.png';
 import sairIcon from '../assets/icons/sairIcon.png';
 import coinIcon from '../assets/icons/coinIcon.png';
@@ -8,8 +8,8 @@ import { executaRequisicao } from '../services/api';
 import { UserContext } from '../context/UserContext';
 
 export const Headers = props => {
-    const {userInfo} = useContext(UserContext)
-    let minhasMoedas = userInfo.moedas
+    const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("loggedUser"))) //useContext(UserContext)
+    const [minhasMoedas, setMinhasMoedas] = useState()
     let userName = userInfo.nome
     const navigate = useNavigate()
     const location  = useLocation () 
@@ -17,15 +17,21 @@ export const Headers = props => {
     useEffect(()=>{
         const newMenu = document.querySelector(`a[href='${location.pathname}'] h2`) || document.querySelector(`a[href='${location.pathname}'] p`)
         newMenu.classList.add('selected')
+        setUserInfo(JSON.parse(localStorage.getItem("loggedUser")))
+        setMinhasMoedas(userInfo.moedas)
     }, [location])
+
     const logout = async () => {
         try {
             await executaRequisicao('/logout', 'GET')
             navigate('/')
+            localStorage.clear()
+            console.log("LocalStorage: ", localStorage)
         } catch (error) {
             console.log(error)
         }
     }
+
     return(
         <div className='header'>
             <div className='navContainer'>
@@ -49,7 +55,7 @@ export const Headers = props => {
             <div className='headerRight'>
                 <div className='nameMoney'>
                     <Link to='/perfil'><p id='username'>{userName}</p></Link>
-                    <p id='minhasMoedas'>Moedas: ${minhasMoedas}</p>
+                    <p id='minhasMoedas'>Moedas: ${userInfo.moedas}</p>
                 </div>
                 <div className='sair' onClick={logout}>
                         <img src={sairIcon}/>
