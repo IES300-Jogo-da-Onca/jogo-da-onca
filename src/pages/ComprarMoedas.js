@@ -50,7 +50,8 @@ export const ComprarMoedas = () => {
                 setShowModal(false); //fecha popup de pagamento
                 setProcessandoPag(false); //tira o estado "processando"
                 setShowModalSucesso(true); //mostra popup de confirmação da compra
-                setUserInfo({...userInfo, ...response.data.data})
+                //setUserInfo({...userInfo, ...response.data.data})
+                localStorage.setItem("loggedUser", JSON.stringify(response.data.data))
             }, 3000)
 
         })

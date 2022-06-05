@@ -4,6 +4,7 @@ import { Headers } from '../components/Headers';
 import { Tabuleiro } from './Tabuleiro';
 import{io} from "socket.io-client"
 import { executaRequisicao } from '../services/api';
+import Table from 'react-bootstrap/Table';
 
 export const Home= () => {
     const socket_url = process.env.REACT_APP_WS_URL
@@ -20,6 +21,8 @@ export const Home= () => {
 
     const joinSala = () => {
         socket.current.emit('joinSala', sala)
+        console.log("Entrando na sala: ", sala)
+        setSala('')
     }
     const atualizaSalasDisponiveis = async () => {
         executaRequisicao('/salasDisponiveis', 'GET')
@@ -64,21 +67,35 @@ export const Home= () => {
             <Headers />
             <div className='body'>
                 <div className='optArea' style={{flexDirection: 'column'}}>
-                    <textarea  cols="30" rows="10" value={JSON.stringify(salasDisponiveis)}></textarea>
                     { !criouSala && !isPlaying && 
                         <div className='salaOpts'>
-                            <button  onClick={criarSala}>Criar sala!</button> 
-                            <div className='entratSala'>
-                                <h3>Entrar em sala existente:</h3>
-                                <input value={sala} onChange={(e) => setSala(e.target.value)}/>
-                                <button onClick={joinSala}>Entrar</button>
-                            </div>
+                            <Table striped bordered hover responsive>
+                                <thead>
+                                    <tr>
+                                        <th className="text-center" colSpan={2}>Salas Disponíveis</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        salasDisponiveis.map( sala => {
+                                            return <tr>
+                                                <td className="text-center align-middle">{sala.user}</td>
+                                                <td className="text-center"><button onClick={() => {
+                                                    setSala(sala.id_sala)
+                                                    joinSala()
+                                                }}>Jogar como {sala.peca_disponivel ? "Cachorro": "Onça"}</button></td>
+                                            </tr>
+                                        })
+                                    }
+                                </tbody>
+                            </Table>
+                            <button  onClick={criarSala}>Criar sala!</button>
                         </div>
                     }
                     { criouSala && !isPlaying &&  
                     <div className='salaCriada'>
-                        <h3>Id da Sala Criada:</h3>
-                        <input disabled value={sala}></input>
+                        <h3>Aguardando Oponente...</h3>
+                        <button>Sair da Sala de Espera</button>
                     </div>
                     }
                     { isPlaying &&
