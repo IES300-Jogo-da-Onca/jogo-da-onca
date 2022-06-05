@@ -1,11 +1,20 @@
 @import './config.scss';
 
-h1{
+h1 {
     font-size: 32px;
     font-weight: bold;
 }
 
-.bloco-skins{
+.usuario{
+    width: 98%;
+    margin-top: 2.5%;
+    border: solid black 3px;
+    border-radius: 10px;
+    padding: 2%;
+    border-color: $darkGreenColor;
+}
+
+.bloco-skins {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -14,7 +23,7 @@ h1{
     margin-bottom: 5%;
 }
 
-.skin{
+.skin {
     border: solid 1px #CCC;
     border-radius: 10px;
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
@@ -22,16 +31,16 @@ h1{
     //padding: 2.5%;
     margin: 10px 20px;
 
-    img{
+    img {
         margin: 15px
     }
 
-    h4{
+    h4 {
         text-align: center;
     }
 }
 
-.botao-equipar{
+.botao-equipar {
     margin: 10px 30px;
     background-color: $primaryColor;
     border: solid 1px;
@@ -41,33 +50,72 @@ h1{
     padding: 5px 25px;
 }
 
+button {
+
+    background-color: $primaryColor;
+    border: solid 1px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    padding: 5px 25px;
+
+}
+
+label {
+    margin: 0px;
+    font-weight: bold;
+}
 
 
-@media screen and (min-width:990px){
+input {
+    font-size: 15px;
+    display: flex;
+    letter-spacing: 0.03em;
+    color: $primaryColor;
+    border-radius: 0%;
+    margin: 3px;
+    //border-top-width: 0px;
+    //border-right-width: 0px;
+    //border-left-width: 0px;
+    border-bottom: solid black 2px;
+    outline: none;
 
-    .container-perfil{
+    &:focus {
+        border-color: $primaryColor;
+    }
+
+    &::placeholder {
+        color: $lightGreyColor;
+    }
+}
+
+
+
+@media screen and (min-width:990px) {
+
+    .container-perfil {
         /* display: flex;
         flex-direction: row;
         flex: start;
         flex-wrap: wrap;
         margin-top: 2%; */
 
-        .container-skins{
+        .container-skins {
             margin-top: 3%;
 
-            h3{
+            h3 {
                 margin: 0%;
                 margin-bottom: 2%;
             }
-        
-            h4{
+
+            h4 {
                 margin-left: 0%;
             }
         }
 
     }
 
-    .bloco-skins{
+    .bloco-skins {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -78,7 +126,7 @@ h1{
         padding: 0px;
     }
 
-    .skin{
+    .skin {
         border: solid 1px #CCC;
         border-radius: 10px;
         box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
@@ -86,40 +134,42 @@ h1{
         //padding: 2.5%;
         margin: 10px 20px;
 
-        img{
+        img {
             margin: 15px
         }
     }
 
-    .container-perfil{
+    .container-perfil {
         display: flex;
         height: 100%;
         flex-direction: column;
         margin: 0px 100px;
     }
 
-    .container-botao{
+    .container-botao {
         display: flex;
         align-items: center;
         margin-bottom: 40px;
     }
 
-    .containerNome{
+    .containerNome {
         display: flex;
+        align-items: center;
         margin-right: 40px
     }
 
-    .container-botao button{
+    .container-botao button {
         margin-left: 10px;
     }
 
-    .containerSenhas{
+    .containerSenhas {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        align-items: center;
     }
-    
-    Input{
+
+    Input {
         margin-left: 10px;
     }
 }
