@@ -1,104 +1,108 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Headers } from '../components/Headers';
-import oncaClassica from '../assets/icons/onçaClássicaPeça.svg'
-import dogClassico from '../assets/icons/dogClassicoPeça.svg'
 import { executaRequisicao } from '../services/api'
 
 export const Loja= () => {
 
+    const [skins, setSkins] = useState([])
     //Array Provisário que representa a Array que receberemos do Banco com todas as Skins Disponíveis
-    const skins = [
-        {
-            skinName: 'Onça Clássica',
-            skinImg: oncaClassica,
-            preçoSkin: 8,
-            onça: true
-        },
-        {
-            skinName: 'Onça Clássica',
-            skinImg: oncaClassica,
-            preçoSkin: 8,
-            onça: true
-        },
-        {
-            skinName: 'Onça Clássica',
-            skinImg: dogClassico,
-            preçoSkin: 8,
-            onça: false
-        },
-        {
-            skinName: 'Onça Clássica',
-            skinImg: oncaClassica,
-            preçoSkin: 8,
-            onça: true
-        },
-        {
-            skinName: 'Onça Clássica',
-            skinImg: dogClassico,
-            preçoSkin: 8,
-            onça: false
-        },
-        {
-            skinName: 'Onça Clássica',
-            skinImg: dogClassico,
-            preçoSkin: 8,
-            onça: false
-        },
-        {
-            skinName: 'Onça Clássica',
-            skinImg: oncaClassica,
-            preçoSkin: 8,
-            onça: true
-        },
-        {
-            skinName: 'Onça Clássica',
-            skinImg: dogClassico,
-            preçoSkin: 8,
-            onça: false
-        },
-        {
-            skinName: 'Onça Clássica',
-            skinImg: oncaClassica,
-            preçoSkin: 8,
-            onça: true
-        },
-        {
-            skinName: 'Onça Clássica',
-            skinImg: dogClassico,
-            preçoSkin: 8,
-            onça: false
-        },
-        {
-            skinName: 'Onça Clássica',
-            skinImg: oncaClassica,
-            preçoSkin: 8,
-            onça: true
-        },
-    ]
-
     const getSkinsLoja = () => {
         return executaRequisicao('/loja', 'GET')
     }
-    getSkinsLoja().then( response => {
-        console.log(response.data.data)
-    })
+    
+    useEffect(() => {
+        getSkinsLoja().then( response => {
+            console.log(response.data.data)
+            setSkins(response.data.data)
+            console.log(skins)
+        })
+    },[])
+    
+    // let skins = [
+    //     {
+    //         skinName: 'Onça Clássica',
+    //         skinImg: oncaClassica,
+    //         precoSkin: 8,
+    //         onça: true
+    //     },
+    //     {
+    //         skinName: 'Onça Clássica',
+    //         skinImg: oncaClassica,
+    //         precoSkin: 8,
+    //         onça: true
+    //     },
+    //     {
+    //         skinName: 'Onça Clássica',
+    //         skinImg: dogClassico,
+    //         precoSkin: 8,
+    //         onça: false
+    //     },
+    //     {
+    //         skinName: 'Onça Clássica',
+    //         skinImg: oncaClassica,
+    //         precoSkin: 8,
+    //         onça: true
+    //     },
+    //     {
+    //         skinName: 'Onça Clássica',
+    //         skinImg: dogClassico,
+    //         precoSkin: 8,
+    //         onça: false
+    //     },
+    //     {
+    //         skinName: 'Onça Clássica',
+    //         skinImg: dogClassico,
+    //         precoSkin: 8,
+    //         onça: false
+    //     },
+    //     {
+    //         skinName: 'Onça Clássica',
+    //         skinImg: oncaClassica,
+    //         precoSkin: 8,
+    //         onça: true
+    //     },
+    //     {
+    //         skinName: 'Onça Clássica',
+    //         skinImg: dogClassico,
+    //         precoSkin: 8,
+    //         onça: false
+    //     },
+    //     {
+    //         skinName: 'Onça Clássica',
+    //         skinImg: oncaClassica,
+    //         precoSkin: 8,
+    //         onça: true
+    //     },
+    //     {
+    //         skinName: 'Onça Clássica',
+    //         skinImg: dogClassico,
+    //         precoSkin: 8,
+    //         onça: false
+    //     },
+    //     {
+    //         skinName: 'Onça Clássica',
+    //         skinImg: oncaClassica,
+    //         precoSkin: 8,
+    //         onça: true
+    //     },
+    // ]
 
     return (
         <div className='container-generic'>
-           <Headers />
-           <div className='bodyLoja'>
+            <Headers />
+            <div className='bodyLoja'>
                 <h2>Onças:</h2>
                 <div className='skinsContainer'>
                     {
                         skins.map( s => {
                             if(s.onça){
-                                return <div className='skin' key={s.index}>
+                                return <div className='skin' key={s.idSkin}>
                                     <img src={s.skinImg}/>
                                     <div className='skinInfo'>
                                         <h4>{s.skinName}</h4>
                                     </div>
                                     <div className='skinPreco'>
-                                        <span>${s.preçoSkin}</span>
+                                        <span>${s.precoSkin}</span>
                                     </div>
                                     <div>
                                         <button>Comprar</button>
@@ -119,7 +123,7 @@ export const Loja= () => {
                                         <h4>{s.skinName}</h4>
                                     </div>
                                     <div className='skinPreco'>
-                                        <span>${s.preçoSkin}</span>
+                                        <span>${s.precoSkin}</span>
                                     </div>
                                     <div>
                                         <button>Comprar</button>
@@ -129,7 +133,7 @@ export const Loja= () => {
                         })
                     }
                 </div>
-           </div>
+            </div>
         </div>
-    );
+    )
 }
