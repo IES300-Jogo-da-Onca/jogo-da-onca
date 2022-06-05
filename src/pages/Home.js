@@ -1,57 +1,70 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import tabuleiro from '../assets/icons/tabuleiroProvisório.png';
 import { Headers } from '../components/Headers';
 import { Tabuleiro } from './Tabuleiro';
 import{io} from "socket.io-client"
+import { executaRequisicao } from '../services/api';
 
 export const Home= () => {
     const socket_url = process.env.REACT_APP_WS_URL
-    const [socket, setSocket] = useState(io(socket_url, {withCredentials: true}))
+    const socket = useRef()
+
     const [sala, setSala] = useState('')
-    const [cachorrosAbatidos, setCachorrosAbatidos] = useState(0)
+    const [salasDisponiveis, setSalasDisponiveis] = useState([])
     const [criouSala, setCriouSala] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false)
     const [dadosPartida, setDadosPartida] = useState({})
     const criarSala = () => {
-        socket.emit('novaSala')
+        socket.current.emit('novaSala')
     }
 
     const joinSala = () => {
-        socket.emit('joinSala', sala)
+        socket.current.emit('joinSala', sala)
+    }
+    const atualizaSalasDisponiveis = async () => {
+        executaRequisicao('/salasDisponiveis', 'GET')
+        .then( resp => setSalasDisponiveis(resp.data))
+        .catch(console.error)
     }
 
     useEffect(() => {
-        
-        socket.on('serverNovaSala', data => {
+        socket.current = io(socket_url, {withCredentials: true})
+        atualizaSalasDisponiveis()
+        socket.current.on('serverNovaSala', data => {
             setSala(data.idSala)
             setCriouSala(true)
         })
-        socket.on('serverJoinSala', data => {
-            
+        socket.current.on('serverNovaSala', data => {
+            setSala(data.idSala)
+            setCriouSala(true)
+        })
+        socket.current.on('serverSalasDisponiveis', salas => {
+            console.log('salas disponiveis', salas)
+            setSalasDisponiveis(salas)
         })
         // TODO: criar evento para sair da sala antes da partida começar
-        socket.on('serverIniciarJogo', data => {
+        socket.current.on('serverIniciarJogo', data => {
             console.log('serverIniciarJogo', data)
             let dadosIniciais = {
                 vetorTabuleiro: data.vetorTabuleiro,
                 ehCachorro: data.ehCachorro,
                 turnoPeca: data.turnoPeca,
-                socket
+                socket: socket.current
             }
             if(data['skinCachorro']) dadosIniciais['skinCachorro'] = data['skinCachorro']
             if(data['skinOnca']) dadosIniciais['skinOnca'] = data['skinOnca']
             if(data['skinTabuleiro']) dadosIniciais['skinTabuleiro'] = data['skinTabuleiro']
             setDadosPartida(dadosIniciais)
             setIsPlaying(true)
-
         })
-        socket.on('error', data => console.error(data))
-    }, [socket])
+        socket.current.on('error', data => console.error(data))
+    }, [])
     return (
         <div className='container-generic'>
             <Headers />
             <div className='body'>
-                <div className='optArea'>
+                <div className='optArea' style={{flexDirection: 'column'}}>
+                    <textarea  cols="30" rows="10" value={JSON.stringify(salasDisponiveis)}></textarea>
                     { !criouSala && !isPlaying && 
                         <div className='salaOpts'>
                             <button  onClick={criarSala}>Criar sala!</button> 
@@ -70,14 +83,14 @@ export const Home= () => {
                     }
                     { isPlaying &&
                         <div className='optPlaying'>
-                            <h1>{cachorrosAbatidos}</h1>
+                            <h1 id="placar">0</h1>
                             <h2>Cachorros Abatidos</h2>
                         </div>
                     }
                 </div>
                 <div className='tabuleiroArea'>
                     {!isPlaying && <img src={tabuleiro}/>}
-                    {isPlaying && <Tabuleiro {...dadosPartida} />           }
+                    {isPlaying && <Tabuleiro {...dadosPartida}  />           }
                 </div>
             </div>
         </div>

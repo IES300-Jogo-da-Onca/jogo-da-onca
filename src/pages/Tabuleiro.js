@@ -26,6 +26,10 @@ let placar = 0
 let BOARD_STATE = Jogo.getTabuleiroInicial()
 
 
+function mudarPlacar(){
+  document.getElementById('placar').innerText=placar
+}
+
 function Tabuleiro(props) {
   function ehMeuTurno(turnoPeca){
     return (ehCachorro && turnoPeca == 1) || (!ehCachorro && turnoPeca == 0)
@@ -236,9 +240,9 @@ function Tabuleiro(props) {
     props.socket.on('serverMoverPeca', data => {
       BOARD_STATE = data.novoTabuleiro
       meu_turno = ehMeuTurno(data.turnoPeca)
-      console.log(`meu_turno: ${meu_turno} turnoPeca: ${props.turnoPeca} ehCachorro: ${props.ehCachorro}\n meu_turno` )
       houveCaptura = data.houveCaptura
       placar = data.placar
+      mudarPlacar()
     } )
     return () => {
       document.getElementsByTagName('canvas').forEach(item => item.remove())
