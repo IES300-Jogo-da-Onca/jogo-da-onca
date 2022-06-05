@@ -11,10 +11,12 @@ export const Loja= () => {
     }
 
     const buySkin = (idSkinToBuy) => {
-        console.log("ID Skin: ", idSkinToBuy)
-        executaRequisicao('/comprarskin', 'POST', { idSkinToBuy })
+        executaRequisicao('/comprarskin', 'POST', { idSkin: idSkinToBuy })
         .then( res => {
-            window.alert(res)
+           if(res.data.comprouSkin){
+               alert('Compra realizada com sucesso')
+               setSkins(skins.filter(skin => skin.idSkin !== idSkinToBuy))
+           }
         })
         .catch( err => window.alert("Erro na requisição.\nContate Administrador."))
     }
