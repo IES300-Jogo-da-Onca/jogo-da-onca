@@ -2,7 +2,7 @@
 
 //validando o tamanho mínimo para o numero do cartao
 const validarNumCartao = (numCartao) => {
-    return numCartao?.toString().length >= 16;
+    return numCartao?.toString().length >= 10;
 }
 
 //validando o tamanho mínimo para o nome impresso no cartao 
