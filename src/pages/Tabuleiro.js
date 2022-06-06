@@ -23,11 +23,42 @@ let IMG_HEIGHT = 66
 let IMG_DIAMETRO = 30
 let houveCaptura = false
 let placar = 0
+let timer = 10
+let interval = null
 let BOARD_STATE = Jogo.getTabuleiroInicial()
 
 
 function mudarPlacar(){
   document.getElementById('placar').innerText=placar
+}
+function inicializaTimer(){
+  clearInterval(interval)
+  timer = 10
+  document.getElementById('timer').innerText = timer
+  interval =  setInterval(() => {
+    timer--
+    document.getElementById('timer').innerText = timer
+    if(timer == 0) clearInterval(interval)
+  },1000)
+}
+function mudarMsgTurno(){
+  let msg, corFonte
+  if(meu_turno){
+    msg = 'Sua vez' 
+    corFonte = 'blue'
+    inicializaTimer()
+    document.getElementById('timerContainer').style.display = 'inline'
+
+  } 
+  else{
+    msg = 'Aguardando o outro jogador...'
+    corFonte = 'red'
+    document.getElementById('timerContainer').style.display = 'none'
+  }
+  let p = document.getElementById('msgTurno')
+  p.classList.remove('alertaTrocaTurno')
+  p.innerText = msg
+  p.style.color = corFonte
 }
 
 function Tabuleiro(props) {
@@ -43,7 +74,6 @@ function Tabuleiro(props) {
       onca_img = p.loadImage(props.skinOnca)
       ehCachorro = props.ehCachorro
       meu_turno = ehMeuTurno(props.turnoPeca)
-      console.log(`meu_turno: ${meu_turno} turnoPeca: ${props.turnoPeca} ehCachorro: ${props.ehCachorro}` )
     }
 
     p.setup = () => {
@@ -237,12 +267,15 @@ function Tabuleiro(props) {
    const containerRef = useRef()
   useEffect(() => {
     const p5Instance = new p5(sketch, containerRef.current)
+    mudarMsgTurno()
+    
     props.socket.on('serverMoverPeca', data => {
       BOARD_STATE = data.novoTabuleiro
       meu_turno = ehMeuTurno(data.turnoPeca)
       houveCaptura = data.houveCaptura
       placar = data.placar
       mudarPlacar()
+      mudarMsgTurno()
     } )
     return () => {
       document.getElementsByTagName('canvas').forEach(item => item.remove())
@@ -250,7 +283,11 @@ function Tabuleiro(props) {
   }, [])
   return (
     <Fragment>
-      <p id="msgPeca">Jogando com {props.ehCachorro ? 'cachorro': 'onca'}</p>
+      <span id="span">Jogando com {props.ehCachorro ? 'cachorro': 'onca'}</span>
+      <br></br>
+      <p><span id="msgTurno"></span> 
+        <div id="timerContainer">Tempo restante: <span id="timer"></span> </div>
+      </p>
     <div style={{ minHeight: '600px' }} ref={containerRef}></div>
     </Fragment>
   )

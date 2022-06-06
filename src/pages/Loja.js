@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Headers } from '../components/Headers';
+import { UserContext } from '../context/UserContext';
 import { executaRequisicao } from '../services/api';
 
 export const Loja= () => {
 
     const [skins, setSkins] = useState([])
-    
+    const {userInfo, setUserInfo} = useContext(UserContext)
     const getSkinsLoja = () => {
         return executaRequisicao('/loja', 'GET')
     }
@@ -16,6 +17,7 @@ export const Loja= () => {
            if(res.data.comprouSkin){
                alert('Compra realizada com sucesso')
                setSkins(skins.filter(skin => skin.idSkin !== idSkinToBuy))
+               setUserInfo({...userInfo, moedas: res.data.moedas})
            }
         })
         .catch( err => window.alert("Erro na requisição.\nContate Administrador."))

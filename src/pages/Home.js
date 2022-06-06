@@ -1,15 +1,17 @@
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect, useRef, useContext} from 'react';
 import tabuleiro from '../assets/icons/tabuleiroProvisório.png';
 import { Headers } from '../components/Headers';
 import { Tabuleiro } from './Tabuleiro';
 import{io} from "socket.io-client"
 import { executaRequisicao } from '../services/api';
 import Table from 'react-bootstrap/Table';
+import { UserContext } from '../context/UserContext';
+
 
 export const Home= () => {
     const socket_url = process.env.REACT_APP_WS_URL
     const socket = useRef()
-
+    const {userInfo} = useContext(UserContext)
     const [sala, setSala] = useState('')
     const [salasDisponiveis, setSalasDisponiveis] = useState([])
     const [criouSala, setCriouSala] = useState(false)
@@ -26,7 +28,7 @@ export const Home= () => {
     }
     const atualizaSalasDisponiveis = async () => {
         executaRequisicao('/salasDisponiveis', 'GET')
-        .then( resp => setSalasDisponiveis(resp.data))
+        .then( resp => setSalasDisponiveis(resp.data.filter(sala => sala.id_user !== userInfo.id)))
         .catch(console.error)
     }
 
@@ -39,7 +41,7 @@ export const Home= () => {
         })
         socket.current.on('serverSalasDisponiveis', salas => {
             console.log('salas disponiveis', salas)
-            setSalasDisponiveis(salas)
+            setSalasDisponiveis(salas.filter(sala => sala.id_user !== userInfo.id))
         })
         // TODO: criar evento para sair da sala antes da partida começar
         socket.current.on('serverIniciarJogo', data => {
@@ -50,9 +52,12 @@ export const Home= () => {
                 turnoPeca: data.turnoPeca,
                 socket: socket.current
             }
-            if(data['skinCachorro']) dadosIniciais['skinCachorro'] = data['skinCachorro']
-            if(data['skinOnca']) dadosIniciais['skinOnca'] = data['skinOnca']
-            if(data['skinTabuleiro']) dadosIniciais['skinTabuleiro'] = data['skinTabuleiro']
+            if(data.skinCachorro) dadosIniciais['skinCachorro'] = data.skinCachorro
+            if(data.corPecaCachorro) dadosIniciais['corPecaCachorro'] = data.corPecaCachorro
+            if(data.skinOnca) dadosIniciais['skinOnca'] = data.skinOnca
+            if(data.corPecaOnca) dadosIniciais['corPecaOnca'] = data.corPecaOnca
+
+            // if(data['skinTabuleiro']) dadosIniciais['skinTabuleiro'] = data['skinTabuleiro']
             setDadosPartida(dadosIniciais)
             setIsPlaying(true)
         })

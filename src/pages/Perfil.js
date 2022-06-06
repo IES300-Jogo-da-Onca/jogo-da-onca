@@ -16,7 +16,8 @@ export const Perfil = () => {
     const [skinsUser, setSkinsUser] = useState([])
     const {setUserInfo} = useContext(UserContext)
     const getSkinsUsuario = () => {
-        return executaRequisicao('/skins', 'GET')
+        executaRequisicao('/skins', 'GET').then(resp => setSkinsUser(resp.data))
+        .catch(console.error)
     }
 
     const equiparSkin = (idSkin, ehCachorro, skinEquipada) => {
@@ -30,14 +31,9 @@ export const Perfil = () => {
     }
 
     useEffect(() => {
-        getSkinsUsuario().then(response => {
-            setSkinsUser(response.data)
-        })
+        getSkinsUsuario()
     }, [])
 
-    const equipar = () => {
-        
-    }
 
 
     const alteraNome = evento => {
