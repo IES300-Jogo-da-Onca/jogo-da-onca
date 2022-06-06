@@ -26,7 +26,6 @@ export const ComprarMoedas = () => {
     const [parcelas, setParcelas] = useState('');
     const [total, setTotal] = useState(''); //total da compra
     const [quantidade, setQuantidade] = useState(0); //quantidade comprada
-    //const [moedasUsuario, setMoedasUsuario] = useState(0); MOCKUP DE TESTE
     const [processando, setProcessandoPag] = useState(false); //processando pagamento
     const {userInfo, setUserInfo} = useContext(UserContext)
 
@@ -46,12 +45,10 @@ export const ComprarMoedas = () => {
         executaRequisicao('/comprarmoeda', 'POST', { quantidade })
         .then(response => {
             setTimeout(() => {
-                //setMoedasUsuario(moedasUsuario + quantidade); //MOCKUP DE TESTE soma quantidade comprada com a qtde já existente
                 setShowModal(false); //fecha popup de pagamento
                 setProcessandoPag(false); //tira o estado "processando"
                 setShowModalSucesso(true); //mostra popup de confirmação da compra
-                //setUserInfo({...userInfo, ...response.data.data})
-                localStorage.setItem("loggedUser", JSON.stringify(response.data.data))
+                setUserInfo({...userInfo, ...response.data.data})
             }, 3000)
 
         })
@@ -116,7 +113,6 @@ export const ComprarMoedas = () => {
             <Headers />
             <div className='bodyMoedas'>
                 <br></br>
-                {/* <h1>{moedasUsuario} = moedas totais usuario</h1> MOCKUP DE TESTE*/}
                 <div className='moedasContainer'>
                     {
                         moedas.map( m => {

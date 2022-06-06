@@ -44,7 +44,6 @@ export const Login = () => {
             const resultado = await executaRequisicao('/login', 'post', body);
             if (resultado?.data) {
                 setUserInfo(resultado.data.data)
-                localStorage.setItem("loggedUser", JSON.stringify(resultado.data.data))
                 navigate('home')
             }
             
