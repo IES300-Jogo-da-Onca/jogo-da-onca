@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Bloco } from '../components/BlocoSkin';
 import { Headers } from '../components/Headers';
-import skinOnca from '../assets/icons/onçaClássicaPeça.svg'
-import skinCachorro from '../assets/icons/dogClassicoPeça.svg'
 import { executaRequisicao } from '../services/api';
 import { Input } from '../components/Input';
 import { validarSenha, validarNome, validarConfirmacaoSenha } from '../utils/validadores';
+import { UserContext } from '../context/UserContext';
 
 
 
@@ -14,16 +13,25 @@ export const Perfil = () => {
     const [nomeAlterar, setNome] = useState('');
     const [senhaAlterar, setSenha] = useState('');
     const [confirmaSenha, setConfirmaSenha] = useState('');
-
     const [skinsUser, setSkinsUser] = useState([])
-
+    const {setUserInfo} = useContext(UserContext)
     const getSkinsUsuario = () => {
-        return executaRequisicao('/loja', 'GET')
+        return executaRequisicao('/skins', 'GET')
+    }
+
+    const equiparSkin = (idSkin, ehCachorro, skinEquipada) => {
+        if(skinEquipada) return
+        executaRequisicao('/equiparSkin', "POST", {idSkin, ehCachorro})
+        .then(resp =>{
+            setUserInfo(resp.data)
+            getSkinsUsuario()
+        })
+        .catch(console.error)
     }
 
     useEffect(() => {
         getSkinsUsuario().then(response => {
-            setSkinsUser(response.data.data)
+            setSkinsUser(response.data)
         })
     }, [])
 
@@ -134,51 +142,33 @@ export const Perfil = () => {
                     <div className='bloco-skins'>
                         {
                             skinsUser.map(s => {
-                                if (s.onça) {
+                                if (!s.ehCachorro) {
                                     return <Bloco
-                                        srcImg={skinOnca}
+                                        textoBtn= {s.equipada ? 'Skin Equipada' : 'Equipar'}
+                                        srcImg={s.imagemSkin}
                                         altImg={'imagem da skin'}
-                                        nomeSkin={'Nome da Skin'}
-                                    //acaoEquipar={}
+                                        nomeSkin={s.nomeSkin}
+                                        acaoEquipar={() => equiparSkin(s.id, s.ehCachorro, s.equipada)}
                                     />
                                 }
                             })
                         }
-                                <Bloco
-                                    srcImg={skinOnca}
-                                    altImg={'imagem da skin'}
-                                    nomeSkin={'Nome da Skin'}
-                                //acaoEquipar={}
-                                />
-
                    </div>
                     <h2>Cachorros</h2>
                     <div className='bloco-skins'>
                     {
                             skinsUser.map(s => {
-                                if (!s.onça) {
+                                if (s.ehCachorro) {
                                     return <Bloco
-                                        srcImg={skinCachorro}
+                                        textoBtn= {s.equipada ? 'Skin Equipada' : 'Equipar'}
+                                        srcImg={s.imagemSkin}
                                         altImg={'imagem da skin'}
-                                        nomeSkin={'Nome da Skin'}
-                                    //acaoEquipar={}
+                                        nomeSkin={s.nomeSkin}
+                                        acaoEquipar={() => equiparSkin(s.id, s.ehCachorro, s.equipada)}
                                     />
                                 }
                             })
                         }
-
-                        <Bloco
-                            srcImg={skinCachorro}
-                            altImg={'imagem da skin'}
-                            nomeSkin={'Nome da Skin'}
-                        //acaoEquipar={}
-                        />
-                        <Bloco
-                            srcImg={skinCachorro}
-                            altImg={'imagem da skin'}
-                            nomeSkin={'Nome da Skin'}
-                        //acaoEquipar={}
-                        />
                     </div>
 
                 </div>
