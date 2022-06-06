@@ -19,9 +19,9 @@ export const Home= () => {
         socket.current.emit('novaSala')
     }
 
-    const joinSala = () => {
-        socket.current.emit('joinSala', sala)
-        console.log("Entrando na sala: ", sala)
+    const joinSala = (idSala) => {
+        socket.current.emit('joinSala', idSala)
+        console.log("Entrando na sala: ", idSala)
         setSala('')
     }
     const atualizaSalasDisponiveis = async () => {
@@ -33,10 +33,6 @@ export const Home= () => {
     useEffect(() => {
         socket.current = io(socket_url, {withCredentials: true})
         atualizaSalasDisponiveis()
-        socket.current.on('serverNovaSala', data => {
-            setSala(data.idSala)
-            setCriouSala(true)
-        })
         socket.current.on('serverNovaSala', data => {
             setSala(data.idSala)
             setCriouSala(true)
@@ -82,7 +78,7 @@ export const Home= () => {
                                                 <td className="text-center align-middle">{sala.user}</td>
                                                 <td className="text-center"><button onClick={() => {
                                                     setSala(sala.id_sala)
-                                                    joinSala()
+                                                    joinSala(sala.id_sala)
                                                 }}>Jogar como {sala.peca_disponivel ? "Cachorro": "Onça"}</button></td>
                                             </tr>
                                         })
