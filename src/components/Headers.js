@@ -8,9 +8,7 @@ import { executaRequisicao } from '../services/api';
 import { UserContext } from '../context/UserContext';
 
 export const Headers = props => {
-    const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("loggedUser"))) //useContext(UserContext)
-    const [minhasMoedas, setMinhasMoedas] = useState()
-    let userName = userInfo.nome
+    const {userInfo, setUserInfo} = useContext(UserContext)
     const navigate = useNavigate()
     const location  = useLocation () 
 
@@ -18,7 +16,6 @@ export const Headers = props => {
         const newMenu = document.querySelector(`a[href='${location.pathname}'] h2`) || document.querySelector(`a[href='${location.pathname}'] p`)
         newMenu.classList.add('selected')
         setUserInfo(JSON.parse(localStorage.getItem("loggedUser")))
-        setMinhasMoedas(userInfo.moedas)
     }, [location])
 
     const logout = async () => {
@@ -54,7 +51,7 @@ export const Headers = props => {
             </div>
             <div className='headerRight'>
                 <div className='nameMoney'>
-                    <Link to='/perfil'><p id='username'>{userName}</p></Link>
+                    <Link to='/perfil'><p id='username'>{userInfo.nome}</p></Link>
                     <p id='minhasMoedas'>Moedas: ${userInfo.moedas}</p>
                 </div>
                 <div className='sair' onClick={logout}>
