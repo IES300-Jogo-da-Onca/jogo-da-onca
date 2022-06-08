@@ -41,12 +41,13 @@ function inicializaTimer(){
     if(timer == 0) clearInterval(interval)
   },1000)
 }
-function mudarMsgTurno(){
+function mudarMsgTurno(mudouTurnoPeca = true){
   let msg, corFonte
   if(meu_turno){
     msg = 'Sua vez' 
     corFonte = 'blue'
-    inicializaTimer()
+    console.log('mudouTurnoPeca ' , mudouTurnoPeca)
+    if(mudouTurnoPeca) inicializaTimer()
     document.getElementById('timerContainer').style.display = 'inline'
 
   } 
@@ -270,12 +271,13 @@ function Tabuleiro(props) {
     mudarMsgTurno()
     
     props.socket.on('serverMoverPeca', data => {
+      const meuTurnoAnterior = meu_turno
       BOARD_STATE = data.novoTabuleiro
       meu_turno = ehMeuTurno(data.turnoPeca)
       houveCaptura = data.houveCaptura
       placar = data.placar
       mudarPlacar()
-      mudarMsgTurno()
+      mudarMsgTurno(meu_turno !== meuTurnoAnterior)
     } )
     return () => {
       document.getElementsByTagName('canvas').forEach(item => item.remove())
