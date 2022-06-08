@@ -10,11 +10,12 @@ import { UserContext } from '../context/UserContext';
 
 export const Perfil = () => {
 
-    const [nomeAlterar, setNome] = useState('');
-    const [senhaAlterar, setSenha] = useState('');
+    const {userInfo, setUserInfo} = useContext(UserContext)
+    const [nomeAlterar, setNome] = useState(userInfo.nome);
+    const [senha, setSenha] = useState('');
+    const [senhaAlterar, setSenhaAlterar] = useState('');
     const [confirmaSenha, setConfirmaSenha] = useState('');
     const [skinsUser, setSkinsUser] = useState([])
-    const {setUserInfo} = useContext(UserContext)
     const getSkinsUsuario = () => {
         executaRequisicao('/skins', 'GET').then(resp => setSkinsUser(resp.data))
         .catch(console.error)
@@ -38,22 +39,25 @@ export const Perfil = () => {
 
     const alteraNome = evento => {
         evento.preventDefault();
-        executaRequisicao('/register', 'POST', {
-            nomeAlterar
-        }).then(console.log)
-            .then(setTimeout(() => {
-            }, 4000))
-            .catch(console.error)
+        executaRequisicao('/alterarDados', 'POST', {nome: nomeAlterar})
+        .then(resp => { 
+            alert(resp.data.mensagem)
+            setUserInfo({...userInfo, ...resp.data.data})
+        })
+        .catch(console.error)
+
     }
 
     const alteraSenha = evento => {
         evento.preventDefault();
-        executaRequisicao('/register', 'POST', {
-            senhaAlterar
-        }).then(console.log)
-            .then(setTimeout(() => {
-            }, 4000))
-            .catch(console.error)
+        executaRequisicao('/alterarDados', 'POST', { senha, novaSenha:senhaAlterar})
+        .then(resp => {
+            alert(resp.data.mensagem)
+            setSenha('')
+            setSenhaAlterar('')
+            setConfirmaSenha('')
+        })
+        .catch(console.error)
     }
 
 
@@ -92,8 +96,9 @@ export const Perfil = () => {
                                         inputName="senhaAtual"
                                         //inputPlaceholder="Senha Atual"
                                         setValue={setSenha}
+                                        value={senha}
                                         mensagemValidacao="Senha inválida"
-                                        exibirMensagemValidacao={senhaAlterar && !validarSenha(senhaAlterar)}
+                                        exibirMensagemValidacao={senha && !validarSenha(senha)}
 
                                     />
                                 </div>
@@ -106,7 +111,7 @@ export const Perfil = () => {
                                         inputName="senha"
                                         // inputPlaceholder="Senha"
                                         value={senhaAlterar}
-                                        setValue={setSenha}
+                                        setValue={setSenhaAlterar}
                                         mensagemValidacao="Senha inválida"
                                         exibirMensagemValidacao={senhaAlterar && !validarSenha(senhaAlterar)}
 
