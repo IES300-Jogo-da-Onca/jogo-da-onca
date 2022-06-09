@@ -46,9 +46,13 @@ Table{
 
 .optArea{
     display: flex;
-    width: 60%;
+    width: 40%;
     justify-content: center;
     align-items: center;
+}
+
+.tabuleiroArea{
+    width: 60%;
 }
 
 .body button {
@@ -66,10 +70,6 @@ Table{
     margin: 0 auto;
     //height: 50%;
     //width: 1350px;
-}
-
-.tabuleiroArea{
-    max-width: 940px;
 }
 
 .salaCriada button{

@@ -21,8 +21,8 @@ export const Headers = props => {
     const logout = async () => {
         try {
             await executaRequisicao('/logout', 'GET')
-            navigate('/')
             localStorage.clear()
+            navigate('/')
             console.log("LocalStorage: ", localStorage)
         } catch (error) {
             console.log(error)
