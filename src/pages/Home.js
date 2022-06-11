@@ -17,8 +17,9 @@ export const Home= () => {
     const [criouSala, setCriouSala] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false)
     const [dadosPartida, setDadosPartida] = useState({})
-    const criarSala = () => {
-        socket.current.emit('novaSala')
+    const criarSala = (pecaSelecionada = 1) => {
+        // pecaSelecionada 0 para onça, 1 para cachorro
+        socket.current.emit('novaSala', pecaSelecionada)
     }
 
     const joinSala = (idSala) => {
@@ -57,7 +58,7 @@ export const Home= () => {
             if(data.skinOnca) dadosIniciais['skinOnca'] = data.skinOnca
             if(data.corPecaOnca) dadosIniciais['corPecaOnca'] = data.corPecaOnca
 
-            // if(data['skinTabuleiro']) dadosIniciais['skinTabuleiro'] = data['skinTabuleiro']
+            if(data['skinTabuleiro']) dadosIniciais['skinTabuleiro'] = data['skinTabuleiro']
             setDadosPartida(dadosIniciais)
             setIsPlaying(true)
         })
@@ -90,7 +91,7 @@ export const Home= () => {
                                     }
                                 </tbody>
                             </Table>
-                            <button  onClick={criarSala}>Criar sala!</button>
+                            <button  onClick={() => {criarSala()}}>Criar sala!</button>
                         </div>
                     }
                     { criouSala && !isPlaying &&  
