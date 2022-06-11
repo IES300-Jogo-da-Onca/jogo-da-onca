@@ -21,7 +21,7 @@ export const executaRequisicao = (endpoint, metodo, body) => {
             if (error.response == undefined || error.response.status == 401){
                 localStorage.clear()
                 window.location = '/'
-                reject(null)
+                reject(error.response)
             }
         }
     })
