@@ -47,7 +47,11 @@ function mudarMsgTurno(mudouTurnoPeca = true){
     msg = 'Sua vez' 
     corFonte = 'blue'
     console.log('mudouTurnoPeca ' , mudouTurnoPeca)
-    if(mudouTurnoPeca) inicializaTimer()
+    if(mudouTurnoPeca){
+      POSSIBLE_MOVES_POINTS = []
+      inicializaTimer()
+    } 
+
     document.getElementById('timerContainer').style.display = 'inline'
 
   } 
@@ -279,6 +283,24 @@ function Tabuleiro(props) {
       mudarPlacar()
       mudarMsgTurno(meu_turno !== meuTurnoAnterior)
     } )
+
+    props.socket.on('serverFimDeJogo', data => {
+      const {pecaVencedora} = data
+      let msgFimDeJogo = 'Fim de jogo, vitória '
+      // onça ganhou
+      if(pecaVencedora == 0){
+        msgFimDeJogo+= 'da onça'
+      }
+      // cachorro ganhou
+      else{
+        msgFimDeJogo+= 'do cachorro'
+      }
+      setTimeout(() => {
+        window.alert( msgFimDeJogo )
+        window.location.href = '/'  
+      }, 500);
+
+    })
     return () => {
       document.getElementsByTagName('canvas').forEach(item => item.remove())
     }
