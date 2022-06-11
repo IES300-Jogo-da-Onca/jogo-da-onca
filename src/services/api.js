@@ -22,6 +22,8 @@ export const executaRequisicao = (endpoint, metodo, body) => {
                 localStorage.clear()
                 window.location = '/'
                 reject(error.response)
+            }else{
+                reject(error)
             }
         }
     })

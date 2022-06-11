@@ -11,15 +11,22 @@ import { UserContext } from '../context/UserContext';
 export const Home= () => {
     const socket_url = process.env.REACT_APP_WS_URL
     const socket = useRef()
+    const [pecaSelecionada, setPecaSelecionada] = useState('')
     const {userInfo} = useContext(UserContext)
     const [sala, setSala] = useState('')
     const [salasDisponiveis, setSalasDisponiveis] = useState([])
     const [criouSala, setCriouSala] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false)
     const [dadosPartida, setDadosPartida] = useState({})
-    const criarSala = (pecaSelecionada = 1) => {
+
+    const criarSala = (peca) => {
         // pecaSelecionada 0 para onça, 1 para cachorro
-        socket.current.emit('novaSala', pecaSelecionada)
+        if( peca!==0 && peca!==1 ){
+            window.alert("Selecione a peça desejada antes de criar sala!")
+        }else{
+            socket.current.emit('novaSala', peca)
+            console.log("Peça selecionada: ", peca)
+        }
     }
 
     const joinSala = (idSala) => {
@@ -31,6 +38,11 @@ export const Home= () => {
         executaRequisicao('/salasDisponiveis', 'GET')
         .then( resp => setSalasDisponiveis(resp.data.filter(sala => sala.id_user !== userInfo.id)))
         .catch(console.error)
+    }
+
+    const handleRadioChange = (e) => {
+        const { name, value } =  e.target
+        setPecaSelecionada(parseInt(value)) 
     }
 
     useEffect(() => {
@@ -82,7 +94,7 @@ export const Home= () => {
                                         salasDisponiveis.map( sala => {
                                             return <tr>
                                                 <td className="text-center align-middle">{sala.user}</td>
-                                                <td className="text-center"><button onClick={() => {
+                                                <td className='text-center'><button className="tbButton" onClick={() => {
                                                     setSala(sala.id_sala)
                                                     joinSala(sala.id_sala)
                                                 }}>Jogar como {sala.peca_disponivel ? "Cachorro": "Onça"}</button></td>
@@ -91,7 +103,13 @@ export const Home= () => {
                                     }
                                 </tbody>
                             </Table>
-                            <button  onClick={() => {criarSala()}}>Criar sala!</button>
+                            <div className='criarSala'>
+                                <div className='criarSalaRadio' >
+                                    <div><input type="radio" value={0} name="peca" id='raioOnca' onChange={handleRadioChange}/> Onça</div>
+                                    <div><input type="radio" value={1} name="peca" id='raioCachorro' onChange={handleRadioChange}/> Cachorro</div>
+                                </div>
+                                <button  onClick={() => {criarSala(pecaSelecionada)}}>Criar sala!</button>
+                            </div>
                         </div>
                     }
                     { criouSala && !isPlaying &&  
