@@ -16,8 +16,7 @@
     src: url('../assets/fonts/nomedafonte.otf') format('opentype');
 } */
 
-
-.mensagemValidacao{
+.mensagemValidacao {
     display: block;
     color: $warningColor;
     font-size: 90%;
@@ -26,18 +25,18 @@
     font-size: 11px;
 }
 
-html{
+html {
     height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     //overflow: hidden;
 }
 
-body{
+body {
     height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#root{
+#root {
     height: 100%;
     min-height: 610px;
     display: flex;
@@ -49,14 +48,52 @@ body{
     padding: 0px;
 }
 
-.container-generic{
+.container-generic {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
 }
 
+
 .header{
+    background-color: $primaryColor;
+    width: 95%;
+    
+    .navContainer{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .navigation{
+            list-style-type: none;
+        }
+
+        img{
+            width: 20%;
+            margin: 1.5%;
+        }
+
+        .mobile-menu{
+            height: 10%;
+        }
+
+        
+    }
+}
+
+.navigation-default{
+    display:none;
+    
+}
+
+.headerRight-default{
+    display: none;
+}
+
+
+
+/* .header {
     display: flex;
     background-color: $primaryColor;
     width: 100%;
@@ -65,12 +102,11 @@ body{
     justify-content: space-between;
 }
 
-.header > div{
-    display: flex;
-}
 
-.navigation{
+.navigation {
     display: flex;
+    flex-direction: column;
+    background-color: $primaryColor;
     align-items: center;
 }
 
@@ -79,7 +115,7 @@ body{
     width: 60%;
 }
 
-.navigation > ul {
+.navigation>ul {
     display: flex;
     flex-direction: row;
     list-style-type: none;
@@ -87,7 +123,7 @@ body{
     padding: 0px;
 }
 
-.navigation a h2{
+.navigation a h2 {
     color: white;
     font-size: 1.5em;
     margin: 0px;
@@ -100,7 +136,7 @@ body{
     align-items: center;
 }
 
-.navigation li a{
+.navigation li a {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -109,12 +145,12 @@ body{
 }
 
 .navigation li h2:hover,
-.navigation li h2.selected{
+.navigation li h2.selected {
     font-weight: bold;
 }
 
 .headerRight p:hover,
-.headerRight p.selected{
+.headerRight p.selected {
     font-weight: bold;
 }
 
@@ -130,7 +166,7 @@ body{
     align-self: center;
 }
 
-.headerRight p{
+.headerRight p {
     color: white;
     margin: 0px;
     font-weight: normal;
@@ -149,13 +185,13 @@ body{
 .sair {
     display: flex;
     flex-direction: column;
-    justify-content: center;   
-    margin-left: 10px; 
+    justify-content: center;
+    margin-left: 10px;
     align-items: center;
     cursor: pointer
 }
 
-.sair img{
+.sair img {
     height: 50%;
 }
 
@@ -167,7 +203,171 @@ img {
     margin: 1%;
 }
 
-canvas:not([id=defaultCanvas0]){
+canvas:not([id=defaultCanvas0]) {
     display: none;
 
+}
+ */
+
+
+@media screen and (min-width:990px) {
+
+    .mobile-menu{
+        display: none;
+    }
+
+    .mensagemValidacao {
+        display: block;
+        color: $warningColor;
+        font-size: 90%;
+        margin: 0;
+        margin-left: 10%;
+        font-size: 11px;
+    }
+
+    html {
+        height: 100%;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        //overflow: hidden;
+    }
+
+    body {
+        height: 100%;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    #root {
+        height: 100%;
+        min-height: 610px;
+        display: flex;
+        flex: 1 1 0%;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        align-items: center;
+        padding: 0px;
+    }
+
+    .container-generic {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* .header {
+        display: flex;
+        background-color: $primaryColor;
+        width: 100%;
+        height: 9.96%;
+        top: 0;
+        justify-content: space-between;
+    }
+
+    .header>div {
+        display: flex;
+    }
+
+    .navigation-default {
+        display: flex;
+        align-items: center;
+    }
+
+    .navContainer {
+        display: flex;
+        width: 60%;
+    }
+
+    .navigation-default>ul {
+        display: flex;
+        flex-direction: row;
+        list-style-type: none;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .navigation-default a h2 {
+        color: white;
+        font-size: 1.5em;
+        margin: 0px;
+        white-space: nowrap;
+    }
+
+    .navigation-default li {
+        display: flex;
+        margin-right: 20px;
+        align-items: center;
+    }
+
+    .navigation-default li a {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        padding: 10px;
+        text-decoration: none;
+    }
+
+    .navigation-default li h2:hover,
+    .navigation-default li h2.selected {
+        font-weight: bold;
+    }
+
+    .headerRight-default p:hover,
+    .headerRight-default p.selected {
+        font-weight: bold;
+    }
+
+    #minhasMoedas:hover {
+        font-weight: normal;
+    }
+
+    .headerRight-default {
+        display: flex;
+        flex-direction: row;
+        margin-right: 10px;
+        height: 60%;
+        align-self: center;
+    }
+
+    .headerRight-default p {
+        color: white;
+        margin: 0px;
+        font-weight: normal;
+    }
+
+    #username {
+        font-size: 1.2em;
+    }
+
+    .nameMoney {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .sair {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 10px;
+        align-items: center;
+        cursor: pointer
+    }
+
+    .sair img {
+        height: 50%;
+    }
+
+    .coin {
+        height: 2em;
+    }
+
+    img {
+        margin: 1%;
+    }
+
+    canvas:not([id=defaultCanvas0]) {
+        display: none;
+
+    } */
 }
