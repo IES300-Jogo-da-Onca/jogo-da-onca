@@ -5,40 +5,66 @@ h1 {
     font-weight: bold;
 }
 
-.usuario{
-    width: 98%;
+.usuario {
+    width: 96%;
     margin-top: 2.5%;
     border: solid black 3px;
     border-radius: 10px;
     padding: 2%;
+    margin: 2%;
     border-color: $darkGreenColor;
+
+    .container-botao {
+        margin: 2%;
+
+        .containerSenhas {
+            margin-top: 5%;
+        }
+
+        input {
+            margin-bottom: 1%;
+            height: 40px;
+        }
+
+        button {
+            height: 50px; //
+            margin-top: 5%; //
+        }
+    }
 }
 
-.bloco-skins {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    margin-bottom: 5%;
-}
+.container-skins {
 
-.skin {
-    display: flex;
-    flex-direction: column;
-    border: solid 1px #CCC;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
-    align-items: center;
-    margin: 10px 20px;
+    margin: 4%;
+    margin-top: 6%;
 
-    img {
-        margin: 15px;
-        width: 154px;
-        height: 154px;
+    .bloco-skins {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        margin-bottom: 5%;
+        margin-left: 15%;
     }
 
-    h4 {
-        text-align: center;
+    .skin {
+        display: flex;
+        flex-direction: column;
+        border: solid 1px #CCC;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
+        align-items: center;
+        margin: 10px 20px;
+
+        img {
+            margin: 15px;
+            width: 154px;
+            height: 154px;
+        }
+
+        h4 {
+            text-align: center;
+        }
     }
 }
 
@@ -76,6 +102,7 @@ input {
     color: $primaryColor;
     border-radius: 0%;
     margin: 3px;
+    border-radius: 6px;
     //border-top-width: 0px;
     //border-right-width: 0px;
     //border-left-width: 0px;
@@ -95,12 +122,17 @@ input {
 
 @media screen and (min-width:990px) {
 
+
     .container-perfil {
+
         /* display: flex;
         flex-direction: row;
         flex: start;
         flex-wrap: wrap;
         margin-top: 2%; */
+        .usuario {
+            margin: 0;
+        }
 
         .container-skins {
             margin-top: 3%;
@@ -117,16 +149,7 @@ input {
 
     }
 
-    .bloco-skins {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        margin-bottom: 5%;
-        flex: start;
-        align-items: none;
-        //justify-content: space-between;
-        padding: 0px;
-    }
+   
 
     .skin {
         border: solid 1px #CCC;
@@ -146,12 +169,45 @@ input {
         height: 100%;
         flex-direction: column;
         margin: 0px 100px;
+
+        .bloco-skins {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin-bottom: 5%;
+            flex: start;
+            align-items: none;
+            //justify-content: space-between;
+            padding: 0px;
+            margin-left: 0;
+        }
     }
 
-    .container-botao {
-        display: flex;
-        align-items: center;
-        margin-bottom: 40px;
+    .usuario {
+        .container-botao {
+            display: flex;
+            align-items: center;
+            margin-top: 0;
+            margin-left: 0;
+            margin-right: 0;
+            margin-bottom: 40px;
+
+            .containerSenhas {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                margin: 0;
+                margin-bottom: 1.5%;
+            }
+
+            button {
+                margin: 0px;
+                margin-top: 0%;
+                height: auto;
+                margin-left: 10px;
+            }
+        }
     }
 
     .containerNome {
@@ -160,18 +216,11 @@ input {
         margin-right: 40px
     }
 
-    .container-botao button {
+    
+    input {
         margin-left: 10px;
-    }
-
-    .containerSenhas {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    Input {
-        margin-left: 10px;
+        margin-bottom: 0;
+        margin-top: 0;
+        height: 50%;
     }
 }
