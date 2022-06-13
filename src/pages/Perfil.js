@@ -73,7 +73,7 @@ export const Perfil = () => {
                         <div className='container-botao'>
                             <div className='containerNome'>
                                 <label>Nome: </label>
-                                <Input
+                                <Input className='input-perfil'
                                     //srcImg={user}
                                     //altImg={'icone usuário'}
                                     inputType="text"
@@ -92,6 +92,7 @@ export const Perfil = () => {
                                 <div className='containerSenhas'>
                                     <label>Senha Atual: </label>
                                     <Input
+                                        className='input-perfil'
                                         inputType="password"
                                         inputName="senhaAtual"
                                         //inputPlaceholder="Senha Atual"
@@ -106,6 +107,7 @@ export const Perfil = () => {
                                 <div className='containerSenhas'>
                                     <label>Nova Senha: </label>
                                     <Input
+                                        className='input-perfil'
                                         //srcImg={cadeado}
                                         inputType="password"
                                         inputName="senha"
@@ -121,6 +123,7 @@ export const Perfil = () => {
                                 <div className='containerSenhas'>
                                     <label>Confirmar Nova Senha: </label>
                                     <Input
+                                        className='input-perfil'
                                         //srcImg={cadeado}
                                         inputType="password"
                                         inputName="senha"
