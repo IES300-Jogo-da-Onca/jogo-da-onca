@@ -2,7 +2,7 @@
 
 .container-pagamento{
 
-    width: 57%;
+    width: 100%;
 
     .container-form{
         display: flex;
@@ -72,7 +72,7 @@
 
 .pagamento-sucesso{
 
-    width: 57%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     flex: start;
@@ -126,6 +126,7 @@
                 color: $primaryColor;
                 width: 100%;
                 border-radius: 3px;
+                margin: 2%;
     
                 border-bottom: solid black 1px;
     
