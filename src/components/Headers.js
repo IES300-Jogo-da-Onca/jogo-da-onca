@@ -68,8 +68,8 @@ export const Headers = props => {
                 </div>
             </div>
             {showMenu === true && (
-                <div>
-                    <nav className='navigation'>
+                <div className='burger-wrap'>
+                    <nav className='navigation-burger'>
                         <ul>
                             <li>
                                 <Link to='/home'><h2>Tabuleiro</h2></Link>
@@ -83,9 +83,9 @@ export const Headers = props => {
                         </ul>
                     </nav>
 
-                    <div className='headerRight'>
+                    <div className='headerRight-burger'>
                         <div className='nameMoney'>
-                            <Link to='/perfil'><p id='username'>{userInfo.nome}</p></Link>
+                            <Link to='/perfil'><p id='username'>Perfil</p></Link>
                             <p id='minhasMoedas'>Moedas: ${userInfo.moedas}</p>
                         </div>
                         <div className='sair' onClick={logout}>
