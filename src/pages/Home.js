@@ -6,6 +6,9 @@ import{io} from "socket.io-client"
 import { executaRequisicao } from '../services/api';
 import Table from 'react-bootstrap/Table';
 import { UserContext } from '../context/UserContext';
+import chewSound from '../assets/panther-chew.mp3';
+import useSound from 'use-sound';
+
 
 
 export const Home= () => {
@@ -18,6 +21,8 @@ export const Home= () => {
     const [criouSala, setCriouSala] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false)
     const [dadosPartida, setDadosPartida] = useState({})
+
+
 
     const criarSala = (peca) => {
         // pecaSelecionada 0 para onça, 1 para cachorro
@@ -83,7 +88,7 @@ export const Home= () => {
                 <div className='optArea' style={{flexDirection: 'column'}}>
                     { !criouSala && !isPlaying && 
                         <div className='salaOpts'>
-                            <Table striped bordered hover responsive>
+                             <Table striped bordered hover responsive>
                                 <thead>
                                     <tr>
                                         <th className="text-center" colSpan={2}>Salas Disponíveis</th>
