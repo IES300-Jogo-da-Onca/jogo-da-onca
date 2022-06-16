@@ -1,9 +1,9 @@
 @import './config.scss';
 
-Table{
+Table {
     width: 100%;
 
-    td{
+    td {
         font-size: 2em;
         font-weight: bold;
     }
@@ -11,7 +11,7 @@ Table{
 
 .body {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     height: 90.04%;
 }
 
@@ -20,7 +20,7 @@ Table{
     height: 100%;
 }
 
-.salaOpts{
+.salaOpts {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -30,7 +30,7 @@ Table{
     //border: solid 5px;
 }
 
-.salaCriada{
+.salaCriada {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,24 +39,65 @@ Table{
     flex-wrap: wrap;
 }
 
-.optPlaying{
+.optPlaying {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    //margin-top: 5%;
+    border: solid $primaryColor 3px;
+    width: 400px;
+    height: 300px;
+    border-radius: 8px;
+    color: white;
+    padding: 8%;
+    background-color: $primaryColor;
+    margin-bottom: 15%;
+    font-size: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
+
+
+    .game-stats {
+        /* 
+        border: solid $primaryColor 3px;
+        width: 400px;
+        height: 120px;
+        border-radius: 8px;
+        color: white;
+        //padding: 8%;
+        background-color: $primaryColor;
+        margin-bottom: 15%;
+        font-size: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3); */
+
+
+        .timer {}
+
+        .turno {
+            color: $darkGreenColor;
+        }
+    }
 }
 
-.optPlaying h1{
+.optPlaying h1 {
     font-size: 100px;
 }
 
-.optArea{
+.optArea {
     display: flex;
-    width: 40%;
+    width: 100%;
     justify-content: center;
     align-items: center;
+
 }
 
-.tabuleiroArea{
+.tabuleiroArea {
     width: 60%;
 }
 
@@ -66,8 +107,8 @@ Table{
     color: white;
     border-radius: 12px;
     font-size: 25px;
-    width: 5em;
-    height: 20%;
+    //height: 30%;
+    width: 60%;
 }
 
 .criarSala {
@@ -79,7 +120,8 @@ Table{
     width: 50%;
     justify-content: center;
     align-items: center;
-    button{
+
+    button {
         width: 70%;
     }
 }
@@ -88,7 +130,8 @@ Table{
     display: flex;
     width: 100%;
     justify-content: space-around;
-    div{
+
+    div {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -96,23 +139,185 @@ Table{
     }
 }
 
-.tabuleiroArea img{
+.tabuleiroArea img {
     display: block;
     margin: 0 auto;
     //height: 50%;
     //width: 1350px;
 }
 
-.salaCriada button{
+.salaCriada button {
     font-size: 25px;
     text-align: center;
     width: 60%;
 }
 
-button.tbButton{
+button.tbButton {
     width: 60%;
 }
 
 input[type="radio"] {
     transform: scale(1.5);
+}
+
+@media screen and (min-width:800px) {
+    Table {
+        width: 100%;
+    
+        td {
+            font-size: 2em;
+            font-weight: bold;
+        }
+    }
+    
+    .body {
+        display: flex;
+        flex-direction: row;
+        height: 90.04%;
+    }
+    
+    .body img {
+        margin: 0px;
+        height: 100%;
+    }
+    
+    .salaOpts {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 70%;
+        width: 90%;
+        //border: solid 5px;
+    }
+    
+    .salaCriada {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        flex-wrap: wrap;
+    }
+    
+    .optPlaying {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        //margin-top: 5%;
+        border: solid $primaryColor 3px;
+        width: 400px;
+        height: 300px;
+        border-radius: 8px;
+        color: white;
+        padding: 8%;
+        background-color: $primaryColor;
+        margin-bottom: 15%;
+        font-size: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
+    
+    
+        .game-stats {
+            /* 
+            border: solid $primaryColor 3px;
+            width: 400px;
+            height: 120px;
+            border-radius: 8px;
+            color: white;
+            //padding: 8%;
+            background-color: $primaryColor;
+            margin-bottom: 15%;
+            font-size: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3); */
+    
+    
+            .timer {}
+    
+            .turno {
+                color: $darkGreenColor;
+            }
+        }
+    }
+    
+    .optPlaying h1 {
+        font-size: 100px;
+    }
+    
+    .optArea {
+        display: flex;
+        width: 40%;
+        justify-content: center;
+        align-items: center;
+    
+    }
+    
+    .tabuleiroArea {
+        width: 60%;
+    }
+    
+    .body button {
+        background-color: $primaryColor;
+        border-color: $primaryColor;
+        color: white;
+        border-radius: 12px;
+        font-size: 25px;
+        width: 5em;
+        height: 20%;
+    }
+    
+    .criarSala {
+        display: flex;
+        flex-direction: column;
+        padding: 0px;
+        //border: solid 5px;
+        height: 50%;
+        width: 50%;
+        justify-content: center;
+        align-items: center;
+    
+        button {
+            width: 70%;
+        }
+    }
+    
+    .criarSalaRadio {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+    
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 200%;
+        }
+    }
+    
+    .tabuleiroArea img {
+        display: block;
+        margin: 0 auto;
+        //height: 50%;
+        //width: 1350px;
+    }
+    
+    .salaCriada button {
+        font-size: 25px;
+        text-align: center;
+        width: 60%;
+    }
+    
+    button.tbButton {
+        width: 60%;
+    }
+    
+    input[type="radio"] {
+        transform: scale(1.5);
+    }
 }
