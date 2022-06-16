@@ -7,7 +7,7 @@ import { executaRequisicao } from '../services/api';
 import Table from 'react-bootstrap/Table';
 import { UserContext } from '../context/UserContext';
 import chewSound from '../assets/panther-chew.mp3';
-import useSound from 'use-sound';
+//import useSound from 'use-sound';
 
 
 
@@ -120,7 +120,11 @@ export const Home= () => {
                     { criouSala && !isPlaying &&  
                     <div className='salaCriada'>
                         <h3>Aguardando Oponente...</h3>
-                        <button>Sair da Sala de Espera</button>
+                        <button onClick={() => {
+                            socket.current.emit('disconnectSala')
+                            setCriouSala(false)
+                            console.log("Teste")
+                        }}>Sair da Sala de Espera</button>
                     </div>
                     }
                     { isPlaying &&
