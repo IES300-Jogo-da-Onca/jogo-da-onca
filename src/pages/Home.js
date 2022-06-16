@@ -135,7 +135,9 @@ export const Home= () => {
                     }
                 </div>
                 <div className='tabuleiroArea'>
-                    {!isPlaying && <img src={tabuleiro}/>}
+                {!isPlaying && <Tabuleiro preview={true} skinCachorro={userInfo.skinCachorro}
+                        skinOnca={userInfo.skinOnca} corPreview="rgba(0,0,0,0.4)"
+                    />}
                     {isPlaying && <Tabuleiro {...dadosPartida}  />           }
                 </div>
             </div>
