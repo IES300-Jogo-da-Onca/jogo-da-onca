@@ -14,7 +14,7 @@ const PONTOS_DO_TABULEIRO = {}
 let POS_PECA_TABULEIRO = {}
 let ehCachorro = false, meu_turno = true, dog_img, onca_img, fundo_img
 let CANVAS_WIDTH = 800, CANVAS_MIN_WIDTH = 400, CANVAS_MAX_WIDTH = 1200
-let CANVAS_HEIGHT = 800, CANVAS_MIN_HEIGHT = 640, CANVAS_MAX_HEIGHT = 800
+let CANVAS_HEIGHT = 600, CANVAS_MIN_HEIGHT = 640, CANVAS_MAX_HEIGHT = 800
 let MARGIN_TOP = 40, MARGIN_LEFT = 40
 let LADO_QUADRADO = 100, MIN_LADO_QUADRADO = 40, MAX_LADO_QUADRADO = 100
 let MOVE_POINT_DIAMETRO = 24
@@ -89,6 +89,11 @@ function Tabuleiro(props) {
       calculaPosicaoPontos()
       p.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
       p.background(fundo_img)
+      if(props.preview){
+        document.getElementById("timerContainer").style.display = "none"
+        document.getElementById("span").style.display = "none"
+        document.getElementById("msgTurno").style.display = "none"       
+      }
     }
 
     p.draw = () => {
@@ -100,6 +105,11 @@ function Tabuleiro(props) {
         desenharQuadrados()
         desenharDiagonais()
         desenharPecas()
+        if(props.preview){
+          p.fill(props.corPreview)
+          p.rect(0,0,CANVAS_MAX_WIDTH,CANVAS_HEIGHT)
+          p.noLoop()
+        } 
         p.stroke(`${ehCachorro ? props.corPecaCachorro : props.corPecaOnca}`)
         p.strokeWeight(MOVE_POINT_DIAMETRO)
         POSSIBLE_MOVES_POINTS.forEach(element => {
@@ -126,7 +136,7 @@ function Tabuleiro(props) {
     }
 
     p.mouseClicked = (e) => {
-      if (!meu_turno || BOARD_STATE.length === 0) return
+      if (props.preview || !meu_turno || BOARD_STATE.length === 0) return
       if (POSSIBLE_MOVES_POINTS.length === 0){ selecionarPeca()}
       else {moverPeca(e)}
     }
@@ -145,8 +155,8 @@ function Tabuleiro(props) {
 
     function calculaTamanhoElementos() {
       CANVAS_HEIGHT = Math.floor([CANVAS_MAX_HEIGHT, CANVAS_MIN_HEIGHT, p.windowHeight * 0.8].sort((a, b) => a - b)[1])
-      CANVAS_WIDTH = Math.floor([CANVAS_MAX_WIDTH, CANVAS_MIN_WIDTH, p.windowWidth * 0.8].sort((a, b) => a - b)[1])
-      LADO_QUADRADO = Math.floor([MAX_LADO_QUADRADO, MIN_LADO_QUADRADO, p.windowWidth / 6].sort((a, b) => a - b)[1])
+      CANVAS_WIDTH = Math.floor([CANVAS_MAX_WIDTH, CANVAS_MIN_WIDTH, p.windowWidth * 0.59].sort((a, b) => a - b)[1])
+      LADO_QUADRADO = Math.floor([MAX_LADO_QUADRADO, MIN_LADO_QUADRADO, CANVAS_WIDTH / 5].sort((a, b) => a - b)[1])
       MOVE_POINT_DIAMETRO = Math.floor(LADO_QUADRADO / 4)
       MARGIN_LEFT = (CANVAS_WIDTH - LADO_QUADRADO * 4) / 2
       MARGIN_TOP = (CANVAS_HEIGHT - LADO_QUADRADO * 5.5) / 2
@@ -272,8 +282,8 @@ function Tabuleiro(props) {
    const containerRef = useRef()
   useEffect(() => {
     const p5Instance = new p5(sketch, containerRef.current)
+    if (props.socket == null) return
     mudarMsgTurno()
-    
     props.socket.on('serverMoverPeca', data => {
       const meuTurnoAnterior = meu_turno
       BOARD_STATE = data.novoTabuleiro
@@ -282,6 +292,7 @@ function Tabuleiro(props) {
       placar = data.placar
       mudarPlacar()
       mudarMsgTurno(meu_turno !== meuTurnoAnterior)
+      if(!meu_turno) POSSIBLE_MOVES_POINTS.length = []
     } )
 
     props.socket.on('serverFimDeJogo', data => {
@@ -318,5 +329,5 @@ function Tabuleiro(props) {
 }
 
 Tabuleiro.defaultProps = { skinTabuleiro, skinOnca, skinCachorro, ehCachorro: true, socket: null,
-vetorTabuleiro : null, turnoPeca: 1, corPecaCachorro: 'yellow', corPecaOnca:'green' }
+vetorTabuleiro : null, turnoPeca: 1, corPecaCachorro: 'yellow', corPecaOnca:'green', preview: false }
 export { Tabuleiro }
