@@ -112,10 +112,18 @@
             align-content: center;
             justify-content: space-around;
 
-            label{
-                margin-top: 3%;
-                margin-left: 0%;
+            .parcela{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                width: 183px;
+                label{
+                    //margin-top: 3%;
+                    //margin-left: 0%;
+                }
             }
+
     
             input{
                 border-style: solid;

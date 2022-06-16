@@ -8,6 +8,7 @@
 @import './modalPagamento.scss'; // estilos do modal de pagamento
 @import './perfil.scss'; //estilos da página de perfil
 
+
 /* caso importemos uma fonte especifica
 @font-face {
     font-family: 'nome da fonte';
@@ -75,7 +76,7 @@ body {
         }
 
         .header-logo {
-            width: 20%;
+            width: 68px;
             margin: 1.5%;
         }
 
@@ -129,6 +130,10 @@ body {
             }
 
             .sair {
+
+                position: absolute;
+                bottom: 10px;
+
                 p {
                     color: white;
                     margin: 0;
@@ -136,8 +141,8 @@ body {
                 }
 
                 img {
-                    margin-top: 55%;
-                    width: 23%;
+                    margin-top: 50%;
+                    width: 60px;
                 }
             }
         }
@@ -149,6 +154,7 @@ body {
 
 
 @media screen and (min-width:800px) {
+
 
     .mobile-menu {
         display: none;
@@ -203,14 +209,18 @@ body {
         width: 100%;
         height: 9.96%;
         top: 0;
-        justify-content: space-between;
+        justify-content: start;
         .navContainer {
             display: flex;
             width: 100%;
+            justify-content: flex-start;
 
             .header-logo{
-                width: 62px;
-                margin: 0.4%;
+                //width: 62px;
+                //height: 100%;
+                height: 58px;
+                width: 58px;
+                margin: 3px;
             }
 
             .navigation-default {
@@ -234,6 +244,8 @@ body {
                 margin-right: 10px;
                 height: 60%;
                 align-self: center;
+                position: absolute;
+                right: 10px;
             }
 
             .headerRight-default p {
@@ -306,7 +318,7 @@ body {
     }
 
     .sair img {
-        height: 50%;
+        height: 25px;
     }
 
     .coin {

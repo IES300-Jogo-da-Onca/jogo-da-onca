@@ -90,9 +90,9 @@ function Tabuleiro(props) {
       p.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
       p.background(fundo_img)
       if(props.preview){
-        document.getElementById("timerContainer").style.display = "none"
-        document.getElementById("span").style.display = "none"
-        document.getElementById("msgTurno").style.display = "none"       
+        //document.getElementById("timerContainer").style.display = "none"
+        //document.getElementById("span").style.display = "none"
+        //document.getElementById("msgTurno").style.display = "none"       
       }
     }
 
@@ -318,12 +318,14 @@ function Tabuleiro(props) {
   }, [])
   return (
     <Fragment>
-      <span id="span">Jogando com {props.ehCachorro ? 'cachorro': 'onca'}</span>
+     {/*  <div className="game-stats">
+      <span id="span">Jogando com {props.ehCachorro ? 'cachorro': 'onça'}</span>
       <br></br>
       <p><span id="msgTurno"></span> 
         <div id="timerContainer">Tempo restante: <span id="timer"></span> </div>
-      </p>
+      </p> */}
     <div style={{ minHeight: '600px' }} ref={containerRef}></div>
+    {/* </div> */}
     </Fragment>
   )
 }
