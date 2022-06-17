@@ -1,0 +1,51 @@
+@import './config.scss';
+
+@media screen and (min-width:990px) {
+    .container-generic {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .container-gerenciador {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        margin: 0px 100px;
+        margin-top: 2%;
+
+        .gerenciar-sub {
+            margin-bottom: 4%;
+            padding-bottom: 3%;
+            border-bottom: 0.2em solid ;
+            border-image: linear-gradient(0.25turn, #28313B, #485461);
+            border-image-slice: 1;
+
+            h1{
+                font-size: 32px;
+                font-weight: bold;
+                margin-bottom: 2%;
+            }
+
+            Table{
+
+                .actions{
+                    text-align: center;
+                }
+
+                td {
+                    font-size: 1em;
+                    font-weight: normal;
+                    
+                    img{
+                        height: 7rem;
+                    }
+
+                    button.delete {
+                        background-color: red;
+                    }
+                }
+            }
+        }
+        
+    }
+}
