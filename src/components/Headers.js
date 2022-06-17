@@ -12,11 +12,13 @@ export const Headers = props => {
     const { userInfo, setUserInfo } = useContext(UserContext)
     const navigate = useNavigate()
     const location = useLocation()
+    const [superUser, setSuperUser] = useState(true)
 
     useEffect(() => {
         const newMenu = document.querySelector(`a[href='${location.pathname}'] h2`) || document.querySelector(`a[href='${location.pathname}'] p`)
         newMenu.classList.add('selected')
         setUserInfo(JSON.parse(localStorage.getItem("loggedUser")))
+        setSuperUser(JSON.parse(localStorage.getItem("userData")).ehSuperUser  || 0)
     }, [location])
 
     const logout = async () => {
@@ -53,6 +55,13 @@ export const Headers = props => {
                         <li>
                             <Link to='/comprarMoedas'><img className='coin' src={coinIcon} /><h2>Comprar Moedas</h2></Link>
                         </li>
+                        { superUser? 
+                            <li>
+                                <Link to='/gerenciador'><h2>Gerenciar Jogo</h2></Link>
+                            </li> 
+                        :
+                            <div></div>
+                        }
                     </ul>
                 </nav>
 

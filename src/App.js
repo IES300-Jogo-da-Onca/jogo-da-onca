@@ -10,11 +10,13 @@ import { Perfil } from "./pages/Perfil";
 import {Tabuleiro} from "./pages/Tabuleiro"
 import UserProvider from "./context/UserContext";
 import RequireAuth from './components/RequireAuth'
+import { Gerenciador } from "./pages/Gerenciador";
 
 const App = () => {
 
   useEffect(()=>{
-    //console.log("Teste: ", authenticatted)
+    //console.log("Teste: ", !!JSON.parse(localStorage.getItem('userData')).ehSuperUser)
+
   },[])
   
   return (
@@ -50,6 +52,9 @@ const App = () => {
             <RequireAuth>
               <Perfil />
             </RequireAuth>
+          }/>
+          <Route path="/gerenciador" element={
+            (localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).ehSuperUser)? <Gerenciador />: <Navigate to="/home" replace />
           }/>
           <Route path="/tabuleiro" element={<Tabuleiro />}/>
       </Routes>
