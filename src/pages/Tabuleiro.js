@@ -53,13 +53,13 @@ function mudarMsgTurno(mudouTurnoPeca = true){
       inicializaTimer()
     } 
 
-    document.getElementById('timerContainer').style.display = 'inline'
+    //document.getElementById('timerContainer').style.display = 'inline'
 
   } 
   else{
-    msg = '--'
+    msg = 'Vez do oponente'
     corFonte = 'white'
-    document.getElementById('timerContainer').style.display = 'none'
+    //document.getElementById('timerContainer').style.display = 'none'
   }
   let p = document.getElementById('msgTurno')
   p.classList.remove('alertaTrocaTurno')
