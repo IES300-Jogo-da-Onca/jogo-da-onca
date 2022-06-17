@@ -1,8 +1,8 @@
-import {useState, useEffect, useRef, useContext} from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import tabuleiro from '../assets/icons/tabuleiroProvisório.png';
 import { Headers } from '../components/Headers';
 import { Tabuleiro } from './Tabuleiro';
-import{io} from "socket.io-client"
+import { io } from "socket.io-client"
 import { executaRequisicao } from '../services/api';
 import Table from 'react-bootstrap/Table';
 import { UserContext } from '../context/UserContext';
@@ -11,11 +11,11 @@ import chewSound from '../assets/panther-chew.mp3';
 
 
 
-export const Home= () => {
+export const Home = () => {
     const socket_url = process.env.REACT_APP_WS_URL
     const socket = useRef()
     const [pecaSelecionada, setPecaSelecionada] = useState('')
-    const {userInfo} = useContext(UserContext)
+    const { userInfo } = useContext(UserContext)
     const [sala, setSala] = useState('')
     const [salasDisponiveis, setSalasDisponiveis] = useState([])
     const [criouSala, setCriouSala] = useState(false)
@@ -26,9 +26,9 @@ export const Home= () => {
 
     const criarSala = (peca) => {
         // pecaSelecionada 0 para onça, 1 para cachorro
-        if( peca!==0 && peca!==1 ){
+        if (peca !== 0 && peca !== 1) {
             window.alert("Selecione a peça desejada antes de criar sala!")
-        }else{
+        } else {
             socket.current.emit('novaSala', peca)
             console.log("Peça selecionada: ", peca)
         }
@@ -41,17 +41,17 @@ export const Home= () => {
     }
     const atualizaSalasDisponiveis = async () => {
         executaRequisicao('/salasDisponiveis', 'GET')
-        .then( resp => setSalasDisponiveis(resp.data.filter(sala => sala.id_user !== userInfo.id)))
-        .catch(console.error)
+            .then(resp => setSalasDisponiveis(resp.data.filter(sala => sala.id_user !== userInfo.id)))
+            .catch(console.error)
     }
 
     const handleRadioChange = (e) => {
-        const { name, value } =  e.target
-        setPecaSelecionada(parseInt(value)) 
+        const { name, value } = e.target
+        setPecaSelecionada(parseInt(value))
     }
 
     useEffect(() => {
-        socket.current = io(socket_url, {withCredentials: true})
+        socket.current = io(socket_url, { withCredentials: true })
         atualizaSalasDisponiveis()
         socket.current.on('serverNovaSala', data => {
             setSala(data.idSala)
@@ -70,12 +70,12 @@ export const Home= () => {
                 turnoPeca: data.turnoPeca,
                 socket: socket.current
             }
-            if(data.skinCachorro) dadosIniciais['skinCachorro'] = data.skinCachorro
-            if(data.corPecaCachorro) dadosIniciais['corPecaCachorro'] = data.corPecaCachorro
-            if(data.skinOnca) dadosIniciais['skinOnca'] = data.skinOnca
-            if(data.corPecaOnca) dadosIniciais['corPecaOnca'] = data.corPecaOnca
+            if (data.skinCachorro) dadosIniciais['skinCachorro'] = data.skinCachorro
+            if (data.corPecaCachorro) dadosIniciais['corPecaCachorro'] = data.corPecaCachorro
+            if (data.skinOnca) dadosIniciais['skinOnca'] = data.skinOnca
+            if (data.corPecaOnca) dadosIniciais['corPecaOnca'] = data.corPecaOnca
 
-            if(data['skinTabuleiro']) dadosIniciais['skinTabuleiro'] = data['skinTabuleiro']
+            if (data['skinTabuleiro']) dadosIniciais['skinTabuleiro'] = data['skinTabuleiro']
             setDadosPartida(dadosIniciais)
             setIsPlaying(true)
         })
@@ -85,10 +85,10 @@ export const Home= () => {
         <div className='container-generic'>
             <Headers />
             <div className='body'>
-                <div className='optArea' style={{flexDirection: 'column'}}>
-                    { !criouSala && !isPlaying && 
+                <div className='optArea' style={{ flexDirection: 'column' }}>
+                    {!criouSala && !isPlaying &&
                         <div className='salaOpts'>
-                             <Table striped bordered hover responsive>
+                            <Table striped bordered hover responsive>
                                 <thead>
                                     <tr>
                                         <th className="text-center" colSpan={2}>Salas Disponíveis</th>
@@ -96,13 +96,13 @@ export const Home= () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        salasDisponiveis.map( sala => {
+                                        salasDisponiveis.map(sala => {
                                             return <tr>
                                                 <td className="text-center align-middle">{sala.user}</td>
                                                 <td className='text-center'><button className="tbButton" onClick={() => {
                                                     setSala(sala.id_sala)
                                                     joinSala(sala.id_sala)
-                                                }}>Jogar como {sala.peca_disponivel ? "Cachorro": "Onça"}</button></td>
+                                                }}>Jogar como {sala.peca_disponivel ? "Cachorro" : "Onça"}</button></td>
                                             </tr>
                                         })
                                     }
@@ -110,37 +110,43 @@ export const Home= () => {
                             </Table>
                             <div className='criarSala'>
                                 <div className='criarSalaRadio' >
-                                    <div><input type="radio" value={0} name="peca" id='raioOnca' onChange={handleRadioChange}/> Onça</div>
-                                    <div><input type="radio" value={1} name="peca" id='raioCachorro' onChange={handleRadioChange}/> Cachorro</div>
+                                    <div><input type="radio" value={0} name="peca" id='raioOnca' onChange={handleRadioChange} /> Onça</div>
+                                    <div><input type="radio" value={1} name="peca" id='raioCachorro' onChange={handleRadioChange} /> Cachorro</div>
                                 </div>
-                                <button  onClick={() => {criarSala(pecaSelecionada)}}>Criar sala!</button>
+                                <button onClick={() => { criarSala(pecaSelecionada) }}>Criar sala!</button>
                             </div>
                         </div>
                     }
-                    { criouSala && !isPlaying &&  
-                    <div className='salaCriada'>
-                        <h3>Aguardando Oponente...</h3>
-                        <button onClick={() => {
-                            socket.current.emit('disconnectSala')
-                            setCriouSala(false)
-                            console.log("Teste")
-                        }}>Sair da Sala de Espera</button>
-                    </div>
-                    }
-                    { isPlaying &&
-                        <div className='optPlaying'>
-                            <h1 id="placar">0</h1>
-                            <h2>Cachorros Abatidos</h2>
+                    {criouSala && !isPlaying &&
+                        <div className='salaCriada'>
+                            <h3>Aguardando Oponente...</h3>
+                            <button onClick={() => {
+                                socket.current.emit('disconnectSala')
+                                setCriouSala(false)
+                                console.log("Teste")
+                            }}>Sair da Sala de Espera</button>
                         </div>
                     }
-                </div>
-                <div className='tabuleiroArea'>
+                    {isPlaying &&
+                        <div className='optPlaying'>
+                            <div className='game-stats'>
+                                <div className='jogador-animal'><span id="span">Jogando com {<Tabuleiro ehCachorro/> ? 'cachorro': 'onça'}</span></div>
+                                <div className="timer" id="timerContainer">Tempo restante: <span id="timer"></span></div>
+                                <div><span className="turno" id="msgTurno"></span></div>
+                            </div>
+                            <h1 id="placar">0</h1>
+                            <h2>Cachorros Abatidos</h2>              
+                        </div>
+
+                    }
+            </div>
+            <div className='tabuleiroArea'>
                 {!isPlaying && <Tabuleiro preview={true} skinCachorro={userInfo.skinCachorro}
-                        skinOnca={userInfo.skinOnca} corPreview="rgba(0,0,0,0.4)"
-                    />}
-                    {isPlaying && <Tabuleiro {...dadosPartida}  />           }
-                </div>
+                    skinOnca={userInfo.skinOnca} corPreview="rgba(0,0,0,0.4)"
+                />}
+                {isPlaying && <Tabuleiro {...dadosPartida} />}
             </div>
         </div>
+        </div >
     );
 }
