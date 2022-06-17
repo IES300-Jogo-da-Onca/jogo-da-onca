@@ -310,10 +310,10 @@ function Tabuleiro(props) {
       setTimeout(() => {
         <Modal className='msg-vitoria'>
           <Modal.Header>
-            <h2>{msgFimDeJogo}</h2>
+            <h2>Fim de Jogo!</h2>
           </Modal.Header>
           <Modal.Body>
-            <h3>Vencedor</h3>
+            <h3>Vitória {msgFimDeJogo} </h3>
           </Modal.Body>
 
         </Modal>
