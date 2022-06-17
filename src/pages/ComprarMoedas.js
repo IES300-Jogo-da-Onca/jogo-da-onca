@@ -83,28 +83,28 @@ export const ComprarMoedas = () => {
             moedaValor: '$100',
             qtdMoedas: 100,
             moedaImg: coinIcon4,
-            preçoMoeda: 100,
+            preçoMoeda: 90,
             moeda: true
         },
         {
             moedaValor: '$200',
             qtdMoedas: 200,
             moedaImg: coinIcon5,
-            preçoMoeda: 200,
+            preçoMoeda: 180,
             moeda: true
         },
         {
             moedaValor: '$500',
             qtdMoedas: 500,
             moedaImg: coinIcon6,
-            preçoMoeda: 500,
+            preçoMoeda: 450,
             moeda: true
         },
         {
             moedaValor: '$1000',
             qtdMoedas: 1000,
             moedaImg: coinIcon7,
-            preçoMoeda: 1000,
+            preçoMoeda: 800,
             moeda: true
         },
     ]

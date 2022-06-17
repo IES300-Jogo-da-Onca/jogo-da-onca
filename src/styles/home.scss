@@ -20,34 +20,29 @@ Table {
     height: 100%;
 }
 
-.salaOpts {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    height: 70%;
-    width: 90%;
-    //border: solid 5px;
-}
+
 
 .salaCriada {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    height: 100vh;
     flex-wrap: wrap;
+    position: relative;
+    top: -13%;
+
 }
 
 .optPlaying {
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     //margin-top: 5%;
     position: absolute;
-    //top: 0.8%;
-    top: 12.5%;
+    top: 0.8%;
+    //top: 12.5%;
     border: solid $darkGreenColor 3px;
     width: 60%;
     height: 70px;
@@ -61,46 +56,34 @@ Table {
     align-items: center;
     //box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
 
-    .container-placar{
+    .container-placar {
         display: flex;
         flex-direction: column;
         text-align: center;
         width: 50%;
     }
 
-    h2{
+    h2 {
         font-size: 0.9em;
-        
+
     }
-    h1{
+
+    h1 {
         font-size: 1.8em;
         margin: 0;
     }
 
 
     .game-stats {
-        /* 
-        border: solid $primaryColor 3px;
-        width: 400px;
-        height: 120px;
-        border-radius: 8px;
-        color: white;
-        //padding: 8%;
-        background-color: $primaryColor;
-        margin-bottom: 15%;
-        font-size: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3); */
+
         font-size: 0.9em;
         text-align: center;
         font-weight: bold;
         width: 50%;
         //line-height: 1.2;
 
-        .jogador-animal{
-           align-items: center;
+        .jogador-animal {
+            align-items: center;
         }
 
         .timer {
@@ -109,11 +92,11 @@ Table {
             align-items: center;
             font-size: 1.8em;
             margin-bottom: 10%;
-            
-            img{
+
+            img {
                 width: 24px;
                 margin-right: 7%;
-                margin-bottom: 7% ;
+                margin-bottom: 7%;
             }
         }
 
@@ -127,11 +110,78 @@ Table {
     //font-size: 100px;
 }
 
+
 .optArea {
     display: flex;
+    flex-direction: column;
     width: 100%;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    //margin-bottom: 30vh;
+    //margin-top: 20vh;
+
+    .salaOpts {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        height: 90vh;
+        width: 90%;
+        margin-top: 10%;
+
+        th {
+            font-size: 15px;
+        }
+
+        td {
+            font-size: 16px;
+            padding: 2%;
+        }
+
+        //border: solid 5px;
+        button {
+            width: 75%;
+            height: 70px;
+            font-size: 16px;
+            padding: 3%;
+        }
+    }
+
+    .criarSala {
+        display: flex;
+        flex-direction: column;
+        padding: 0px;
+        //border: solid 5px;
+        height: 50%;
+        width: 90%;
+        justify-content: space-around;
+        align-items: center;
+
+        button {
+            margin-top: 0%;
+            margin-bottom: 18%;
+        }
+    
+        .criarSalaRadio {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+    
+            div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 200%;
+                margin-right: 8%;
+    
+                input {
+                    margin-right: 5%;
+                }
+            }
+    
+           
+        }
+    
 
 }
 
@@ -149,33 +199,13 @@ Table {
     width: 60%;
 }
 
-.criarSala {
-    display: flex;
-    flex-direction: column;
-    padding: 0px;
-    //border: solid 5px;
-    height: 50%;
-    width: 50%;
-    justify-content: center;
-    align-items: center;
 
     button {
         width: 70%;
     }
 }
 
-.criarSalaRadio {
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
 
-    div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 200%;
-    }
-}
 
 .tabuleiroArea img {
     display: block;
@@ -187,7 +217,7 @@ Table {
 .salaCriada button {
     font-size: 25px;
     text-align: center;
-    width: 60%;
+    width: 70%;
 }
 
 button.tbButton {
@@ -201,24 +231,24 @@ input[type="radio"] {
 @media screen and (min-width:800px) {
     Table {
         width: 100%;
-    
+
         td {
             font-size: 2em;
             font-weight: bold;
         }
     }
-    
+
     .body {
         display: flex;
         flex-direction: row;
         height: 90.04%;
     }
-    
+
     .body img {
         margin: 0px;
         height: 100%;
     }
-    
+
     .salaOpts {
         display: flex;
         flex-direction: column;
@@ -228,7 +258,7 @@ input[type="radio"] {
         width: 90%;
         //border: solid 5px;
     }
-    
+
     .salaCriada {
         display: flex;
         flex-direction: column;
@@ -237,7 +267,7 @@ input[type="radio"] {
         height: 100%;
         flex-wrap: wrap;
     }
-    
+
     .optPlaying {
         display: flex;
         flex-direction: column;
@@ -257,8 +287,8 @@ input[type="radio"] {
         flex-direction: column;
         align-items: center;
         box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
-    
-    
+
+
         .game-stats {
             /* 
             border: solid $primaryColor 3px;
@@ -274,32 +304,32 @@ input[type="radio"] {
             flex-direction: column;
             align-items: center;
             box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3); */
-    
-    
+
+
             .timer {}
-    
+
             .turno {
                 color: $darkGreenColor;
             }
         }
     }
-    
+
     .optPlaying h1 {
         font-size: 100px;
     }
-    
+
     .optArea {
         display: flex;
         width: 40%;
         justify-content: center;
         align-items: center;
-    
+
     }
-    
+
     .tabuleiroArea {
         width: 60%;
     }
-    
+
     .body button {
         background-color: $primaryColor;
         border-color: $primaryColor;
@@ -309,7 +339,7 @@ input[type="radio"] {
         width: 5em;
         height: 20%;
     }
-    
+
     .criarSala {
         display: flex;
         flex-direction: column;
@@ -319,17 +349,17 @@ input[type="radio"] {
         width: 50%;
         justify-content: center;
         align-items: center;
-    
+
         button {
             width: 70%;
         }
     }
-    
+
     .criarSalaRadio {
         display: flex;
         width: 100%;
         justify-content: space-around;
-    
+
         div {
             display: flex;
             justify-content: center;
@@ -337,24 +367,24 @@ input[type="radio"] {
             font-size: 200%;
         }
     }
-    
+
     .tabuleiroArea img {
         display: block;
         margin: 0 auto;
         //height: 50%;
         //width: 1350px;
     }
-    
+
     .salaCriada button {
         font-size: 25px;
         text-align: center;
         width: 60%;
     }
-    
+
     button.tbButton {
         width: 60%;
     }
-    
+
     input[type="radio"] {
         transform: scale(1.5);
     }

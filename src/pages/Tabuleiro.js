@@ -4,6 +4,7 @@ import Jogo from '../utils/Jogo'
 import skinTabuleiro from '../assets/fundo.png';
 import skinOnca from '../assets/onca.png'
 import skinCachorro from '../assets/dog.png'
+import { Modal } from "react-bootstrap";
 
 
 const LINHAS = 5
@@ -297,7 +298,7 @@ function Tabuleiro(props) {
 
     props.socket.on('serverFimDeJogo', data => {
       const {pecaVencedora} = data
-      let msgFimDeJogo = 'Fim de jogo, vitória '
+      let msgFimDeJogo = 'Vitória '
       // onça ganhou
       if(pecaVencedora == 0){
         msgFimDeJogo+= 'da onça'
@@ -307,8 +308,17 @@ function Tabuleiro(props) {
         msgFimDeJogo+= 'do cachorro'
       }
       setTimeout(() => {
-        window.alert( msgFimDeJogo )
-        window.location.href = '/'  
+        <Modal className='msg-vitoria'>
+          <Modal.Header>
+            <h2>{msgFimDeJogo}</h2>
+          </Modal.Header>
+          <Modal.Body>
+            <h3>Vencedor</h3>
+          </Modal.Body>
+
+        </Modal>
+        //window.alert( msgFimDeJogo )
+        //window.location.href = '/'  
       }, 500);
 
     })
