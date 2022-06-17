@@ -129,7 +129,7 @@ export const Loja= () => {
                 <Modal.Header>
                     <h3>Confirmar Aquisição</h3>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className='modal-body'>
                     {onLoading ?
                         <Spinner animation="border" variant="success" />
                         : confirmedBuy ?
