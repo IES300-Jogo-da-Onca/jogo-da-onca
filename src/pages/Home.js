@@ -133,7 +133,7 @@ export const Home = () => {
                             <div className='game-stats'>
                                 <div className="timer" id="timerContainer"><img src={clockIcon}/><span id="timer"></span></div>
                                 <div><span className="turno" id="msgTurno"></span></div>
-                                <div className='jogador-animal'><span id="span">{ dadosPartida.ehCachorro ? 'Cachorro' : 'Onça'}</span></div>
+                                <div className='jogador-animal'><span id="span">Você: { dadosPartida.ehCachorro ? 'Cachorro' : 'Onça'}</span></div>
                             </div>
                             <div className='container-placar'>
                                 <h1 id="placar">0</h1>

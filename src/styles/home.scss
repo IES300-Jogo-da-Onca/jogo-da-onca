@@ -79,7 +79,7 @@ Table {
         font-size: 0.9em;
         text-align: center;
         font-weight: bold;
-        width: 50%;
+        width: 60%;
         //line-height: 1.2;
 
         .jogador-animal {
@@ -104,10 +104,6 @@ Table {
             color: $darkGreenColor;
         }
     }
-}
-
-.optPlaying h1 {
-    //font-size: 100px;
 }
 
 
@@ -161,43 +157,43 @@ Table {
             margin-top: 0%;
             margin-bottom: 18%;
         }
-    
+
         .criarSalaRadio {
             display: flex;
             width: 100%;
             justify-content: space-around;
-    
+
             div {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 font-size: 200%;
                 margin-right: 8%;
-    
+
                 input {
                     margin-right: 5%;
                 }
             }
-    
-           
+
+
         }
-    
 
-}
 
-.tabuleiroArea {
-    width: 60%;
-}
+    }
 
-.body button {
-    background-color: $primaryColor;
-    border-color: $primaryColor;
-    color: white;
-    border-radius: 12px;
-    font-size: 25px;
-    //height: 30%;
-    width: 60%;
-}
+    .tabuleiroArea {
+        width: 60%;
+    }
+
+    .body button {
+        background-color: $primaryColor;
+        border-color: $primaryColor;
+        color: white;
+        border-radius: 12px;
+        font-size: 25px;
+        //height: 30%;
+        width: 60%;
+    }
 
 
     button {
@@ -268,48 +264,65 @@ input[type="radio"] {
         flex-wrap: wrap;
     }
 
-    .optPlaying {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        //margin-top: 5%;
-        border: solid $primaryColor 3px;
-        width: 400px;
-        height: 300px;
-        border-radius: 8px;
-        color: white;
-        padding: 8%;
-        background-color: $primaryColor;
-        margin-bottom: 15%;
-        font-size: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
-
-
-        .game-stats {
-            /* 
-            border: solid $primaryColor 3px;
-            width: 400px;
-            height: 120px;
-            border-radius: 8px;
-            color: white;
-            //padding: 8%;
-            background-color: $primaryColor;
-            margin-bottom: 15%;
-            font-size: 20px;
+    .optArea {
+        .optPlaying {
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3); */
+            //margin-top: 5%;
+            border: none;
+            position: relative;
+            top: 0;
+            width: 400px;
+            height: 300px;
+            border-radius: 8px;
+            //color: white;
+            padding: 8%;
+            background-color: white;
+            margin-bottom: 15%;
+            font-size: 20px;
+            box-shadow: 0;
 
+            h2 {
+                font-size: 1.8em;
+            }
 
-            .timer {}
+            .container-placar {
+                color: #212529;
+            }
 
-            .turno {
-                color: $darkGreenColor;
+            .game-stats {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                background-color: $primaryColor;
+                border: solid $darkGreenColor 2px;
+                border-radius: 5px;
+                padding: 3%;
+                width: 320px;
+                height: 80px;
+                position: relative;
+                top: -50%;
+
+                .turno {
+                    color: $darkGreenColor;
+                }
+
+                .timer {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    font-size: 1.8em;
+                    margin-bottom: 0%;
+
+                    img {
+                        height: 20%;
+                        margin-right: 15%;
+                        margin-bottom: 0%;
+                    }
+                }
             }
         }
     }
