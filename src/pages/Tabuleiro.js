@@ -44,8 +44,8 @@ function inicializaTimer(){
 function mudarMsgTurno(mudouTurnoPeca = true){
   let msg, corFonte
   if(meu_turno){
-    msg = 'Sua vez' 
-    corFonte = 'blue'
+    msg = '' 
+    //corFonte = 'blue'
     console.log('mudouTurnoPeca ' , mudouTurnoPeca)
     if(mudouTurnoPeca){
       POSSIBLE_MOVES_POINTS = []
@@ -56,8 +56,8 @@ function mudarMsgTurno(mudouTurnoPeca = true){
 
   } 
   else{
-    msg = 'Aguardando o outro jogador...'
-    corFonte = 'red'
+    msg = '--'
+    corFonte = 'white'
     document.getElementById('timerContainer').style.display = 'none'
   }
   let p = document.getElementById('msgTurno')

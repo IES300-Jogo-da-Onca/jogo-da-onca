@@ -6,6 +6,7 @@ import { io } from "socket.io-client"
 import { executaRequisicao } from '../services/api';
 import Table from 'react-bootstrap/Table';
 import { UserContext } from '../context/UserContext';
+import clockIcon from '../assets/icons/clock-icon.png';
 import chewSound from '../assets/panther-chew.mp3';
 //import useSound from 'use-sound';
 
@@ -130,23 +131,25 @@ export const Home = () => {
                     {isPlaying &&
                         <div className='optPlaying'>
                             <div className='game-stats'>
-                                <div className='jogador-animal'><span id="span">Jogando com {<Tabuleiro ehCachorro/> ? 'cachorro': 'onça'}</span></div>
-                                <div className="timer" id="timerContainer">Tempo restante: <span id="timer"></span></div>
+                                <div className="timer" id="timerContainer"><img src={clockIcon}/><span id="timer"></span></div>
                                 <div><span className="turno" id="msgTurno"></span></div>
+                                <div className='jogador-animal'><span id="span">{ dadosPartida.ehCachorro ? 'Cachorro' : 'Onça'}</span></div>
                             </div>
-                            <h1 id="placar">0</h1>
-                            <h2>Cachorros Abatidos</h2>              
+                            <div className='container-placar'>
+                                <h1 id="placar">0</h1>
+                                <h2>Cachorros Abatidos</h2>
+                            </div>
                         </div>
 
                     }
+                </div>
+                <div className='tabuleiroArea'>
+                    {!isPlaying && <Tabuleiro preview={true} skinCachorro={userInfo.skinCachorro}
+                        skinOnca={userInfo.skinOnca} corPreview="rgba(0,0,0,0.4)"
+                    />}
+                    {isPlaying && <Tabuleiro {...dadosPartida} />}
+                </div>
             </div>
-            <div className='tabuleiroArea'>
-                {!isPlaying && <Tabuleiro preview={true} skinCachorro={userInfo.skinCachorro}
-                    skinOnca={userInfo.skinOnca} corPreview="rgba(0,0,0,0.4)"
-                />}
-                {isPlaying && <Tabuleiro {...dadosPartida} />}
-            </div>
-        </div>
         </div >
     );
 }
