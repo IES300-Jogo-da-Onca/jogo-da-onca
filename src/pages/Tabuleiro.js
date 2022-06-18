@@ -4,6 +4,7 @@ import Jogo from '../utils/Jogo'
 import skinTabuleiro from '../assets/fundo.png';
 import skinOnca from '../assets/onca.png'
 import skinCachorro from '../assets/dog.png'
+import { Modal } from "react-bootstrap";
 
 
 const LINHAS = 5
@@ -27,6 +28,11 @@ let timer = 10
 let interval = null
 let BOARD_STATE = Jogo.getTabuleiroInicial()
 
+//effeitos sonoros
+function playTimeIsOver () {
+	let ding = new Audio('../assets/timer.mp3');
+	ding.play();
+}
 
 function mudarPlacar(){
   document.getElementById('placar').innerText=placar
@@ -38,9 +44,10 @@ function inicializaTimer(){
   interval =  setInterval(() => {
     timer--
     document.getElementById('timer').innerText = timer
-    if(timer == 0) clearInterval(interval)
+    if(timer == 0) clearInterval(interval); playTimeIsOver();
   },1000)
 }
+
 function mudarMsgTurno(mudouTurnoPeca = true){
   let msg, corFonte
   if(meu_turno){
@@ -50,15 +57,16 @@ function mudarMsgTurno(mudouTurnoPeca = true){
     if(mudouTurnoPeca){
       POSSIBLE_MOVES_POINTS = []
       inicializaTimer()
+      
     } 
 
-    document.getElementById('timerContainer').style.display = 'inline'
+    //document.getElementById('timerContainer').style.display = 'inline'
 
   } 
   else{
-    msg = '--'
+    msg = 'Vez do oponente'
     corFonte = 'white'
-    document.getElementById('timerContainer').style.display = 'none'
+    //document.getElementById('timerContainer').style.display = 'none'
   }
   let p = document.getElementById('msgTurno')
   p.classList.remove('alertaTrocaTurno')
@@ -74,9 +82,9 @@ function Tabuleiro(props) {
 
 
     p.preload = () => {
-      fundo_img = p.loadImage(props.skinTabuleiro)
-      dog_img = p.loadImage(props.skinCachorro)
-      onca_img = p.loadImage(props.skinOnca)
+      fundo_img = p.loadImage(props.skinTabuleiro ? props.skinTabuleiro : skinTabuleiro )
+      dog_img = p.loadImage(props.skinCachorro ? props.skinCachorro : skinCachorro)
+      onca_img = p.loadImage(props.skinOnca ? props.skinOnca: skinOnca)
       ehCachorro = props.ehCachorro
       meu_turno = ehMeuTurno(props.turnoPeca)
     }
@@ -98,14 +106,15 @@ function Tabuleiro(props) {
 
     p.draw = () => {
       if (BOARD_STATE.length !== 0) {
-        p.strokeWeight(1)
-        p.stroke('black')
+        p.strokeWeight(3)
+        p.stroke(props.corTematica)
         p.fill('rgba(0,0,0,0)')
         p.background(fundo_img)
         desenharQuadrados()
         desenharDiagonais()
         desenharPecas()
         if(props.preview){
+          p.strokeWeight(0)
           p.fill(props.corPreview)
           p.rect(0,0,CANVAS_MAX_WIDTH,CANVAS_HEIGHT)
           p.noLoop()
@@ -154,13 +163,15 @@ function Tabuleiro(props) {
     }
 
     function calculaTamanhoElementos() {
+      let fatorLarguraTabuleiro = 0.59
+      if(p.windowWidth <= 800) fatorLarguraTabuleiro = 1
       CANVAS_HEIGHT = Math.floor([CANVAS_MAX_HEIGHT, CANVAS_MIN_HEIGHT, p.windowHeight * 0.8].sort((a, b) => a - b)[1])
-      CANVAS_WIDTH = Math.floor([CANVAS_MAX_WIDTH, CANVAS_MIN_WIDTH, p.windowWidth * 0.59].sort((a, b) => a - b)[1])
+      CANVAS_WIDTH = Math.floor([CANVAS_MAX_WIDTH, CANVAS_MIN_WIDTH, p.windowWidth *fatorLarguraTabuleiro].sort((a, b) => a - b)[1])
       LADO_QUADRADO = Math.floor([MAX_LADO_QUADRADO, MIN_LADO_QUADRADO, CANVAS_WIDTH / 5].sort((a, b) => a - b)[1])
       MOVE_POINT_DIAMETRO = Math.floor(LADO_QUADRADO / 4)
       MARGIN_LEFT = (CANVAS_WIDTH - LADO_QUADRADO * 4) / 2
       MARGIN_TOP = (CANVAS_HEIGHT - LADO_QUADRADO * 5.5) / 2
-      IMG_HEIGHT = Math.floor(LADO_QUADRADO / 1.5)
+      IMG_HEIGHT = Math.floor(LADO_QUADRADO / 1.4)
       IMG_WIDTH = IMG_HEIGHT
       IMG_DIAMETRO = IMG_HEIGHT / 2
     }
@@ -297,7 +308,7 @@ function Tabuleiro(props) {
 
     props.socket.on('serverFimDeJogo', data => {
       const {pecaVencedora} = data
-      let msgFimDeJogo = 'Fim de jogo, vitória '
+      let msgFimDeJogo = 'Vitória '
       // onça ganhou
       if(pecaVencedora == 0){
         msgFimDeJogo+= 'da onça'
@@ -307,8 +318,17 @@ function Tabuleiro(props) {
         msgFimDeJogo+= 'do cachorro'
       }
       setTimeout(() => {
-        window.alert( msgFimDeJogo )
-        window.location.href = '/'  
+        <Modal className='msg-vitoria'>
+          <Modal.Header>
+            <h2>Fim de Jogo!</h2>
+          </Modal.Header>
+          <Modal.Body>
+            <h3>Vitória {msgFimDeJogo} </h3>
+          </Modal.Body>
+
+        </Modal>
+        //window.alert( msgFimDeJogo )
+        //window.location.href = '/'  
       }, 500);
 
     })
@@ -331,5 +351,6 @@ function Tabuleiro(props) {
 }
 
 Tabuleiro.defaultProps = { skinTabuleiro, skinOnca, skinCachorro, ehCachorro: true, socket: null,
-vetorTabuleiro : null, turnoPeca: 1, corPecaCachorro: 'yellow', corPecaOnca:'green', preview: false }
+vetorTabuleiro : null, turnoPeca: 1, corPecaCachorro: 'yellow', corPecaOnca:'green', preview: false,
+corTematica: 'black' }
 export { Tabuleiro }
