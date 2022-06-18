@@ -6,8 +6,7 @@ import { BsTrash } from 'react-icons/bs'
 import {FiEdit} from 'react-icons/fi'
 import { Button, Form, Modal } from 'react-bootstrap';
 import { Input } from '../components/Input';
-import { SketchPicker } from 'react-color'
-import axios from 'axios';
+import pagIcon from '../assets/icons/pag-sucesso.png';
 
 
 export const Gerenciador= () => {
@@ -20,58 +19,65 @@ export const Gerenciador= () => {
     //-------------Controle dos Modais-----------------------------\\
     const [modalType, setModalType] = useState('') 
     const [modalHeader, setModalHeader] = useState('')
-    const [modalBody, setModalBody] = useState(<div>Teste Body</div>)
-    const [modalFooter, setModalFooter] = useState(<div>Teste Footer</div>)
     
     const [showModal, setShowModal] = useState(false); //pop up de pagamento
     const [showModalSucesso, setShowModalSucesso] = useState(false);
 
-    const [nomeTabuleiro, setNomeTabuleiro] = useState('')
-    const [corTematica, setCorTematica] = useState('')
+    const [nomeTabuleiro, setNomeTabuleiro] = useState('');
+    const [corTematica, setCorTematica] = useState('');
+    const [urlTabuleiro, setUrlTabuleiro] = useState('');
+    const [idTabuleiro, setIdTabuleiro] = useState('');
 
     useEffect(()=> {
         console.log("CorTemática: ", corTematica)
-    },[])
+        console.log("Nome: ", nomeTabuleiro)
+        console.log("URL Tab: ", urlTabuleiro)
+    },[nomeTabuleiro, corTematica, urlTabuleiro])
+
+    const delTabModal = tabToDel => {
+        console.log("Tab to Delete: ", tabToDel)
+        setCorTematica(tabToDel.corTematica)
+        setNomeTabuleiro(tabToDel.nomeTabuleiro)
+        setUrlTabuleiro(tabToDel.imagemTabuleiro)
+        setIdTabuleiro(tabToDel.id)
+        setModalType('deleteTabuleiro')
+        setModalHeader('Excluir Tabuleiro')
+        setShowModal(true)
+    }
+
+    const deleteTabuleiro = () => {
+        executaRequisicao('/removerTabuleiro','POST',{id: idTabuleiro}).then( res => {
+            console.log("Delete Response: ", res)
+            setCorTematica('')
+            setNomeTabuleiro('')
+            setUrlTabuleiro('')
+            setIdTabuleiro('')
+            setModalType('sucesso')
+            setTimeout( () => {
+                setModalType('')
+                setModalHeader('')
+                setShowModal(false)
+                getTabuleiros().then(res => {
+                    setTabuleiros(res.data)
+                })
+            }, 2000)
+        }).catch( err => console.log("Delete Error: ", err.response))
+    }
 
     const novoTabuleiro = () => {
         setModalType('novoTabuleiro')
-        setModalHeader("Cadastrar Tabuleiro")
-
-        setModalBody(
-            <div className='modalBody'>
-                <Input 
-                    inputType="text"
-                    inputName="nome-tabuleiro"
-                    inputPlaceholder="Nome do Tabuleiro"
-                    value={nomeTabuleiro}
-                    setValue={setNomeTabuleiro}
-                />
-                <input id="fileItem" type="file"/>
-
-                <p>Cor temática: </p>
-                <Form.Control
-                    type="color"
-                    id="corTematicaInput"
-                    defaultValue="#563d7c"
-                    title="Choose your color"
-                    onChange={newColor => console.log("NovaCor: ", setCorTematica(newColor.target.value))}
-                />
-            </div>
-        )
-
-        setModalFooter(
-            <div className='modalFooter'>
-                <button onClick={cadastrarTabuleiro}>Cadastrar</button>
-                <button className='cancelBtn' onClick={() => setShowModal(false)}>Cancelar</button>
-            </div>
-        )
-
+        setModalHeader('Cadastrar Tabuleiro')
         setShowModal(true)
     }
 
     const cadastrarTabuleiro = () => {
+        if(nomeTabuleiro==='' || corTematica==='' || !document.getElementById('fileItem').files[0]){
+            window.alert("Preencha todos os campos antes de cadastrar um novo tabuleiro!")
+            return
+        }
+        
         var formdata = new FormData();
-        formdata.append("file", document.getElementById('fileItem').files[0], "/C:/Users/fernandoguerriero/Downloads/Jungle.png");
+        formdata.append("arquivo", document.getElementById('fileItem').files[0], document.getElementById('fileItem').files[0].name)
 
         var requestOptions = {
         method: 'POST',
@@ -81,8 +87,38 @@ export const Gerenciador= () => {
 
         fetch("http://52.67.31.76:8000", requestOptions)
         .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+        .then(result => {
+            setUrlTabuleiro(result)
+            executaRequisicao('/inserirTabuleiro','POST',{
+                nome: nomeTabuleiro,
+                imagem: result,
+                corTematica
+            }).then(res => {
+                console.log("Response BD: ", res)
+                setCorTematica('')
+                setNomeTabuleiro('')
+                setUrlTabuleiro('')
+                setModalType('sucesso')
+                setTimeout(() => {
+                    setModalType('')
+                    setModalHeader('')
+                    setShowModal(false)
+                    getTabuleiros().then(res => {
+                        setTabuleiros(res.data)
+                    })
+                },2000)
+            })
+        })
+        .catch(error => {
+            console.log('error', error)
+            window.alert("Erro ao fazer o upload da imagem. Contate administrador do sistema.")
+            setCorTematica('')
+            setNomeTabuleiro('')
+            setUrlTabuleiro('')
+            setModalType('')
+            setModalHeader('')
+            setShowModal(false)
+        });
     }
 
     //--------------------------------------------------------------\\
@@ -113,6 +149,7 @@ export const Gerenciador= () => {
         })
         getTabuleiros().then(res => {
             setTabuleiros(res.data)
+            //console.log("Tabuleiros: ", res.data)
         })
     },[])
 
@@ -149,7 +186,7 @@ export const Gerenciador= () => {
                                         </td>
                                         <td className="align-middle">{tabuleiro.dtCriacao}</td>
                                         <td className="align-middle actions">
-                                            <button className='delete'>
+                                            <button className='delete' onClick={() => delTabModal(tabuleiro)}>
                                                 <BsTrash />
                                             </button>
                                             <button>
@@ -286,10 +323,72 @@ export const Gerenciador= () => {
                     <h3>{modalHeader}</h3>
                 </Modal.Header>
                 <Modal.Body>
-                    {modalBody}
+                    {modalType==='novoTabuleiro' ?
+                        <div className='modalBody'>
+                            <Input 
+                                inputType="text"
+                                inputName="nome-tabuleiro"
+                                inputPlaceholder="Nome do Tabuleiro"
+                                value={nomeTabuleiro}
+                                setValue={setNomeTabuleiro}
+                            />
+
+                            <input id="fileItem" type="file"/>
+
+                            <p>Cor temática: </p>
+                            <Form.Control
+                                type="color"
+                                id="corTematicaInput"
+                                defaultValue="#563d7c"
+                                title="Choose your color"
+                                onChange={newColor => {
+                                    setCorTematica(newColor.target.value)
+                                }}
+                            />
+                        </div>
+                    : modalType==='deleteTabuleiro' ?
+                        <div className='modalBody'>
+                            <p>Realmente deseja excluir o seguinte tabuleiro?</p>
+                            <label>{nomeTabuleiro}</label>
+
+                            <img src={urlTabuleiro} />
+
+                            <p>Cor temática: </p>
+                            <Form.Control
+                                type="color"
+                                id="corTematicaInput"
+                                defaultValue={corTematica}
+                                title="Choose your color"
+                                disabled={true}
+                            />
+                        </div>
+                    : modalType === 'sucesso' ?
+                        <div className='modalBody'>
+                            <h1>Operação realizada com sucesso!</h1>
+                            <img src={pagIcon}></img>
+                        </div>
+                    :
+                        <div></div>
+                    }
                 </Modal.Body>
                 <Modal.Footer>
-                    {modalFooter}
+                    {modalType==='novoTabuleiro' ?
+                        <div className='modalFooter'>
+                            <button onClick={cadastrarTabuleiro}>Cadastrar</button>
+                            <button className='cancelBtn' onClick={() => setShowModal(false)}>Cancelar</button>
+                        </div>
+                    : modalType==='deleteTabuleiro' ?
+                        <div className='modalFooter'>
+                            <button className='cancelBtn' onClick={deleteTabuleiro}>Excluir Tabuleiro</button>
+                            <button onClick={() => setShowModal(false)}>Cancelar Operação</button>
+                        </div>
+                    : modalType === 'sucesso' ?
+                    <div>
+                        <button onClick={() => setShowModal(false)}>Sair</button>
+                    </div>
+                    :
+                        <div></div>
+                    }
                 </Modal.Footer>
             </Modal>
         </div>
