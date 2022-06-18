@@ -28,6 +28,11 @@ let timer = 10
 let interval = null
 let BOARD_STATE = Jogo.getTabuleiroInicial()
 
+//effeitos sonoros
+function playTimeIsOver () {
+	let ding = new Audio('../assets/timer.mp3');
+	ding.play();
+}
 
 function mudarPlacar(){
   document.getElementById('placar').innerText=placar
@@ -39,9 +44,10 @@ function inicializaTimer(){
   interval =  setInterval(() => {
     timer--
     document.getElementById('timer').innerText = timer
-    if(timer == 0) clearInterval(interval)
+    if(timer == 0) clearInterval(interval); playTimeIsOver();
   },1000)
 }
+
 function mudarMsgTurno(mudouTurnoPeca = true){
   let msg, corFonte
   if(meu_turno){
@@ -51,6 +57,7 @@ function mudarMsgTurno(mudouTurnoPeca = true){
     if(mudouTurnoPeca){
       POSSIBLE_MOVES_POINTS = []
       inicializaTimer()
+      
     } 
 
     //document.getElementById('timerContainer').style.display = 'inline'
