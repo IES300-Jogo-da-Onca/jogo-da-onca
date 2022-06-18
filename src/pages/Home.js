@@ -81,6 +81,8 @@ export const Home = () => {
             setIsPlaying(true)
         })
         socket.current.on('error', data => console.error(data))
+
+        return () => {socket.current.emit("disconnectSala")}
     }, [])
     return (
         <div className='container-generic'>
@@ -133,7 +135,7 @@ export const Home = () => {
                             <div className='game-stats'>
                                 <div className="timer" id="timerContainer"><img src={clockIcon}/><span id="timer"></span></div>
                                 <div><span className="turno" id="msgTurno"></span></div>
-                                <div className='jogador-animal'><span id="span">{ dadosPartida.ehCachorro ? 'Cachorro' : 'Onça'}</span></div>
+                                <div className='jogador-animal'><span id="span">Você: { dadosPartida.ehCachorro ? 'Cachorro' : 'Onça'}</span></div>
                             </div>
                             <div className='container-placar'>
                                 <h1 id="placar">0</h1>
@@ -144,8 +146,9 @@ export const Home = () => {
                     }
                 </div>
                 <div className='tabuleiroArea'>
-                    {!isPlaying && <Tabuleiro preview={true} skinCachorro={userInfo.skinCachorro}
-                        skinOnca={userInfo.skinOnca} corPreview="rgba(0,0,0,0.4)"
+                    {!isPlaying &&<Tabuleiro preview={true} skinCachorro={userInfo.skinCachorro}
+                        skinOnca={userInfo.skinOnca} corPreview="rgba(0,0,0,0.4)" skinTabuleiro={userInfo.imagemTabuleiro}
+                        corTematica={userInfo.corTematica}
                     />}
                     {isPlaying && <Tabuleiro {...dadosPartida} />}
                 </div>
