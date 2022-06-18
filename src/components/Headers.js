@@ -19,6 +19,7 @@ export const Headers = props => {
         newMenu.classList.add('selected')
         setUserInfo(JSON.parse(localStorage.getItem("loggedUser")))
         setSuperUser(JSON.parse(localStorage.getItem("userData")).ehSuperUser  || 0)
+        console.log("Superuser: ", superUser)
     }, [location])
 
     const logout = async () => {
