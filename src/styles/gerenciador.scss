@@ -66,6 +66,12 @@
             margin-bottom: 1em;
         }
 
+        img{
+            height: 7rem;
+            width: 10rem;
+            object-fit: contain;
+        }
+
         #corTematicaInput{
             width: 40%;
             height: 5em;
