@@ -44,7 +44,7 @@ function inicializaTimer(){
   interval =  setInterval(() => {
     timer--
     document.getElementById('timer').innerText = timer
-    if(timer == 0) clearInterval(interval); playTimeIsOver();
+    if(timer == 0) clearInterval(interval); //playTimeIsOver();
   },1000)
 }
 
@@ -60,13 +60,13 @@ function mudarMsgTurno(mudouTurnoPeca = true){
       
     } 
 
-    //document.getElementById('timerContainer').style.display = 'inline'
+    document.getElementById('timerContainer').style.display = 'none'
 
   } 
   else{
     msg = 'Vez do oponente'
     corFonte = 'white'
-    //document.getElementById('timerContainer').style.display = 'none'
+    document.getElementById('timerContainer').style.display = 'none'
   }
   let p = document.getElementById('msgTurno')
   p.classList.remove('alertaTrocaTurno')
