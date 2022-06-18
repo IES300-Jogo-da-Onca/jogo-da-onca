@@ -81,6 +81,8 @@ export const Home = () => {
             setIsPlaying(true)
         })
         socket.current.on('error', data => console.error(data))
+
+        return () => {socket.current.emit("disconnectSala")}
     }, [])
     return (
         <div className='container-generic'>
