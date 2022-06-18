@@ -9,7 +9,7 @@ function RequireAuth({ children }) {
     useEffect(()=> {
         setUserInfo(localStorage.getItem('userData'))
         console.log("User Info: ", userInfo)
-        //console.log("User Location: ", location)
+        console.log("User Location: ", location)
     },[])
     
     if (!userInfo ) {

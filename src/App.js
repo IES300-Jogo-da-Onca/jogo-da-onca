@@ -8,15 +8,16 @@ import { Loja } from './pages/Loja';
 import { ComprarMoedas } from "./pages/ComprarMoedas";
 import { Perfil } from "./pages/Perfil";
 import {Tabuleiro} from "./pages/Tabuleiro"
-import UserProvider from "./context/UserContext";
+import UserProvider, { UserContext } from "./context/UserContext";
 import RequireAuth from './components/RequireAuth'
 import { Gerenciador } from "./pages/Gerenciador";
 
 const App = () => {
+  //const {userInfo, setUserInfo} = useContext(UserContext)
 
   useEffect(()=>{
     //console.log("Teste: ", !!JSON.parse(localStorage.getItem('userData')).ehSuperUser)
-
+    //console.log("User Info APP: ", userInfo)
   },[])
   
   return (
@@ -53,8 +54,10 @@ const App = () => {
               <Perfil />
             </RequireAuth>
           }/>
-          <Route path="/gerenciador" element={
-            (localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).ehSuperUser)? <Gerenciador />: <Navigate to="/home" replace />
+          <Route path="/gerenciador" element={ <Gerenciador />
+            // (localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).ehSuperUser) ? 
+            // <Gerenciador /> : 
+            // <Navigate to="/home" replace />
           }/>
           <Route path="/tabuleiro" element={<Tabuleiro />}/>
       </Routes>
