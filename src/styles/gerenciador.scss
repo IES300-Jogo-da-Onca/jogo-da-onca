@@ -66,10 +66,38 @@
             margin-bottom: 1em;
         }
 
+        #tipoSkin {
+            margin-bottom: .3rem;
+        }
+
         img{
             height: 7rem;
             width: 10rem;
             object-fit: contain;
+        }
+
+        p{
+            margin-top: 2rem;
+            font-weight: bold;
+        }
+
+        .tipoPeçaRadio {
+            display: flex;
+            width: 100%;
+            //justify-content: space-around;
+
+            div {
+                display: flex;
+                justify-content: center;
+                //align-items: center;
+                font-size: 120%;
+                margin-right: 8%;
+
+                input {
+                    margin-right: 5%;
+                    margin-top: 10%;
+                }
+            }
         }
 
         #corTematicaInput{
