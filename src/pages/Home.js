@@ -147,7 +147,8 @@ export const Home = () => {
                 </div>
                 <div className='tabuleiroArea'>
                     {!isPlaying &&<Tabuleiro preview={true} skinCachorro={userInfo.skinCachorro}
-                        skinOnca={userInfo.skinOnca} corPreview="rgba(0,0,0,0.4)"
+                        skinOnca={userInfo.skinOnca} corPreview="rgba(0,0,0,0.4)" skinTabuleiro={userInfo.imagemTabuleiro}
+                        corTematica={userInfo.corTematica}
                     />}
                     {isPlaying && <Tabuleiro {...dadosPartida} />}
                 </div>
