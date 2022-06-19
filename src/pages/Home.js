@@ -8,6 +8,7 @@ import Table from 'react-bootstrap/Table';
 import { UserContext } from '../context/UserContext';
 import clockIcon from '../assets/icons/clock-icon.png';
 import chewSound from '../assets/panther-chew.mp3';
+import { Modal } from 'react-bootstrap';
 //import useSound from 'use-sound';
 
 
@@ -22,8 +23,11 @@ export const Home = () => {
     const [criouSala, setCriouSala] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false)
     const [dadosPartida, setDadosPartida] = useState({})
+    const [showModalWin, setShowModalWin] = useState(false)
 
-
+    const fimDeJogo = () => {
+        setShowModalWin(true)
+    }
 
     const criarSala = (peca) => {
         // pecaSelecionada 0 para onça, 1 para cachorro
@@ -153,6 +157,14 @@ export const Home = () => {
                     {isPlaying && <Tabuleiro {...dadosPartida} />}
                 </div>
             </div>
+            <Modal show={showModalWin} onHide={() => setShowModalWin(false)}>
+                <Modal.Header>
+                    <h2>Fim de Jogo!</h2>
+                </Modal.Header>
+                <Modal.Body>
+                    {/* <h3>{nomeVencedor} venceu</h3> */}
+                </Modal.Body>
+            </Modal>
         </div >
     );
 }
