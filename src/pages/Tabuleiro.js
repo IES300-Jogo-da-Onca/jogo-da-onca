@@ -308,7 +308,7 @@ function Tabuleiro(props) {
 
     props.socket.on('serverFimDeJogo', data => {
       const {pecaVencedora} = data
-      let msgFimDeJogo = 'Vitória '
+      let msgFimDeJogo = ' venceu'
       // onça ganhou
       if(pecaVencedora == 0){
         msgFimDeJogo+= 'da onça'
@@ -318,17 +318,8 @@ function Tabuleiro(props) {
         msgFimDeJogo+= 'do cachorro'
       }
       setTimeout(() => {
-        <Modal className='msg-vitoria'>
-          <Modal.Header>
-            <h2>Fim de Jogo!</h2>
-          </Modal.Header>
-          <Modal.Body>
-            <h3>Vitória {msgFimDeJogo} </h3>
-          </Modal.Body>
-
-        </Modal>
-        //window.alert( msgFimDeJogo )
-        //window.location.href = '/'  
+        window.alert(msgFimDeJogo )
+        window.location.href = '/'  
       }, 500);
 
     })
