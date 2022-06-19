@@ -58,6 +58,26 @@
         flex-direction: column;
         justify-content: space-around;
 
+        .vigSeason{
+            display: flex;
+            flex-direction: row;
+
+            .seasonDate{ 
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+        }
+
+        .dropDown {
+            margin-bottom: 2%;
+        }
+
+        #selectPrior ,#selectValor {
+            width: 40%;
+            margin-top: 7%;
+        }
+
         Input {
             margin-bottom: 1em;
         }
