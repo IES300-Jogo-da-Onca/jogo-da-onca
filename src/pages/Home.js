@@ -19,16 +19,21 @@ export const Home = () => {
     const [pecaSelecionada, setPecaSelecionada] = useState('')
     const { userInfo } = useContext(UserContext)
     const [sala, setSala] = useState('')
+    const [nomeVencedor, setNomeVencedor] = useState('')
     const [salasDisponiveis, setSalasDisponiveis] = useState([])
     const [criouSala, setCriouSala] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false)
     const [dadosPartida, setDadosPartida] = useState({})
     const [showModalWin, setShowModalWin] = useState(false)
 
-    const fimDeJogo = () => {
+    const fimDeJogo = (data) => {
+        setNomeVencedor(data.nomeVencedor)
         setShowModalWin(true)
     }
-
+    const hideModalFimJogo = () =>{
+        setShowModalWin(false)
+        setTimeout(()=> {window.location.href = '/'}, 500)
+    }
     const criarSala = (peca) => {
         // pecaSelecionada 0 para onça, 1 para cachorro
         if (peca !== 0 && peca !== 1) {
@@ -150,20 +155,21 @@ export const Home = () => {
                     }
                 </div>
                 <div className='tabuleiroArea'>
-                    {!isPlaying &&<Tabuleiro preview={true} skinCachorro={userInfo.skinCachorro}
-                        skinOnca={userInfo.skinOnca} corPreview="rgba(0,0,0,0.4)" skinTabuleiro={userInfo.imagemTabuleiro}
-                        corTematica={userInfo.corTematica}
-                    />}
-                    {isPlaying && <Tabuleiro {...dadosPartida} />}
+                    {!isPlaying &&<img src={tabuleiro} style={{width: '99%', height:'auto', marginTop: '16px', 
+                    minWidth: '500px', maxWidth:'1000px'}}/>}
+                    {isPlaying && <Tabuleiro {...dadosPartida} fimDeJogo={fimDeJogo} />}
                 </div>
             </div>
-            <Modal show={showModalWin} onHide={() => setShowModalWin(false)}>
+            <Modal show={showModalWin} onHide={hideModalFimJogo}>
                 <Modal.Header>
                     <h2>Fim de Jogo!</h2>
                 </Modal.Header>
                 <Modal.Body>
-                    {/* <h3>{nomeVencedor} venceu</h3> */}
+                    <h3>{nomeVencedor} venceu</h3>
                 </Modal.Body>
+                <Modal.Footer>
+                    <button className="btn-fechar" variant="secondary" onClick={hideModalFimJogo}>OK</button>
+                </Modal.Footer>
             </Modal>
         </div >
     );
