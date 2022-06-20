@@ -307,22 +307,8 @@ function Tabuleiro(props) {
     } )
 
     props.socket.on('serverFimDeJogo', data => {
-      const {pecaVencedora} = data
-      let msgFimDeJogo = ' venceu'
-      // onça ganhou
-      if(pecaVencedora == 0){
-        msgFimDeJogo+= 'da onça'
-      }
-      // cachorro ganhou
-      else{
-        msgFimDeJogo+= 'do cachorro'
-      }
-      setTimeout(() => {
-        window.alert(msgFimDeJogo )
-        window.location.href = '/'  
-      }, 500);
-
-    })
+      props.fimDeJogo(data)
+      });
     return () => {
       document.getElementsByTagName('canvas').forEach(item => item.remove())
     }
