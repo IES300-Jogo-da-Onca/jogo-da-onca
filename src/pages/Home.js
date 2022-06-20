@@ -155,8 +155,7 @@ export const Home = () => {
                     }
                 </div>
                 <div className='tabuleiroArea'>
-                    {!isPlaying &&<img src={tabuleiro} style={{width: '99%', height:'auto', marginTop: '16px', 
-                    minWidth: '500px', maxWidth:'1000px'}}/>}
+                    {!isPlaying &&<img src={tabuleiro}/>}
                     {isPlaying && <Tabuleiro {...dadosPartida} fimDeJogo={fimDeJogo} />}
                 </div>
             </div>
