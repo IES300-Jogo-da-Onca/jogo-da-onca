@@ -871,9 +871,9 @@ export const Gerenciador= () => {
                             <tr>
                                 <th>ID</th>
                                 <th>Nome</th>
-                                <th>Imágem</th>
+                                <th>Imagem</th>
                                 <th>Cor Temática</th>
-                                <th>Data deCriação</th>
+                                <th>Data de Criação</th>
                                 <th className='actions'>Ações</th>
                             </tr>
                         </thead>

@@ -87,7 +87,7 @@ export const Home = () => {
             if (data.corPecaCachorro) dadosIniciais['corPecaCachorro'] = data.corPecaCachorro
             if (data.skinOnca) dadosIniciais['skinOnca'] = data.skinOnca
             if (data.corPecaOnca) dadosIniciais['corPecaOnca'] = data.corPecaOnca
-
+            if (data.corTematica) dadosIniciais['corTematica'] = data.corTematica
             if (data['skinTabuleiro']) dadosIniciais['skinTabuleiro'] = data['skinTabuleiro']
             setDadosPartida(dadosIniciais)
             setIsPlaying(true)
@@ -138,7 +138,6 @@ export const Home = () => {
                             <button onClick={() => {
                                 socket.current.emit('disconnectSala')
                                 setCriouSala(false)
-                                console.log("Teste")
                             }}>Sair da Sala de Espera</button>
                         </div>
                     }
