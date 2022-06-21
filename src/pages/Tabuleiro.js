@@ -51,6 +51,11 @@ function inicializaTimer(){
   },1000)
 }
 
+function zerarTimer() {
+  clearInterval(interval)
+  document.getElementById('timer').innerText = '0'
+}
+
 function mudarMsgTurno(mudouTurnoPeca = true){
   let msg, corFonte
   if(meu_turno){
@@ -62,14 +67,11 @@ function mudarMsgTurno(mudouTurnoPeca = true){
       inicializaTimer()
       
     } 
-
-    //document.getElementById('msgTurno').style.display = 'none'
-
   } 
   else{
     msg = 'Vez do oponente'
     corFonte = 'white'
-    //document.getElementById('timerContainer').style.display = 'none'
+    zerarTimer()
   }
   let p = document.getElementById('msgTurno')
   p.classList.remove('alertaTrocaTurno')
@@ -302,10 +304,10 @@ function Tabuleiro(props) {
     props.socket.on('serverMoverPeca', data => {
       const meuTurnoAnterior = meu_turno
       BOARD_STATE = data.novoTabuleiro
-      if(data.timer !== true && !houveCaptura) pecaMov.play()
-      if(houveCaptura) oncaEating.play()
-      meu_turno = ehMeuTurno(data.turnoPeca)
       houveCaptura = data.houveCaptura
+      if(!data.timer && !data.emitirSomOnca) pecaMov.play()
+      if(data.emitirSomOnca)  oncaEating.play()
+      meu_turno = ehMeuTurno(data.turnoPeca)
       placar = data.placar
       mudarPlacar()
       mudarMsgTurno(meu_turno !== meuTurnoAnterior)
