@@ -142,7 +142,7 @@ export const Home = () => {
                     {isPlaying &&
                         <div className='optPlaying'>
                             <div className='game-stats'>
-                                <div className="timer" id="timerContainer"><img src={clockIcon}/><span id="timer"></span></div>
+                                <div className="timerDiv" id="timerContainer"><img id='imgTimer' src={clockIcon}/><span id="timer" style={{display: 'inline'}}></span></div>
                                 <div><span className="turno" id="msgTurno"></span></div>
                                 <div className='jogador-animal'><span id="span">Você: { dadosPartida.ehCachorro ? 'Cachorro' : 'Onça'}</span></div>
                             </div>

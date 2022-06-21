@@ -40,18 +40,18 @@ function mudarPlacar(){
 function inicializaTimer(){
   clearInterval(interval)
   timer = 10
-  document.getElementById('timer').innerText = timer
+  document.getElementById('timer').innerText=timer
   interval =  setInterval(() => {
     timer--
-    document.getElementById('timer').innerText = timer
-    if(timer == 0) clearInterval(interval); //playTimeIsOver();
+    document.getElementById('timer').innerText=timer
+    if(timer == 0) clearInterval(interval); 
   },1000)
 }
 
 function mudarMsgTurno(mudouTurnoPeca = true){
   let msg, corFonte
   if(meu_turno){
-    msg = '' 
+    msg = 'Sua vez' 
     //corFonte = 'blue'
     console.log('mudouTurnoPeca ' , mudouTurnoPeca)
     if(mudouTurnoPeca){
@@ -60,13 +60,13 @@ function mudarMsgTurno(mudouTurnoPeca = true){
       
     } 
 
-    document.getElementById('timerContainer').style.display = 'none'
+    //document.getElementById('msgTurno').style.display = 'none'
 
   } 
   else{
     msg = 'Vez do oponente'
     corFonte = 'white'
-    document.getElementById('timerContainer').style.display = 'none'
+    //document.getElementById('timerContainer').style.display = 'none'
   }
   let p = document.getElementById('msgTurno')
   p.classList.remove('alertaTrocaTurno')

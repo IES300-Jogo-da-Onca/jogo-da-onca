@@ -76,7 +76,7 @@ Table {
 
     .game-stats {
 
-        font-size: 0.9em;
+        font-size: 0.8em;
         text-align: center;
         font-weight: bold;
         width: 60%;
@@ -84,24 +84,29 @@ Table {
 
         .jogador-animal {
             align-items: center;
+            font-size: 0.9em;
         }
 
-        .timer {
-            display: flex;
-            flex-direction: row;
+        .timerDiv {
+            //display: flex;
+            //flex-direction: row;
             align-items: center;
-            font-size: 1.8em;
-            margin-bottom: 10%;
+            justify-items: center;
+            font-size: 1.5em;
+            margin-left: 10%;
+            //margin-bottom: 10%;
 
             img {
-                width: 24px;
+                width: 20px;
                 margin-right: 7%;
-                margin-bottom: 7%;
+                margin-bottom: 4%;
             }
         }
 
         .turno {
-            color: $darkGreenColor;
+            //color: $darkGreenColor;
+            padding: 0;
+            font-size: 0.9em;
         }
     }
 }
@@ -290,6 +295,13 @@ input[type="radio"] {
 
             .container-placar {
                 color: #212529;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                width: 100%;
+                justify-content: center;
+                border-top: solid $yellowColor 5px;
+                border-bottom: solid $yellowColor 5px;
             }
 
             .game-stats {
@@ -301,27 +313,34 @@ input[type="radio"] {
                 border: solid $darkGreenColor 2px;
                 border-radius: 5px;
                 padding: 3%;
-                width: 320px;
+                width: 400px;
                 height: 80px;
                 position: relative;
                 top: -50%;
 
-                .turno {
-                    color: $darkGreenColor;
+                .jogador-animal{
+                    font-size: 18px;
                 }
 
-                .timer {
+                .turno {
+                    //color: $darkGreenColor;
+                    font-size: 18px;
+                }
+
+                .timerDiv {
                     display: flex;
                     flex-direction: row;
                     align-items: center;
                     font-size: 1.8em;
                     margin-bottom: 0%;
+                    margin-left: 0%;
 
                     img {
                         height: 20%;
                         margin-right: 15%;
                         margin-bottom: 0%;
                     }
+
                 }
             }
         }
