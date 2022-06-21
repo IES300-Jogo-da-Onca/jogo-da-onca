@@ -11,6 +11,7 @@ import coinIcon5 from '../assets/icons/coin5.png';
 import coinIcon6 from '../assets/icons/coin6.png';
 import coinIcon7 from '../assets/icons/coin7.png';
 import pagIcon from '../assets/icons/pag-sucesso.png';
+import coin from '../assets/coin.mp3';
 import { validarCvv, validarnomeCartao, validarNumCartao, validarParc } from '../utils/validarCompraMoedas';
 import { UserContext } from '../context/UserContext';
 
@@ -28,6 +29,8 @@ export const ComprarMoedas = () => {
     const [quantidade, setQuantidade] = useState(0); //quantidade comprada
     const [processando, setProcessandoPag] = useState(false); //processando pagamento
     const { userInfo, setUserInfo } = useContext(UserContext)
+
+    var coinSound = new Audio(coin) //efeito sonoro moedas
 
     //valida informações do cartão
     const validarFormulario = () => {
@@ -48,6 +51,7 @@ export const ComprarMoedas = () => {
                     setShowModal(false); //fecha popup de pagamento
                     setProcessandoPag(false); //tira o estado "processando"
                     setShowModalSucesso(true); //mostra popup de confirmação da compra
+                    coinSound.play()
                     setUserInfo({ ...userInfo, ...response.data.data })
                 }, 3000)
 

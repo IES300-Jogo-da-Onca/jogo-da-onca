@@ -4,6 +4,9 @@ import Jogo from '../utils/Jogo'
 import skinTabuleiro from '../assets/fundo.png';
 import skinOnca from '../assets/onca.png'
 import skinCachorro from '../assets/dog.png'
+import pantherChew from '../assets/panther-chew.mp3';
+import timerBell from '../assets/bell.wav';
+import pieceMove from '../assets/peca-efeito.mp3';
 import { Modal } from "react-bootstrap";
 
 
@@ -28,16 +31,16 @@ let timer = 10
 let interval = null
 let BOARD_STATE = Jogo.getTabuleiroInicial()
 
-//effeitos sonoros
-function playTimeIsOver () {
-	let ding = new Audio('../assets/timer.mp3');
-	ding.play();
-}
+var oncaEating = new Audio(pantherChew) //efeito sonoro onça comendo
+var timerSound = new Audio(timerBell) //efeito sonoro turno
+var pecaMov = new Audio(pieceMove) //efeito sonoro peca movendo
 
 function mudarPlacar(){
   document.getElementById('placar').innerText=placar
+
 }
 function inicializaTimer(){
+  //timerSound.play()
   clearInterval(interval)
   timer = 10
   document.getElementById('timer').innerText=timer
@@ -147,7 +150,7 @@ function Tabuleiro(props) {
     p.mouseClicked = (e) => {
       if (props.preview || !meu_turno || BOARD_STATE.length === 0) return
       if (POSSIBLE_MOVES_POINTS.length === 0){ selecionarPeca()}
-      else {moverPeca(e)}
+      else {moverPeca(e); pecaMov.play()}
     }
 
     function configurarPartidaOnline(){
@@ -313,6 +316,10 @@ function Tabuleiro(props) {
       document.getElementsByTagName('canvas').forEach(item => item.remove())
     }
   }, [])
+
+  if (houveCaptura){
+    oncaEating.play()
+  }
   return (
     <Fragment>
      {/*  <div className="game-stats">
