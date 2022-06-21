@@ -7,7 +7,7 @@ import { executaRequisicao } from '../services/api';
 import Table from 'react-bootstrap/Table';
 import { UserContext } from '../context/UserContext';
 import clockIcon from '../assets/icons/clock-icon.png';
-import chewSound from '../assets/panther-chew.mp3';
+import winnerSound from '../assets/VictoryFanfare.mp3';
 import { Modal } from 'react-bootstrap';
 //import useSound from 'use-sound';
 
@@ -26,9 +26,12 @@ export const Home = () => {
     const [dadosPartida, setDadosPartida] = useState({})
     const [showModalWin, setShowModalWin] = useState(false)
 
+    var winSound = new Audio(winnerSound) //efeito sonoro vitória
+
     const fimDeJogo = (data) => {
         setNomeVencedor(data.nomeVencedor)
         setShowModalWin(true)
+        winSound.play()
     }
     const hideModalFimJogo = () =>{
         setShowModalWin(false)
