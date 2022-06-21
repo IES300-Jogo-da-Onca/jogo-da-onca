@@ -27,7 +27,7 @@ let IMG_HEIGHT = 66
 let IMG_DIAMETRO = 30
 let houveCaptura = false
 let placar = 0
-let timer = 10
+let timer = 20
 let interval = null
 let BOARD_STATE = Jogo.getTabuleiroInicial()
 
@@ -42,7 +42,7 @@ function mudarPlacar(){
 function inicializaTimer(){
   //timerSound.play()
   clearInterval(interval)
-  timer = 10
+  timer = 20
   document.getElementById('timer').innerText=timer
   interval =  setInterval(() => {
     timer--
