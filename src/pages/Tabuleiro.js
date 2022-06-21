@@ -150,7 +150,7 @@ function Tabuleiro(props) {
     p.mouseClicked = (e) => {
       if (props.preview || !meu_turno || BOARD_STATE.length === 0) return
       if (POSSIBLE_MOVES_POINTS.length === 0){ selecionarPeca()}
-      else {moverPeca(e); pecaMov.play()}
+      else {moverPeca(e);}
     }
 
     function configurarPartidaOnline(){
@@ -279,6 +279,7 @@ function Tabuleiro(props) {
           }
           else{
             props.socket.emit('moverPeca', { x,y,old_x,old_y  })
+
           }
           return true
        
@@ -301,6 +302,8 @@ function Tabuleiro(props) {
     props.socket.on('serverMoverPeca', data => {
       const meuTurnoAnterior = meu_turno
       BOARD_STATE = data.novoTabuleiro
+      if(data.timer !== true && !houveCaptura) pecaMov.play()
+      if(houveCaptura) oncaEating.play()
       meu_turno = ehMeuTurno(data.turnoPeca)
       houveCaptura = data.houveCaptura
       placar = data.placar
@@ -317,9 +320,7 @@ function Tabuleiro(props) {
     }
   }, [])
 
-  if (houveCaptura){
-    oncaEating.play()
-  }
+
   return (
     <Fragment>
      {/*  <div className="game-stats">
