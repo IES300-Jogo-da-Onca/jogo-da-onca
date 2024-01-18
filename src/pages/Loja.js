@@ -15,12 +15,6 @@ export const Loja= () => {
     const [confirmedBuy, setConfirmedBuy] = useState(false);
     const [onLoading, setOnLoading] = useState(false)
     const {userInfo, setUserInfo} = useContext(UserContext)
-
-    const getSkinsUsuario = () => {
-        return executaRequisicao('/skins', 'GET')
-            .catch(console.error)
-    }
-
     const getSkinsLoja = () => {
         return executaRequisicao('/loja', 'GET')
     }
@@ -61,11 +55,8 @@ export const Loja= () => {
     }
     
     useEffect(() => {
-        getSkinsUsuario().then( skinsUser => {
-            getSkinsLoja().then( response => {
-                const allSkinsLoja = response.data.data
-                setSkins(allSkinsLoja.filter( skin => skinsUser.data.every(uSkin => uSkin.id !== skin.idSkin)))
-            })
+        getSkinsLoja().then( response => {
+            setSkins(response.data.data)
         })
     },[])
 
