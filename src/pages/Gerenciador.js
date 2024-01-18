@@ -93,10 +93,10 @@ export const Gerenciador= () => {
             return
         }
         
-        var formdata = new FormData();
+        let formdata = new FormData();
         formdata.append("arquivo", document.getElementById('fileItem').files[0], document.getElementById('fileItem').files[0].name)
 
-        var requestOptions = {
+        let requestOptions = {
         method: 'POST',
         body: formdata,
         redirect: 'follow'
@@ -196,10 +196,10 @@ export const Gerenciador= () => {
 
     const saveTabEdit = () => {
         if(editingImage){
-            var formdata = new FormData();
+            let formdata = new FormData();
             formdata.append("arquivo", document.getElementById('fileItem').files[0], document.getElementById('fileItem').files[0].name)
 
-            var requestOptions = {
+            let requestOptions = {
             method: 'POST',
             body: formdata,
             redirect: 'follow'
@@ -228,7 +228,6 @@ export const Gerenciador= () => {
                             setTabuleiros(res.data)
                         })
                     },2000)
-                    return
                 })
             })
             .catch(error => {
@@ -240,7 +239,6 @@ export const Gerenciador= () => {
                 setModalType('')
                 setModalHeader('')
                 setShowModal(false)
-                return
             });
         }
         
@@ -289,10 +287,10 @@ export const Gerenciador= () => {
             return
         }
         
-        var formdata = new FormData();
+        let formdata = new FormData();
         formdata.append("arquivo", document.getElementById('fileItem').files[0], document.getElementById('fileItem').files[0].name)
 
-        var requestOptions = {
+        let requestOptions = {
         method: 'POST',
         body: formdata,
         redirect: 'follow'
@@ -343,7 +341,7 @@ export const Gerenciador= () => {
         setNomeModal(skinToDel.nomeSkin)
         setUrlModal(skinToDel.imagemSkin)
         setIdModal(skinToDel.id)
-        setTipoModal(skinToDel.tipoPeca?"Cachorro":"Onça")
+        setTipoModal(skinToDel.tipoPeca?1:0)
         setModalType('deleteSkin')
         setModalHeader('Excluir Skin')
         setShowModal(true)
@@ -390,24 +388,24 @@ export const Gerenciador= () => {
         setNomeModal(skinToEdit.nomeSkin)
         setUrlModal(skinToEdit.imagemSkin)
         setIdModal(skinToEdit.id)
-        setTipoModal(skinToEdit.tipoPeca?"Cachorro":"Onça")
+        setTipoModal(skinToEdit.tipoPeca?1:0)
         setModalType('editSkin')
         setModalHeader('Edição de Skin')
         setShowModal(true)
         console.log("Tipo Skin: ", tipoModal)
-        if(tipoModal===0){
+        if(tipoModal === 0){
             document.getElementById('radioOnca').setAttribute("checked", "checked")
-        }else if(tipoModal===1){
+        }else if(tipoModal === 1){
             document.getElementById('radioCachorro').setAttribute("checked", "checked")
         }
     }
 
     const saveSkinEdit = () => {
         if(editingImage){
-            var formdata = new FormData();
+            let formdata = new FormData();
             formdata.append("arquivo", document.getElementById('fileItem').files[0], document.getElementById('fileItem').files[0].name)
 
-            var requestOptions = {
+            let requestOptions = {
             method: 'POST',
             body: formdata,
             redirect: 'follow'
@@ -440,7 +438,6 @@ export const Gerenciador= () => {
                             setSkins(res.data)
                         })
                     }, 2000)
-                    return
                 })
             })
             .catch(error => {
@@ -455,7 +452,6 @@ export const Gerenciador= () => {
                 setModalHeader('')
                 setShowModal(false)
                 setEditingImage(false)
-                return
             });
         }
         
@@ -880,10 +876,10 @@ export const Gerenciador= () => {
                         <tbody>
                             {
                                 tabuleiros.map(tabuleiro => {
-                                    return <tr>
+                                    return <tr key={tabuleiro.id}>
                                         <td className="align-middle">{tabuleiro.id}</td>
                                         <td className="align-middle">{tabuleiro.nomeTabuleiro}</td>
-                                        <td className="align-middle"><img src={tabuleiro.imagemTabuleiro}/></td>
+                                        <td className="align-middle"><img src={tabuleiro.imagemTabuleiro} alt="Tabuleiro"/></td>
                                         <td className="align-middle">
                                             <div style={{
                                                 background: `${tabuleiro.corTematica}`,
@@ -922,10 +918,10 @@ export const Gerenciador= () => {
                         <tbody>
                             {
                                 skins.map(skin => {
-                                    return <tr>
+                                    return <tr key={skin.id}>
                                         <td className="align-middle">{skin.id}</td>
                                         <td className="align-middle">{skin.nomeSkin}</td>
-                                        <td className="align-middle"><img src={skin.imagemSkin}></img></td>
+                                        <td className="align-middle"><img src={skin.imagemSkin} alt="Skin"></img></td>
                                         <td className="align-middle">
                                             {/* <SketchPicker 
                                                 color={skin.corTematica}
@@ -968,7 +964,7 @@ export const Gerenciador= () => {
                         <tbody>
                             {
                                 seasons.map( season => {
-                                    return <tr>
+                                    return <tr key={season.id}>
                                         <td>{season.id}</td>
                                         <td>{season.nomeSeason}</td>
                                         <td>{season.inicioVigencia}</td>
@@ -1005,7 +1001,7 @@ export const Gerenciador= () => {
                         <tbody>
                             {
                                 vendas.map(venda => {
-                                    return <tr>
+                                    return <tr key={venda.id}>
                                         <td>{venda.id}</td>
                                         <td>{venda.valor}</td>
                                         <td>{venda.idSeason}</td>
@@ -1052,330 +1048,380 @@ export const Gerenciador= () => {
                                 }}
                             />
                         </div>
-                    : modalType==='deleteTabuleiro' ?
-                        <div className='modalBody'>
-                            <p>Realmente deseja excluir o seguinte tabuleiro?</p>
-                            <label>{nomeTabuleiro}</label>
-
-                            <img src={urlTabuleiro} />
-
-                            <p>Cor temática: </p>
-                            <Form.Control
-                                type="color"
-                                id="corTematicaInput"
-                                defaultValue={corTematica}
-                                title="Choose your color"
-                                disabled={true}
-                            />
-                        </div>
-                    : modalType === 'editTabuleiro' ?
-                        <div className='modalBody'>
-                            <Input 
-                                inputType="text"
-                                inputName="nome-tabuleiro"
-                                inputPlaceholder="Nome do Tabuleiro"
-                                value={nomeTabuleiro}
-                                setValue={setNomeTabuleiro}
-                            />
-                            {editingImage? <div></div> :<img src={urlTabuleiro} />} 
-                            <input id="fileItem" type="file" onChange={e => {
-                                setEditingImage(true)
-                            }}/>
-
-                            <p>Cor temática: </p>
-                            <Form.Control
-                                type="color"
-                                id="corTematicaInput"
-                                defaultValue={corTematica}
-                                title="Choose your color"
-                                onChange={newColor => {
-                                    setCorTematica(newColor.target.value)
-                                }}
-                            />
-                        </div>
-                    : modalType === 'newSkin' ?
-                        <div className='modalBody'>
-                            <Input 
-                                inputType="text"
-                                inputName="nome-skin"
-                                inputPlaceholder="Nome da Skin"
-                                value={nomeModal}
-                                setValue={setNomeModal}
-                            />
-
-                            <input id="fileItem" type="file"/>
-
-                            <p>Selecione o tipo da peça:</p>
-                            <div className='tipoPeçaRadio' >
-                                <div><input type="radio" value={0} name="peca" id='raioOnca' onChange={e => setTipoModal(e.target.value)} /> Onça</div>
-                                <div><input type="radio" value={1} name="peca" id='raioCachorro' onChange={e => setTipoModal(e.target.value)} /> Cachorro</div>
+                    : <>
+                        {
+                            modalType==='deleteTabuleiro' ?
+                            <div className='modalBody'>
+                                <p>Realmente deseja excluir o seguinte tabuleiro?</p>
+                                <label>{nomeTabuleiro}</label>
+    
+                                <img src={urlTabuleiro} alt="Tabuleiro a excluir"/>
+    
+                                <p>Cor temática: </p>
+                                <Form.Control
+                                    type="color"
+                                    id="corTematicaInput"
+                                    defaultValue={corTematica}
+                                    title="Choose your color"
+                                    disabled={true}
+                                />
                             </div>
-
-                            <p>Cor temática: </p>
-                            <Form.Control
-                                type="color"
-                                id="corTematicaInput"
-                                defaultValue="#c3c3c3"
-                                title="Choose your color"
-                                onChange={newColor => {
-                                    setCorTematica(newColor.target.value)
-                                }}
-                            />
-                        </div>
-                    : modalType === 'deleteSkin' ?
-                        <div className='modalBody'>
-                            <p>{nomeModal}</p>
-
-                            <img src={urlModal} />
-
-                            <p>Tipo da peça:</p>
-                            <span>{tipoModal}</span>
-
-                            <p>Cor temática: </p>
-                            <Form.Control
-                                type="color"
-                                id="corTematicaInput"
-                                defaultValue={corTematica}
-                                title="Choose your color"
-                                disabled={true}
-                            />
-                        </div>
-                    : modalType === 'editSkin' ?
-                        <div className='modalBody'>
-                            <Input 
-                                inputType="text"
-                                inputName="nome-skin"
-                                inputPlaceholder="Nome da Skin"
-                                value={nomeModal}
-                                setValue={setNomeModal}
-                            />
-                            {editingImage? <div></div> :<img src={urlModal} />} 
-                            <input id="fileItem" type="file" onChange={e => {
-                                setEditingImage(true)
-                            }}/>
-
-                            <p>Tipo da peça:</p>
-                            <div className='tipoPeçaRadio' >
-                                <div><input type="radio" value={0} name="peca" id='radioOnca' onChange={e => setTipoModal(e.target.value)} /> Onça</div>
-                                <div><input type="radio" value={1} name="peca" id='radioCachorro' onChange={e => setTipoModal(e.target.value)} /> Cachorro</div>
-                            </div>
-
-                            <p>Cor temática: </p>
-                            <Form.Control
-                                type="color"
-                                id="corTematicaInput"
-                                defaultValue={corTematica}
-                                title="Choose your color"
-                                onChange={newColor => {
-                                    setCorTematica(newColor.target.value)
-                                }}
-                            />
-                        </div>
-                    : modalType === 'newSeason' ?
-                        <div className='modalBody'>
-                            <Input 
-                                inputType="text"
-                                inputName="nome-season"
-                                inputPlaceholder="Nome da Season"
-                                value={nomeModal}
-                                setValue={setNomeModal}
-                            />
-
-                            <div className='vigSeason'>
-                                <div className='seasonDate'>
-                                    <p>Inicio da Season: </p>
+                        : <>
+                            {
+                                modalType === 'editTabuleiro' ?
+                                <div className='modalBody'>
+                                    <Input 
+                                        inputType="text"
+                                        inputName="nome-tabuleiro"
+                                        inputPlaceholder="Nome do Tabuleiro"
+                                        value={nomeTabuleiro}
+                                        setValue={setNomeTabuleiro}
+                                    />
+                                    {editingImage? <div></div> :<img src={urlTabuleiro} alt="Tabuleiro"/>} 
+                                    <input id="fileItem" type="file" onChange={e => {
+                                        setEditingImage(true)
+                                    }}/>
+        
+                                    <p>Cor temática: </p>
                                     <Form.Control
-                                        type="date"
+                                        type="color"
                                         id="corTematicaInput"
-                                        defaultValue="2021-12-31"
+                                        defaultValue={corTematica}
                                         title="Choose your color"
                                         onChange={newColor => {
-                                            setInicioVigModal(newColor.target.value)
+                                            setCorTematica(newColor.target.value)
                                         }}
                                     />
                                 </div>
-
-                                <div className='seasonDate'>
-                                    <p>Fim da Season: </p>
-                                    <Form.Control
-                                        type="date"
-                                        id="corTematicaInput"
-                                        defaultValue="2021-12-31"
-                                        title="Choose your color"
-                                        onChange={newColor => {
-                                            setFimVigModal(newColor.target.value)
-                                        }}
-                                    />
-                                </div>
-                            </div>
+                            : <>
+                                {
+                                    modalType === 'newSkin' ?
+                                    <div className='modalBody'>
+                                        <Input 
+                                            inputType="text"
+                                            inputName="nome-skin"
+                                            inputPlaceholder="Nome da Skin"
+                                            value={nomeModal}
+                                            setValue={setNomeModal}
+                                        />
+            
+                                        <input id="fileItem" type="file"/>
+            
+                                        <p>Selecione o tipo da peça:</p>
+                                        <div className='tipoPeçaRadio' >
+                                            <div><input type="radio" value={0} name="peca" id='raioOnca' onChange={e => setTipoModal(e.target.value)} /> Onça</div>
+                                            <div><input type="radio" value={1} name="peca" id='raioCachorro' onChange={e => setTipoModal(e.target.value)} /> Cachorro</div>
+                                        </div>
+            
+                                        <p>Cor temática: </p>
+                                        <Form.Control
+                                            type="color"
+                                            id="corTematicaInput"
+                                            defaultValue="#c3c3c3"
+                                            title="Choose your color"
+                                            onChange={newColor => {
+                                                setCorTematica(newColor.target.value)
+                                            }}
+                                        />
+                                    </div>
+                                : <>
+                                    {
+                                        modalType === 'deleteSkin' ?
+                                        <div className='modalBody'>
+                                            <p>{nomeModal}</p>
+                
+                                            <img src={urlModal} alt="Skin to delete"/>
+                
+                                            <p>Tipo da peça:</p>
+                                            <span>{tipoModal}</span>
+                
+                                            <p>Cor temática: </p>
+                                            <Form.Control
+                                                type="color"
+                                                id="corTematicaInput"
+                                                defaultValue={corTematica}
+                                                title="Choose your color"
+                                                disabled={true}
+                                            />
+                                        </div>
+                                    : <>
+                                        {
+                                            modalType === 'editSkin' ?
+                                            <div className='modalBody'>
+                                                <Input 
+                                                    inputType="text"
+                                                    inputName="nome-skin"
+                                                    inputPlaceholder="Nome da Skin"
+                                                    value={nomeModal}
+                                                    setValue={setNomeModal}
+                                                />
+                                                {editingImage? <div></div> :<img src={urlModal} alt="Skin"/>} 
+                                                <input id="fileItem" type="file" onChange={e => {
+                                                    setEditingImage(true)
+                                                }}/>
+                    
+                                                <p>Tipo da peça:</p>
+                                                <div className='tipoPeçaRadio' >
+                                                    <div><input type="radio" value={0} name="peca" id='radioOnca' onChange={e => setTipoModal(e.target.value)} checked={tipoModal===0} /> Onça </div>
+                                                    <div><input type="radio" value={1} name="peca" id='radioCachorro' onChange={e => setTipoModal(e.target.value)} checked={tipoModal===1} /> Cachorro</div>
+                                                </div>
+                    
+                                                <p>Cor temática: </p>
+                                                <Form.Control
+                                                    type="color"
+                                                    id="corTematicaInput"
+                                                    defaultValue={corTematica}
+                                                    title="Choose your color"
+                                                    onChange={newColor => {
+                                                        setCorTematica(newColor.target.value)
+                                                    }}
+                                                />
+                                            </div>
+                                        : <>
+                                            {
+                                                modalType === 'newSeason' ?
+                                                <div className='modalBody'>
+                                                    <Input 
+                                                        inputType="text"
+                                                        inputName="nome-season"
+                                                        inputPlaceholder="Nome da Season"
+                                                        value={nomeModal}
+                                                        setValue={setNomeModal}
+                                                    />
+                        
+                                                    <div className='vigSeason'>
+                                                        <div className='seasonDate'>
+                                                            <p>Inicio da Season: </p>
+                                                            <Form.Control
+                                                                type="date"
+                                                                id="corTematicaInput"
+                                                                defaultValue="2021-12-31"
+                                                                title="Choose your color"
+                                                                onChange={newColor => {
+                                                                    setInicioVigModal(newColor.target.value)
+                                                                }}
+                                                            />
+                                                        </div>
+                        
+                                                        <div className='seasonDate'>
+                                                            <p>Fim da Season: </p>
+                                                            <Form.Control
+                                                                type="date"
+                                                                id="corTematicaInput"
+                                                                defaultValue="2021-12-31"
+                                                                title="Choose your color"
+                                                                onChange={newColor => {
+                                                                    setFimVigModal(newColor.target.value)
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <Dropdown onSelect={e => setIdTabuleiro(e)}>
+                                                        <Dropdown.Toggle letiant="success" id="dropdown-basic">
+                                                            Selecione o Tabuleiro
+                                                        </Dropdown.Toggle>
+                        
+                                                        <Dropdown.Menu>
+                                                            {tabuleiros.map(tab => {
+                                                                return <Dropdown.Item eventKey={tab.id} key={tab.id}>{tab.nomeTabuleiro}</Dropdown.Item>
+                                                            })}
+                                                        </Dropdown.Menu>
+                                                    </Dropdown>
+                        
+                                                    <input type='number' id='selectPrior' placeholder='Selecione Prioridade' onChange={e => setPriorModal(e.target.value)}/>
+                                                </div>
+                                            : <>
+                                                {
+                                                    modalType === 'deleteSeason' ?
+                                                    <div className='modalBody'>
+                                                        <p>{nomeModal}</p>
                             
-                            <Dropdown onSelect={e => setIdTabuleiro(e)}>
-                                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                    Selecione o Tabuleiro
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                    {tabuleiros.map(tab => {
-                                        return <Dropdown.Item eventKey={tab.id}>{tab.nomeTabuleiro}</Dropdown.Item>
-                                    })}
-                                </Dropdown.Menu>
-                            </Dropdown>
-
-                            <input type='number' id='selectPrior' placeholder='Selecione Prioridade' onChange={e => setPriorModal(e.target.value)}/>
-                        </div>
-                    : modalType === 'deleteSeason' ?
-                        <div className='modalBody'>
-                            <p>{nomeModal}</p>
-
-                            <div className='vigSeason'>
-                                <div className='seasonDate'>
-                                    <p>Inicio da Season: </p>
-                                    <Form.Control
-                                        type="date"
-                                        id="corTematicaInput"
-                                        defaultValue={inicioVigModal}
-                                        title="Choose your color"
-                                        disabled={true}
-                                    />
-                                </div>
-
-                                <div className='seasonDate'>
-                                    <p>Fim da Season: </p>
-                                    <Form.Control
-                                        type="date"
-                                        id="corTematicaInput"
-                                        defaultValue={fimVigModal}
-                                        title="Choose your color"
-                                        disabled={true}
-                                    />
-                                </div>
-                            </div>
+                                                        <div className='vigSeason'>
+                                                            <div className='seasonDate'>
+                                                                <p>Inicio da Season: </p>
+                                                                <Form.Control
+                                                                    type="date"
+                                                                    id="corTematicaInput"
+                                                                    defaultValue={inicioVigModal}
+                                                                    title="Choose your color"
+                                                                    disabled={true}
+                                                                />
+                                                            </div>
                             
-                            <p>Id Tabuleiro: {idTabuleiro}</p>
-
-                            <p>Prioridade: {priorModal}</p>
-                        </div>
-                    : modalType === 'editSeason' ?
-                        <div className='modalBody'>
-                            <Input 
-                                inputType="text"
-                                inputName="nome-season"
-                                inputPlaceholder="Nome da Season"
-                                value={nomeModal}
-                                setValue={setNomeModal}
-                            />
-
-                            <div className='vigSeason'>
-                                <div className='seasonDate'>
-                                    <p>Inicio da Season: </p>
-                                    <Form.Control
-                                        type="date"
-                                        id="corTematicaInput"
-                                        defaultValue={inicioVigModal}
-                                        title="Choose your color"
-                                        onChange={newColor => {
-                                            setInicioVigModal(newColor.target.value)
-                                        }}
-                                    />
-                                </div>
-
-                                <div className='seasonDate'>
-                                    <p>Fim da Season: </p>
-                                    <Form.Control
-                                        type="date"
-                                        id="corTematicaInput"
-                                        defaultValue={fimVigModal}
-                                        title="Choose your color"
-                                        onChange={newColor => {
-                                            setFimVigModal(newColor.target.value)
-                                        }}
-                                    />
-                                </div>
-                            </div>
+                                                            <div className='seasonDate'>
+                                                                <p>Fim da Season: </p>
+                                                                <Form.Control
+                                                                    type="date"
+                                                                    id="corTematicaInput"
+                                                                    defaultValue={fimVigModal}
+                                                                    title="Choose your color"
+                                                                    disabled={true}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <p>Id Tabuleiro: {idTabuleiro}</p>
                             
-                            <Dropdown onSelect={e => setIdTabuleiro(e)}>
-                                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                    Selecione o Tabuleiro
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                    {tabuleiros.map(tab => {
-                                        return <Dropdown.Item eventKey={tab.id}>{tab.nomeTabuleiro}</Dropdown.Item>
-                                    })}
-                                </Dropdown.Menu>
-                            </Dropdown>
-
-                            <input type='number' id='selectPrior' placeholder='Selecione Prioridade' value={priorModal} onChange={e => setPriorModal(e.target.value)}/>
-                        </div>
-                    : modalType === 'newVenda' ?
-                        <div className='modalBody'>
-                            <input type='number' id='selectValor' placeholder='Selecione Valor' onChange={e => setValorModal(e.target.value)}/>
-                            
-                            <Dropdown className='dropDown' onSelect={e => setIdSeason(e)}>
-                                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                    Selecione a Season
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                    {seasons.map(season => {
-                                        return <Dropdown.Item eventKey={season.id}>{season.nomeSeason}</Dropdown.Item>
-                                    })}
-                                </Dropdown.Menu>
-                            </Dropdown>
-
-                            <Dropdown className='dropDown' onSelect={e => setIdSkin(e)}>
-                                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                    Selecione a Skin
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                    {skins.map(skin => {
-                                        return <Dropdown.Item eventKey={skin.id}>{skin.nomeSkin}</Dropdown.Item>
-                                    })}
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </div>
-                    : modalType === 'deleteVenda' ?
-                        <div className='modalBody'>
-                            <h3>Valor: <p>{valorModal}</p></h3>
-                            <h3>ID Season: <p>{idSeason}</p></h3>
-                            <h3>ID Skin: <p>{idSkin}</p></h3>
-                        </div>
-                    : modalType === 'editVenda' ?
-                        <div className='modalBody'>
-                            <input type='number' id='selectValor' placeholder='Selecione Valor' value={valorModal} onChange={e => setValorModal(e.target.value)}/>
-                            
-                            <Dropdown className='dropDown' onSelect={e => setIdSeason(e)}>
-                                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                    Selecione a Season
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                    {seasons.map(season => {
-                                        return <Dropdown.Item eventKey={season.id}>{season.nomeSeason}</Dropdown.Item>
-                                    })}
-                                </Dropdown.Menu>
-                            </Dropdown>
-
-                            <Dropdown className='dropDown' onSelect={e => setIdSkin(e)}>
-                                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                    Selecione a Skin
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                    {skins.map(skin => {
-                                        return <Dropdown.Item eventKey={skin.id}>{skin.nomeSkin}</Dropdown.Item>
-                                    })}
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </div>
-                    : modalType === 'sucesso' ?
-                        <div className='modalBody'>
-                            <h1>Operação realizada com sucesso!</h1>
-                            <img src={pagIcon}></img>
-                        </div>
-                    :   
-                        <div></div>
+                                                        <p>Prioridade: {priorModal}</p>
+                                                    </div>
+                                                : <>
+                                                    {
+                                                        modalType === 'editSeason' ?
+                                                        <div className='modalBody'>
+                                                            <Input 
+                                                                inputType="text"
+                                                                inputName="nome-season"
+                                                                inputPlaceholder="Nome da Season"
+                                                                value={nomeModal}
+                                                                setValue={setNomeModal}
+                                                            />
+                                
+                                                            <div className='vigSeason'>
+                                                                <div className='seasonDate'>
+                                                                    <p>Inicio da Season: </p>
+                                                                    <Form.Control
+                                                                        type="date"
+                                                                        id="corTematicaInput"
+                                                                        defaultValue={inicioVigModal}
+                                                                        title="Choose your color"
+                                                                        onChange={newColor => {
+                                                                            setInicioVigModal(newColor.target.value)
+                                                                        }}
+                                                                    />
+                                                                </div>
+                                
+                                                                <div className='seasonDate'>
+                                                                    <p>Fim da Season: </p>
+                                                                    <Form.Control
+                                                                        type="date"
+                                                                        id="corTematicaInput"
+                                                                        defaultValue={fimVigModal}
+                                                                        title="Choose your color"
+                                                                        onChange={newColor => {
+                                                                            setFimVigModal(newColor.target.value)
+                                                                        }}
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <Dropdown onSelect={e => setIdTabuleiro(e)}>
+                                                                <Dropdown.Toggle letiant="success" id="dropdown-basic">
+                                                                    Selecione o Tabuleiro
+                                                                </Dropdown.Toggle>
+                                
+                                                                <Dropdown.Menu>
+                                                                    {tabuleiros.map(tab => {
+                                                                        return <Dropdown.Item eventKey={tab.id} key={tab.id}>{tab.nomeTabuleiro}</Dropdown.Item>
+                                                                    })}
+                                                                </Dropdown.Menu>
+                                                            </Dropdown>
+                                
+                                                            <input type='number' id='selectPrior' placeholder='Selecione Prioridade' value={priorModal} onChange={e => setPriorModal(e.target.value)}/>
+                                                        </div>
+                                                    : <>
+                                                        {
+                                                            modalType === 'newVenda' ?
+                                                            <div className='modalBody'>
+                                                                <input type='number' id='selectValor' placeholder='Selecione Valor' onChange={e => setValorModal(e.target.value)}/>
+                                                                
+                                                                <Dropdown className='dropDown' onSelect={e => setIdSeason(e)}>
+                                                                    <Dropdown.Toggle letiant="success" id="dropdown-basic">
+                                                                        Selecione a Season
+                                                                    </Dropdown.Toggle>
+                                    
+                                                                    <Dropdown.Menu>
+                                                                        {seasons.map(season => {
+                                                                            return <Dropdown.Item eventKey={season.id} key={season.id}>{season.nomeSeason}</Dropdown.Item>
+                                                                        })}
+                                                                    </Dropdown.Menu>
+                                                                </Dropdown>
+                                    
+                                                                <Dropdown className='dropDown' onSelect={e => setIdSkin(e)}>
+                                                                    <Dropdown.Toggle letiant="success" id="dropdown-basic">
+                                                                        Selecione a Skin
+                                                                    </Dropdown.Toggle>
+                                    
+                                                                    <Dropdown.Menu>
+                                                                        {skins.map(skin => {
+                                                                            return <Dropdown.Item eventKey={skin.id} key={skin.id}>{skin.nomeSkin}</Dropdown.Item>
+                                                                        })}
+                                                                    </Dropdown.Menu>
+                                                                </Dropdown>
+                                                            </div>
+                                                        : <>
+                                                            {
+                                                                modalType === 'deleteVenda' ?
+                                                                <div className='modalBody'>
+                                                                    <h3>Valor: <p>{valorModal}</p></h3>
+                                                                    <h3>ID Season: <p>{idSeason}</p></h3>
+                                                                    <h3>ID Skin: <p>{idSkin}</p></h3>
+                                                                </div>
+                                                            : <>
+                                                                {
+                                                                    modalType === 'editVenda' ?
+                                                                    <div className='modalBody'>
+                                                                        <input type='number' id='selectValor' placeholder='Selecione Valor' value={valorModal} onChange={e => setValorModal(e.target.value)}/>
+                                                                        
+                                                                        <Dropdown className='dropDown' onSelect={e => setIdSeason(e)}>
+                                                                            <Dropdown.Toggle letiant="success" id="dropdown-basic">
+                                                                                Selecione a Season
+                                                                            </Dropdown.Toggle>
+                                            
+                                                                            <Dropdown.Menu>
+                                                                                {seasons.map(season => {
+                                                                                    return <Dropdown.Item eventKey={season.id} key={season.id}>{season.nomeSeason}</Dropdown.Item>
+                                                                                })}
+                                                                            </Dropdown.Menu>
+                                                                        </Dropdown>
+                                            
+                                                                        <Dropdown className='dropDown' onSelect={e => setIdSkin(e)}>
+                                                                            <Dropdown.Toggle letiant="success" id="dropdown-basic">
+                                                                                Selecione a Skin
+                                                                            </Dropdown.Toggle>
+                                            
+                                                                            <Dropdown.Menu>
+                                                                                {skins.map(skin => {
+                                                                                    return <Dropdown.Item eventKey={skin.id} key={skin.id}>{skin.nomeSkin}</Dropdown.Item>
+                                                                                })}
+                                                                            </Dropdown.Menu>
+                                                                        </Dropdown>
+                                                                    </div>
+                                                                : <>
+                                                                    {
+                                                                        modalType === 'sucesso' ?
+                                                                        <div className='modalBody'>
+                                                                            <h1>Operação realizada com sucesso!</h1>
+                                                                            <img src={pagIcon} alt="Sucesso!"></img>
+                                                                        </div>
+                                                                    :   
+                                                                        <div className='modalBody'>
+                                                                            <h1>Falha na Operação! Tente mais tarde.</h1>
+                                                                        </div>
+                                                                    }
+                                                                </>
+                                                                }
+                                                            </>
+                                                            }
+                                                        </>
+                                                        }
+                                                    </>
+                                                    }
+                                                </>
+                                                }
+                                            </>
+                                            }
+                                        </>
+                                        }
+                                    </>
+                                    }
+                                </>
+                                }
+                            </>
+                            }
+                        </>
+                        }
+                    </>
                     }
                 </Modal.Body>
                 <Modal.Footer>
@@ -1384,67 +1430,115 @@ export const Gerenciador= () => {
                             <button onClick={cadastrarTabuleiro}>Cadastrar</button>
                             <button className='cancelBtn' onClick={cancelModal}>Cancelar</button>
                         </div>
-                    : modalType==='deleteTabuleiro' ?
-                        <div className='modalFooter'>
-                            <button className='cancelBtn' onClick={deleteTabuleiro}>Excluir Tabuleiro</button>
-                            <button onClick={cancelModal}>Cancelar Operação</button>
-                        </div>
-                    : modalType === 'editTabuleiro' ?
-                        <div className='modalFooter'>
-                            <button onClick={saveTabEdit}>Salvar</button>
-                            <button className='cancelBtn' onClick={cancelModal}>Cancelar Operação</button>
-                        </div>
-                    : modalType === 'newSkin' ?
-                        <div className='modalFooter'>
-                            <button onClick={cadastrarSkin}>Cadastrar</button>
-                            <button className='cancelBtn' onClick={cancelModal}>Cancelar</button>
-                        </div>
-                    : modalType === 'deleteSkin' ?
-                        <div className='modalFooter'>
-                            <button className='cancelBtn' onClick={deleteSkin}>Excluir Skin</button>
-                            <button onClick={cancelModal}>Cancelar Operação</button>
-                        </div>
-                    : modalType === 'editSkin' ?
-                        <div className='modalFooter'>
-                            <button onClick={saveSkinEdit}>Salvar</button>
-                            <button className='cancelBtn' onClick={cancelModal}>Cancelar Operação</button>
-                        </div>
-                    : modalType === 'newSeason' ?
-                        <div className='modalFooter'>
-                            <button onClick={cadastrarSeason}>Cadastrar</button>
-                            <button className='cancelBtn' onClick={cancelModal}>Cancelar Operação</button>
-                        </div>
-                    : modalType === 'deleteSeason' ?
-                        <div className='modalFooter'>
-                            <button className='cancelBtn' onClick={deleteSeason}>Excluir Season</button>
-                            <button onClick={cancelModal}>Cancelar Operação</button>
-                        </div>
-                    : modalType === 'editSeason' ?
-                        <div className='modalFooter'>
-                            <button onClick={saveSeasonEdit}>Salvar</button>
-                            <button className='cancelBtn' onClick={cancelModal}>Cancelar Operação</button>
-                        </div>
-                    : modalType === 'newVenda' ?
-                        <div className='modalFooter'>
-                            <button onClick={cadastrarVenda}>Cadastrar</button>
-                            <button className='cancelBtn' onClick={cancelModal}>Cancelar Operação</button>
-                        </div>
-                    : modalType === 'deleteVenda' ?
-                        <div className='modalFooter'>
-                            <button className='cancelBtn' onClick={deleteVenda}>Excluir Venda</button>
-                            <button onClick={cancelModal}>Cancelar Operação</button>
-                        </div>
-                    : modalType === 'editVenda' ?
-                        <div className='modalFooter'>
-                            <button onClick={saveVendaEdit}>Salvar</button>
-                            <button className='cancelBtn' onClick={cancelModal}>Cancelar Operação</button>
-                        </div>
-                    : modalType === 'sucesso' ?
-                        <div>
-                            <button onClick={() => setShowModal(false)}>Sair</button>
-                        </div>
-                    :   
-                        <div></div>
+                    : <>
+                        {
+                            modalType==='deleteTabuleiro' ?
+                            <div className='modalFooter'>
+                                <button className='cancelBtn' onClick={deleteTabuleiro}>Excluir Tabuleiro</button>
+                                <button onClick={cancelModal}>Cancelar Operação</button>
+                            </div>
+                        : <>
+                            {
+                                modalType === 'editTabuleiro' ?
+                                <div className='modalFooter'>
+                                    <button onClick={saveTabEdit}>Salvar</button>
+                                    <button className='cancelBtn' onClick={cancelModal}>Cancelar Operação</button>
+                                </div>
+                            : <>
+                                {
+                                    modalType === 'newSkin' ?
+                                    <div className='modalFooter'>
+                                        <button onClick={cadastrarSkin}>Cadastrar</button>
+                                        <button className='cancelBtn' onClick={cancelModal}>Cancelar</button>
+                                    </div>
+                                : <>
+                                    {
+                                        modalType === 'deleteSkin' ?
+                                        <div className='modalFooter'>
+                                            <button className='cancelBtn' onClick={deleteSkin}>Excluir Skin</button>
+                                            <button onClick={cancelModal}>Cancelar Operação</button>
+                                        </div>
+                                    : <>
+                                        {
+                                            modalType === 'editSkin' ?
+                                            <div className='modalFooter'>
+                                                <button onClick={saveSkinEdit}>Salvar</button>
+                                                <button className='cancelBtn' onClick={cancelModal}>Cancelar Operação</button>
+                                            </div>
+                                        : <>
+                                            {
+                                                modalType === 'newSeason' ?
+                                                <div className='modalFooter'>
+                                                    <button onClick={cadastrarSeason}>Cadastrar</button>
+                                                    <button className='cancelBtn' onClick={cancelModal}>Cancelar Operação</button>
+                                                </div>
+                                            : <>
+                                                {
+                                                    modalType === 'deleteSeason' ?
+                                                    <div className='modalFooter'>
+                                                        <button className='cancelBtn' onClick={deleteSeason}>Excluir Season</button>
+                                                        <button onClick={cancelModal}>Cancelar Operação</button>
+                                                    </div>
+                                                : <>
+                                                    {
+                                                        modalType === 'editSeason' ?
+                                                        <div className='modalFooter'>
+                                                            <button onClick={saveSeasonEdit}>Salvar</button>
+                                                            <button className='cancelBtn' onClick={cancelModal}>Cancelar Operação</button>
+                                                        </div>
+                                                    : <>
+                                                        {
+                                                            modalType === 'newVenda' ?
+                                                            <div className='modalFooter'>
+                                                                <button onClick={cadastrarVenda}>Cadastrar</button>
+                                                                <button className='cancelBtn' onClick={cancelModal}>Cancelar Operação</button>
+                                                            </div>
+                                                        : <>
+                                                            {
+                                                                modalType === 'deleteVenda' ?
+                                                                <div className='modalFooter'>
+                                                                    <button className='cancelBtn' onClick={deleteVenda}>Excluir Venda</button>
+                                                                    <button onClick={cancelModal}>Cancelar Operação</button>
+                                                                </div>
+                                                            : <>
+                                                                {
+                                                                    modalType === 'editVenda' ?
+                                                                    <div className='modalFooter'>
+                                                                        <button onClick={saveVendaEdit}>Salvar</button>
+                                                                        <button className='cancelBtn' onClick={cancelModal}>Cancelar Operação</button>
+                                                                    </div>
+                                                                : <>
+                                                                    {
+                                                                        modalType === 'sucesso' ?
+                                                                        <div>
+                                                                            <button onClick={() => setShowModal(false)}>Sair</button>
+                                                                        </div>
+                                                                    :   
+                                                                        <div></div>
+                                                                    }
+                                                                </>
+                                                                }
+                                                            </>
+                                                            }
+                                                        </>
+                                                        }
+                                                    </>
+                                                    }
+                                                </>
+                                                }
+                                            </>
+                                            }
+                                        </>
+                                        }
+                                    </>
+                                    }
+                                </>
+                                }
+                            </>
+                            }
+                        </>
+                        }
+                    </>
                     }
                 </Modal.Footer>
             </Modal>
