@@ -7,8 +7,6 @@ import skinCachorro from '../assets/dog.png'
 import pantherChew from '../assets/panther-chew.mp3';
 import timerBell from '../assets/bell.wav';
 import pieceMove from '../assets/peca-efeito.mp3';
-import { Modal } from "react-bootstrap";
-
 
 const LINHAS = 5
 const COLUNAS = 5
@@ -31,9 +29,9 @@ let timer = 20
 let interval = null
 let BOARD_STATE = Jogo.getTabuleiroInicial()
 
-var oncaEating = new Audio(pantherChew) //efeito sonoro onça comendo
-var timerSound = new Audio(timerBell) //efeito sonoro turno
-var pecaMov = new Audio(pieceMove) //efeito sonoro peca movendo
+let oncaEating = new Audio(pantherChew) //efeito sonoro onça comendo
+let timerSound = new Audio(timerBell) //efeito sonoro turno
+let pecaMov = new Audio(pieceMove) //efeito sonoro peca movendo
 
 function mudarPlacar(){
   document.getElementById('placar').innerText=placar
@@ -47,7 +45,7 @@ function inicializaTimer(){
   interval =  setInterval(() => {
     timer--
     document.getElementById('timer').innerText=timer
-    if(timer == 0) clearInterval(interval); 
+    if(timer === 0) clearInterval(interval); 
   },1000)
 }
 
@@ -60,6 +58,7 @@ function mudarMsgTurno(mudouTurnoPeca = true){
   let msg, corFonte
   if(meu_turno){
     msg = 'Sua vez' 
+    timerSound.play()
     //corFonte = 'blue'
     console.log('mudouTurnoPeca ' , mudouTurnoPeca)
     if(mudouTurnoPeca){
@@ -81,11 +80,9 @@ function mudarMsgTurno(mudouTurnoPeca = true){
 
 function Tabuleiro(props) {
   function ehMeuTurno(turnoPeca){
-    return (ehCachorro && turnoPeca == 1) || (!ehCachorro && turnoPeca == 0)
+    return (ehCachorro && turnoPeca === 1) || (!ehCachorro && turnoPeca === 0)
   }
   const sketch = (p) => {
-
-
     p.preload = () => {
       fundo_img = p.loadImage(props.skinTabuleiro ? props.skinTabuleiro : skinTabuleiro )
       dog_img = p.loadImage(props.skinCachorro ? props.skinCachorro : skinCachorro)
@@ -93,7 +90,6 @@ function Tabuleiro(props) {
       ehCachorro = props.ehCachorro
       meu_turno = ehMeuTurno(props.turnoPeca)
     }
-
     p.setup = () => {
       if (props.socket){
         configurarPartidaOnline()
@@ -233,6 +229,8 @@ function Tabuleiro(props) {
               p.image(dog_img, img_x, img_y, IMG_WIDTH, IMG_HEIGHT)
               POS_PECA_TABULEIRO[chave] = [img_x, img_y]
               break
+            default:
+                //"Neather Onça or Cachorro";
           }
         }
       }
@@ -245,7 +243,7 @@ function Tabuleiro(props) {
           let aux = item[0].replace(']', '').replace('[', '').split(',')
           let x = +aux[0]
           let y = +aux[1]
-          if (BOARD_STATE[y][x] != '.' && BOARD_STATE[y][x] != '|') {
+          if (BOARD_STATE[y][x] !== '.' && BOARD_STATE[y][x] !== '|') {
             SELECIONADO.length = 0
             SELECIONADO.push([x, y])
             Jogo.getPossiveisMovimentos(x, y, ehCachorro, BOARD_STATE, houveCaptura).forEach(ponto => { POSSIBLE_MOVES_POINTS.push(ponto) })
@@ -257,6 +255,7 @@ function Tabuleiro(props) {
     }
 
     function moverPeca(e) {
+      // eslint-disable-next-line array-callback-return
       POSSIBLE_MOVES_POINTS.some(element => {
         let x = element[0]
         let y = element[1]
@@ -267,8 +266,7 @@ function Tabuleiro(props) {
         if (y > 4) {
           point_x = PONTOS_DO_TABULEIRO[keyPontosTriangulo][1]
           point_y = PONTOS_DO_TABULEIRO[keyPontosTriangulo][0]
-        }
-        else {
+        }else {
           point_y = LADO_QUADRADO * y + MARGIN_TOP
           point_x = LADO_QUADRADO * x + MARGIN_LEFT
         }
@@ -286,7 +284,6 @@ function Tabuleiro(props) {
           return true
        
         }
-       
       })
 
       POSSIBLE_MOVES_POINTS.length = 0
@@ -298,6 +295,7 @@ function Tabuleiro(props) {
 
    const containerRef = useRef()
   useEffect(() => {
+    // eslint-disable-next-line no-unused-vars
     const p5Instance = new p5(sketch, containerRef.current)
     if (props.socket == null) return
     mudarMsgTurno()
@@ -320,6 +318,7 @@ function Tabuleiro(props) {
     return () => {
       document.getElementsByTagName('canvas').forEach(item => item.remove())
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 

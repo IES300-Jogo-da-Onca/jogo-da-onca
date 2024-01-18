@@ -76,10 +76,9 @@ export const Loja= () => {
                 <h2>Onças:</h2>
                 <div className='skinsContainer'>
                     {
-                        skins.map( s => {
-                            if(s.onça){
+                        skins.filter(s => s.onça).map(s => {
                                 return <div className='skin' key={s.idSkin}>
-                                    <img src={s.skinImg}/>
+                                    <img src={s.skinImg} alt="Skins"/>
                                     <div className='skinInfo'>
                                         <h4>{s.skinName}</h4>
                                     </div>
@@ -98,17 +97,15 @@ export const Loja= () => {
                                         }}>Comprar</button>
                                     </div>
                                 </div>
-                            }
                         })
                     }
                 </div>
                 <h2>Cachorros:</h2>
                 <div className='skinsContainer'>
                     {
-                        skins.map( s => {
-                            if(!s.onça){
+                        skins.filter( s => !s.onça).map( s => {
                                 return <div className='skin' key={s.idSkin}>
-                                    <img src={s.skinImg}/>
+                                    <img src={s.skinImg} alt="Skin Cachorro"/>
                                     <div className='skinInfo'>
                                         <h4>{s.skinName}</h4>
                                     </div>
@@ -128,7 +125,6 @@ export const Loja= () => {
                                         }}>Comprar</button>
                                     </div>
                                 </div>
-                            }
                         })
                     }
                 </div>
@@ -141,30 +137,35 @@ export const Loja= () => {
                 <Modal.Body className='modal-body'>
                     {onLoading ?
                         <Spinner animation="border" variant="success" />
-                        : confirmedBuy ?
-                            <div>
-                                <h1>Compra realizada com sucesso!</h1>
-                                <img src={pagIcon}></img> 
-                            </div> 
-                            :
-                            <div>
-                                <p>Deseja realmente comprar a seguinte skin?</p>
-                                <div className='skin' key={skinToBuy.idSkin}>
-                                    <img src={skinToBuy.skinImg}/>
-                                    <div className='skinInfo'>
-                                        <h4>{skinToBuy.skinName}</h4>
+                        : 
+                        <>
+                            {
+                                confirmedBuy ?
+                                <div>
+                                    <h1>Compra realizada com sucesso!</h1>
+                                    <img src={pagIcon} alt="Sucesso!"/>
+                                </div> 
+                                :
+                                <div>
+                                    <p>Deseja realmente comprar a seguinte skin?</p>
+                                    <div className='skin' key={skinToBuy.idSkin}>
+                                        <img src={skinToBuy.skinImg} alt="Skin"/>
+                                        <div className='skinInfo'>
+                                            <h4>{skinToBuy.skinName}</h4>
+                                        </div>
+                                        <div className='skinPreco'>
+                                            <span>${skinToBuy.precoSkin}</span>
+                                        </div>
                                     </div>
-                                    <div className='skinPreco'>
-                                        <span>${skinToBuy.precoSkin}</span>
-                                    </div>
+                                    <button className="btn-confirma" onClick={() => handleBuySkin(true)}>
+                                        Confirmar
+                                    </button>
+                                    <button className="btn-cancela" onClick={() => handleBuySkin(false)}>
+                                        Cancelar
+                                    </button>
                                 </div>
-                                <button className="btn-confirma" variant="secondary" onClick={() => handleBuySkin(true)}>
-                                    Confirmar
-                                </button>
-                                <button className="btn-cancela" variant="secondary" onClick={() => handleBuySkin(false)}>
-                                    Cancelar
-                                </button>
-                            </div>
+                            }
+                        </>
                     }
                 </Modal.Body>
             </Modal>

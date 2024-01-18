@@ -9,7 +9,6 @@ import { UserContext } from '../context/UserContext';
 import clockIcon from '../assets/icons/clock-icon.png';
 import winnerSound from '../assets/VictoryFanfare.mp3';
 import { Modal } from 'react-bootstrap';
-//import useSound from 'use-sound';
 
 
 
@@ -26,7 +25,7 @@ export const Home = () => {
     const [dadosPartida, setDadosPartida] = useState({})
     const [showModalWin, setShowModalWin] = useState(false)
 
-    var winSound = new Audio(winnerSound) //efeito sonoro vitória
+    let winSound = new Audio(winnerSound) //efeito sonoro vitória
 
     const fimDeJogo = (data) => {
         setNomeVencedor(data.nomeVencedor)
@@ -59,13 +58,14 @@ export const Home = () => {
     }
 
     const handleRadioChange = (e) => {
-        const { name, value } = e.target
+        const { value } = e.target
         setPecaSelecionada(parseInt(value))
     }
 
     useEffect(() => {
         socket.current = io(socket_url, { withCredentials: true })
         atualizaSalasDisponiveis()
+        console.log("Sala: ", sala);
         socket.current.on('serverNovaSala', data => {
             setSala(data.idSala)
             setCriouSala(true)
@@ -95,6 +95,7 @@ export const Home = () => {
         socket.current.on('error', data => console.error(data))
 
         return () => {socket.current.emit("disconnectSala")}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
         <div className='container-generic'>
@@ -112,7 +113,7 @@ export const Home = () => {
                                 <tbody>
                                     {
                                         salasDisponiveis.map(sala => {
-                                            return <tr>
+                                            return <tr key={sala}>
                                                 <td className="text-center align-middle">{sala.user}</td>
                                                 <td className='text-center'><button className="tbButton" onClick={() => {
                                                     setSala(sala.id_sala)
@@ -144,7 +145,7 @@ export const Home = () => {
                     {isPlaying &&
                         <div className='optPlaying'>
                             <div className='game-stats'>
-                                <div className="timerDiv" id="timerContainer"><img id='imgTimer' src={clockIcon}/><span id="timer" style={{display: 'inline'}}></span></div>
+                                <div className="timerDiv" id="timerContainer"><img id='imgTimer' src={clockIcon} alt="Timer"/><span id="timer" style={{display: 'inline'}}></span></div>
                                 <div><span className="turno" id="msgTurno"></span></div>
                                 <div className='jogador-animal'><span id="span">Você: { dadosPartida.ehCachorro ? 'Cachorro' : 'Onça'}</span></div>
                             </div>
@@ -157,7 +158,7 @@ export const Home = () => {
                     }
                 </div>
                 <div className='tabuleiroArea'>
-                    {!isPlaying &&<img src={tabuleiro}/>}
+                    {!isPlaying &&<img src={tabuleiro} alt="Tabuleiro"/>}
                     {isPlaying && <Tabuleiro {...dadosPartida} fimDeJogo={fimDeJogo} />}
                 </div>
             </div>
