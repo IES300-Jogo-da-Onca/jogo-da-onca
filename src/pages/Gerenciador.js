@@ -498,7 +498,7 @@ export const Gerenciador= () => {
         setModalHeader('Cadastrar Season')
         setShowModal(true)
         executaRequisicao('/autoIncrementSeason','GET').then(res => {
-            setAutoIncrSeason(res.data[0].AUTO_INCREMENT)
+            setAutoIncrSeason(res.data[0]?.AUTO_INCREMENT)
         })
     }
 
@@ -689,7 +689,7 @@ export const Gerenciador= () => {
         setModalHeader('Cadastrar Venda')
         setShowModal(true)
         executaRequisicao('/autoIncrementVenda','GET').then(res => {
-            setAutoIncrVenda(res.data[0].AUTO_INCREMENT)
+            setAutoIncrVenda(res.data[0]?.AUTO_INCREMENT)
         })
     }
 
@@ -1162,8 +1162,8 @@ export const Gerenciador= () => {
                     
                                                 <p>Tipo da peça:</p>
                                                 <div className='tipoPeçaRadio' >
-                                                    <div><input type="radio" value={0} name="peca" id='radioOnca' onChange={e => setTipoModal(e.target.value)} checked={tipoModal===0} /> Onça </div>
-                                                    <div><input type="radio" value={1} name="peca" id='radioCachorro' onChange={e => setTipoModal(e.target.value)} checked={tipoModal===1} /> Cachorro</div>
+                                                    <div><input type="radio" value={0} name="peca" id='radioOnca' onChange={e => setTipoModal(e.target.value)} checked={tipoModal==0} /> Onça </div>
+                                                    <div><input type="radio" value={1} name="peca" id='radioCachorro' onChange={e => setTipoModal(e.target.value)} checked={tipoModal==1} /> Cachorro</div>
                                                 </div>
                     
                                                 <p>Cor temática: </p>
