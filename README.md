@@ -30,7 +30,19 @@ Play it [here](http://129.80.4.142:3000/)
 
 ![Login Screen](media/screenshots/web/Login.png)
 
-![Login Screen](media/screenshots/web/Rooms_CreateChose.png)
+![Login Screen](media/screenshots/web/Cadastrar.png)
+
+![Login Screen](media/screenshots/web/Home.png)
+
+![Login Screen](media/screenshots/web/Playing.png)
+
+![Login Screen](media/screenshots/web/Loja.png)
+
+![Login Screen](media/screenshots/web/Comprar_Moedas.png)
+
+![Login Screen](media/screenshots/web/Gerenciador.png)
+
+![Login Screen](media/screenshots/web/Perfil.png)
 
 ### Reflection
 
