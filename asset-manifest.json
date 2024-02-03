@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/jogo-da-onca/static/css/main.7fe993c7.css",
+    "main.js": "/jogo-da-onca/static/js/main.b1311d07.js",
+    "static/media/VictoryFanfare.mp3": "/jogo-da-onca/static/media/VictoryFanfare.058e6831ecca404afa31.mp3",
+    "static/media/fundo.png": "/jogo-da-onca/static/media/fundo.4b3144390af71c7c17df.png",
+    "static/media/bell.wav": "/jogo-da-onca/static/media/bell.69642cea1e82798e18b6.wav",
+    "static/media/tabuleiroProvisório.png": "/jogo-da-onca/static/media/tabuleiroProvisório.e1f820f485a4f1f9560a.png",
+    "static/media/clock-icon.png": "/jogo-da-onca/static/media/clock-icon.2c4b61ec6f3839737ca5.png",
+    "static/media/onca-sem-fundo.png": "/jogo-da-onca/static/media/onca-sem-fundo.7def04a05cee4c717952.png",
+    "static/media/logo-sem-fundo.png": "/jogo-da-onca/static/media/logo-sem-fundo.f64432999c00d325a23d.png",
+    "static/media/panther-chew.mp3": "/jogo-da-onca/static/media/panther-chew.bc39520a0aee41c6930c.mp3",
+    "static/media/coin.mp3": "/jogo-da-onca/static/media/coin.a279ee786f107eb8d9f5.mp3",
+    "static/media/pag-sucesso.png": "/jogo-da-onca/static/media/pag-sucesso.d2482b5eb4cd14db564d.png",
+    "static/media/dog.png": "/jogo-da-onca/static/media/dog.f16cccb76e276c507f2f.png",
+    "static/media/onca.png": "/jogo-da-onca/static/media/onca.e19275142eb8e59b738c.png",
+    "static/media/coin6.png": "/jogo-da-onca/static/media/coin6.3f6be39ff0f0604c0dc6.png",
+    "static/media/coin5.png": "/jogo-da-onca/static/media/coin5.f7d9881e336b62d23bf4.png",
+    "static/media/peca-efeito.mp3": "/jogo-da-onca/static/media/peca-efeito.c6136abb0324ec7474b4.mp3",
+    "static/media/user.svg": "/jogo-da-onca/static/media/user.2abc17c6b1a4ce9d5f431106ce052f0c.svg",
+    "static/media/cadeado.svg": "/jogo-da-onca/static/media/cadeado.067fa6defe7c04902351e78a36d86216.svg",
+    "index.html": "/jogo-da-onca/index.html",
+    "main.7fe993c7.css.map": "/jogo-da-onca/static/css/main.7fe993c7.css.map",
+    "main.b1311d07.js.map": "/jogo-da-onca/static/js/main.b1311d07.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7fe993c7.css",
+    "static/js/main.b1311d07.js"
+  ]
+}
