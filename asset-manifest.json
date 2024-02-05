@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "https://ies300-jogo-da-onca.github.io/jogo-da-onca/static/css/main.7fe993c7.css",
-    "main.js": "https://ies300-jogo-da-onca.github.io/jogo-da-onca/static/js/main.b0d4038d.js",
+    "main.js": "https://ies300-jogo-da-onca.github.io/jogo-da-onca/static/js/main.1a9043ac.js",
     "static/media/VictoryFanfare.mp3": "https://ies300-jogo-da-onca.github.io/jogo-da-onca/static/media/VictoryFanfare.058e6831ecca404afa31.mp3",
     "static/media/fundo.png": "https://ies300-jogo-da-onca.github.io/jogo-da-onca/static/media/fundo.4b3144390af71c7c17df.png",
     "static/media/bell.wav": "https://ies300-jogo-da-onca.github.io/jogo-da-onca/static/media/bell.69642cea1e82798e18b6.wav",
@@ -21,10 +21,10 @@
     "static/media/user.svg": "https://ies300-jogo-da-onca.github.io/jogo-da-onca/static/media/user.2abc17c6b1a4ce9d5f431106ce052f0c.svg",
     "static/media/cadeado.svg": "https://ies300-jogo-da-onca.github.io/jogo-da-onca/static/media/cadeado.067fa6defe7c04902351e78a36d86216.svg",
     "main.7fe993c7.css.map": "https://ies300-jogo-da-onca.github.io/jogo-da-onca/static/css/main.7fe993c7.css.map",
-    "main.b0d4038d.js.map": "https://ies300-jogo-da-onca.github.io/jogo-da-onca/static/js/main.b0d4038d.js.map"
+    "main.1a9043ac.js.map": "https://ies300-jogo-da-onca.github.io/jogo-da-onca/static/js/main.1a9043ac.js.map"
   },
   "entrypoints": [
     "static/css/main.7fe993c7.css",
-    "static/js/main.b0d4038d.js"
+    "static/js/main.1a9043ac.js"
   ]
 }
