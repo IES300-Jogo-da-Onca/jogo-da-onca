@@ -3,7 +3,7 @@
 This repository contains the frontend code for [Jogo da Onça](https://github.com/IES300-Jogo-da-Onca) project, that is a digital reinterpretation of the traditional board game from the Bororo indigenous.
 [Read more](https://en.wikipedia.org/wiki/Adugo)
 
-Play it [here](http://129.80.4.142:3000/)
+Play it [here](https://jogodaonca.fr.to/)
 
 ## Getting Started:
 
