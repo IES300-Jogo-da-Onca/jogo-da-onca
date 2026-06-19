@@ -3,7 +3,7 @@
 This repository contains the frontend code for [Jogo da Onça](https://github.com/IES300-Jogo-da-Onca) project, that is a digital reinterpretation of the traditional board game from the Bororo indigenous.
 [Read more](https://en.wikipedia.org/wiki/Adugo)
 
-Play it [here](https://jogodaonca.mooo.com/)
+Play it [here](https://jogo-da-onca.onrender.com/)
 
 ## Getting Started:
 
@@ -26,20 +26,20 @@ Play it [here](https://jogodaonca.mooo.com/)
 1. Explore the [Jogo da Onça API](https://github.com/IES300-Jogo-da-Onca/api) repository for backend details;
 2. Gain "Super User" access by setting "ehSuperUser" to 1 in the "usuario" table of the database. This enables access to the game's frontend management interface.
 
-## Deployment
+## On Premise Deployment
 
-    This version was tested only on Ubuntu Server 22.04, so this documentation describes this process.
-    Before Starting be shure to install and to start NGINX:
-
-    ```bash
-    sudo apt update
-    sudo apt install nginx
-    sudo systemctl start nginx
-    sudo systemctl enable nginx
-    sudo systemctl status nginx
-    ```
+This version was tested only on Ubuntu Server 22.04, so this documentation describes this process.
+Before Starting be shure to install and to start NGINX:
 
 1. Install NGINX and generate optimized build:
+
+```bash
+sudo apt update
+sudo apt install nginx
+sudo systemctl start nginx
+sudo systemctl enable nginx
+sudo systemctl status nginx
+```
 
 ```bash
 npm run build
