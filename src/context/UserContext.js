@@ -1,10 +1,12 @@
 import { useEffect } from 'react'
 import {useState, createContext} from 'react'
+import { wakeUpApi } from '../services/api'
 
 export const UserContext = createContext()
 
 const UserProvider = ({children}) =>{
     const [userInfo, setUserInfo] = useState({ })
+    const [apiReady, setApiReady] = useState(false)
 
     useEffect(() => {
         let userData = JSON.parse(localStorage.getItem('userData'))
@@ -26,7 +28,7 @@ const UserProvider = ({children}) =>{
         localStorage.setItem('userData', JSON.stringify(objUser))
         setUserInfo(objUser)
     }
-    return <UserContext.Provider value={{userInfo, setUserInfo: atualizaUserData}}>
+    return <UserContext.Provider value={{userInfo, setUserInfo: atualizaUserData, apiReady, setApiReady}}>
         {children}
     </UserContext.Provider>
 }
